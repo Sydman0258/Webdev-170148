@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #171212d3;
+  padding: 1rem 2rem;
+ 
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing: 1px;
+  justify-content: flex-start;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+   
+  gap: 2rem;
+}
+
+.nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+    border: 1px solid cornsilk;
+     background: cornsilk;
+    border-radius: 2rem;
+  margin: 0;
+  padding: 5px 35px ;
+}
+
+.nav li a {
+  color: #000000;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.nav li a:hover {
+  color: gray;
+}
+.nav ul li {
+  transition: transform 0.2s;
+}
+
+.nav ul li:hover {
+  transform: scale(1.15);
+  z-index: 2;
+}
+
+.menu-toggle {
+  display: none;
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 0.7em 1.2em;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn {
+  padding: 0.6em 1.5em;
+  border: none;
+  border-radius: 2em;
+  background: linear-gradient(90deg, #f89b29 0%, #ff0f7b 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 0.7em;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(255, 15, 123, 0.12);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover, .btn:focus {
+  background: linear-gradient(90deg, #ff0f7b 0%, #f89b29 100%);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(255, 15, 123, 0.18);
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+@media (max-width: 768px) {
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #222;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav.open {
+    max-height: 300px;
+    padding: 1rem 2rem;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}

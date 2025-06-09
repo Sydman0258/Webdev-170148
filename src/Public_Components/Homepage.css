@@ -151,17 +151,7 @@ display: flex;
   color: cornsilk;
   justify-content: center;
 }
-.car-btn-show-more{
-  background: linear-gradient(90deg, coral 0%, cornsilk 100%);
-  border-radius: 1rem;
 
-}
-.car-btn-show-more:hover{
-  background: linear-gradient(90deg, coral 0%, cornsilk 100%);
-  border-radius: 1rem;
-  scale: 1.05;
-
-}
 
 /* This is the services flashcard0*/
 .services-section {

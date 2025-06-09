@@ -126,8 +126,9 @@ icon: "PREMIUM FLEET"
     </div>
   ))}
   </div>
-  <div className="show-more-btn">
-   <button className="car-btn-show-more">Show more</button> {/* This is the button to book the car */}
+  <div className="vehicle-type-navbar"> {/* This is the section where the buttons for booking the car are displayed */}
+   <button className="type-btn">Show more</button> {/* This is the button to book the car */}
+   <button className="type-btn">Book now</button> 
 </div>
 
 <div className="services-section"> {/* This is the section where the services are displayed */}

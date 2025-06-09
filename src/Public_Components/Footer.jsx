@@ -16,8 +16,8 @@ const Footer = () => (
         <p>
           Email: <a href="mailto:info@vroomtrack.com">info@vroomtrack.com</a><br />
           Phone: <a href="tel:+1234567890">+1 (234) 567-890</a><br />
-          123 Elite Avenue, Suite 100<br />
-          Beverly Hills, CA 90210, USA
+          123 Car ave, Suite 100<br />
+         Madhyapur Thimi, Bhaktapur, Nepal
         </p>
       </div>
       <div className="footer-links">

@@ -81,11 +81,11 @@
   font-weight: bold;
   cursor: pointer;
   margin-top: 0.5rem;
-  transition: background 0.2s;
+ 
 }
 
 .auth-submit-btn:hover {
-  background: linear-gradient(90deg, #ff0f7b 0%, #f89b29 100%);
+  transform: scale(1.02);
 }
 
 .auth-footer {
@@ -105,4 +105,9 @@
 
 .auth-footer a:hover {
   color: #f89b29;
+}
+.auth-error {
+  color: red;
+  font-size: 0.95em;
+  margin-top: 0.25em;
 }

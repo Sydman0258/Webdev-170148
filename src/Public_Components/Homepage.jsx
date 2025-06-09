@@ -27,7 +27,39 @@ const Homepage = () => {
     image: bmwi8,
     price: "$320/day",
     type: "Hybrid"
+  },
+   {
+    name: "BMW i8",
+    image: bmwi8,
+    price: "$320/day",
+    type: "Hybrid"
+  },
+   {
+    name: "BMW i8",
+    image: bmwi8,
+    price: "$320/day",
+    type: "Hybrid"
+  },
+   {
+    name: "BMW i8",
+    image: bmwi8,
+    price: "$320/day",
+    type: "Hybrid"
+  },
+   {
+    name: "BMW i8",
+    image: bmwi8,
+    price: "$320/day",
+    type: "Hybrid"
   }
+  ,
+   {
+    name: "BMW i8",
+    image: bmwi8,
+    price: "$320/day",
+    type: "Hybrid"
+  }
+  
 
 ];
 
@@ -35,17 +67,17 @@ const services = [  // This is the array of services that will be displayed on t
   {
     title: "Fully Insured",
     description: "All vehicles are fully insured for your peace of mind.",
-    icon: "www"
+    icon: "INSURED"
   },
   {
     title: "24/7 Service",
     description: "Our support team is available around the clock.",
-    icon: "⏰"
+    icon: "ALWAYS ON"
   },
   {
     title: "Premium Fleet",
     description: "Choose from the latest luxury and performance cars.",
-    icon: "🚗"
+icon: "PREMIUM FLEET"
   }
 ];
 
@@ -89,11 +121,16 @@ const services = [  // This is the array of services that will be displayed on t
         <span className="car-type">{car.type}</span>
         <span className="car-price">{car.price}</span>
       </div>
+
+     
     </div>
   ))}
+  </div>
+  <div className="show-more-btn">
+   <button className="car-btn-show-more">Show more</button> {/* This is the button to book the car */}
 </div>
 
-<div className="services-section fade-in"> {/* This is the section where the services are displayed */}
+<div className="services-section"> {/* This is the section where the services are displayed */}
   <h2>Our Services</h2>
   <div className="services-cards">
     {services.map((service, idx) => (

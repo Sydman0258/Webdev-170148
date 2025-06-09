@@ -70,7 +70,7 @@
   padding: 0.6em 1.5em;
   border: none;
   border-radius: 2em;
-  background: linear-gradient(90deg, #f89b29 0%, #ff0f7b 100%);
+  background: linear-gradient(90deg, coral 0%, cornsilk 100%);
   color: #fff;
   font-weight: 600;
   font-size: 1rem;
@@ -83,7 +83,7 @@
 }
 
 .btn:hover, .btn:focus {
-  background: linear-gradient(90deg, #ff0f7b 0%, #f89b29 100%);
+  background: linear-gradient(90deg, cornsilk 0%, coral 100%);
   transform: translateY(-2px) scale(1.04);
   box-shadow: 0 4px 16px rgba(255, 15, 123, 0.18);
   color: #fff;

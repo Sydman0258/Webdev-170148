@@ -1,4 +1,4 @@
-/* --- REMOVED ALL FADE ANIMATION CLASSES AND KEYFRAMES --- */
+
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
 
 .hero-section {
@@ -30,6 +30,7 @@
   margin-bottom: 2rem;
   font-family: "Arial", sans-serif;
 }
+
 .hero-content {
   flex: 1;
   display: flex;
@@ -39,14 +40,28 @@
 
 .hero-content img {
   max-width: 100%;
-  transition: transform 0.4s ;
+  transition: transform 0.4s;
+  /* Add slide-in animation */
+  animation: slideInFromRight 2.7s ease-out;
 }
 
 .hero-content img:hover {
-  transform: scale(1.1) ;
+  transform: scale(1.1);
 }
 
-/* Removed .fade-up and .fade-up.visible */
+/* Keyframe for slide-in animation */
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
 
 /* Now we start styling vehicle section that displays our vehicles*/
 .vehicles-section {
@@ -151,7 +166,6 @@ display: flex;
   color: cornsilk;
   justify-content: center;
 }
-
 
 /* This is the services flashcard0*/
 .services-section {

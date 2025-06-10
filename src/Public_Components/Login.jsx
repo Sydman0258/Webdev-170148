@@ -1,59 +1,42 @@
-import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import "./Auth.css";
+import { Link } from "react-router-dom";
+import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onSubmit = (data) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // Handle login logic here
-    console.log(data);
   };
 
   return (
     <>
-      <div className="auth-container">
-        <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-          <h2>Login to VROOM TRACK</h2>
-          <label htmlFor="login-email">Email</label>
+      <EmptyHeader />
+      <div className="container">
+        <form className="form" onSubmit={handleSubmit}>
+          <p className="title">Login Form</p>
           <input
-            id="login-email"
-            type="email"
-            placeholder="you@example.com"
-            autoComplete="username"
-            {...register("email", { required: "Email is required" })}
+            placeholder="Username"
+            className="username input"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-          {errors.email && <span className="auth-error">{errors.email.message}</span>}
-
-          <label htmlFor="login-password">Password</label>
-          <div className="auth-password-row">
-            <input
-              id="login-password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Your password"
-              autoComplete="current-password"
-              {...register("password", { required: "Password is required" })}
-            />
-            <button
-              type="button"
-              className="auth-show-btn"
-              onClick={() => setShowPassword((v) => !v)}
-              tabIndex={-1}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
-          {errors.password && <span className="auth-error">{errors.password.message}</span>}
-
-          <button className="auth-submit-btn" type="submit">
+          <input
+            placeholder="Password"
+            className="password input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="btn" type="submit">
             Login
           </button>
-          <div className="auth-footer">
-            <span>Don't have an account?</span>
-            <Link to="/register">Register</Link>
+          <div className="switch-link">
+            Not a user yet? <Link to="/register">Register</Link>
           </div>
         </form>
       </div>

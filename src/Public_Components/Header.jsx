@@ -23,8 +23,8 @@ const Header = () => {
                 </ul>
             </nav>
             <div className="auth-links">
-                <Link to="/login" className="btn">Login</Link>
-                <Link to="/register" className="btn">Register</Link>
+                <Link to="/login" className="bton">Login</Link>
+                <Link to="/register" className="bton">Register</Link>
             </div>
             <button className="menu-toggle" onClick={toggleMenu}>
                 {isOpen ? 'Close' : 'Menu'}

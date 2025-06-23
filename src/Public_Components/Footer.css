@@ -1,60 +1,68 @@
 .footer {
-  background: #222;
-  color: #eee;
-  padding: 2.5rem 1rem 1rem 1rem;
+  width: 100%;
+  background: black;
+  color: cornsilk;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 1rem 1rem;
+  box-sizing: border-box;
   font-family: 'Arial', sans-serif;
-  margin-top: 3rem;
 }
 
 .footer-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 2rem;
+  align-items: flex-start;
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  gap: 2rem;
 }
 
 .footer-brand {
-  flex: 1 1 220px;
-  min-width: 220px;
+  flex: 1 1 250px;
+  align-self: flex-start;
 }
 
 .footer-logo {
   font-size: 1.7rem;
   font-weight: bold;
   letter-spacing: 2px;
-  color: #ffd700;
+  color: gold;
 }
 
 .footer-desc {
-  margin: 0.7rem 0 0 0;
+  margin-top: 0.7rem;
   font-size: 1rem;
   color: #ccc;
 }
 
-.footer-contact, .footer-links {
-  flex: 1 1 180px;
-  min-width: 180px;
+.footer-contact,
+.footer-links {
+  flex: 1 1 200px;
+  margin-left: 60px;
+
 }
 
 .footer-contact h4,
 .footer-links h4 {
   margin-bottom: 0.5rem;
-  color: #ffd700;
+  color: gold;
   font-size: 1.1rem;
 }
 
 .footer-contact a,
 .footer-links a {
-  color: #eee;
+  color: cornsilk;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s ease-in-out;
 }
 
 .footer-contact a:hover,
 .footer-links a:hover {
-  color: #ffd700;
+  color: gold;
 }
 
 .footer-links ul {
@@ -81,14 +89,17 @@
   color: #888;
 }
 
+/* Responsive Layout */
 @media (max-width: 800px) {
   .footer-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
   }
-  .footer-brand, .footer-contact, .footer-links {
-    min-width: 0;
+
+  .footer-brand,
+  .footer-contact,
+  .footer-links {
     width: 100%;
   }
 }

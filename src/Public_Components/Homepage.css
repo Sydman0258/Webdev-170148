@@ -1,6 +1,11 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
 
+/* Global box-sizing fix */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Hero Section */
 .hero-section {
   display: flex;
   flex-direction: row;
@@ -17,7 +22,6 @@
 .hero-section h1 {
   font-size: 5rem;
   color: #333;
-  text-align: flex-start;
   margin-bottom: 1rem;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
@@ -26,44 +30,11 @@
 .hero-section p {
   font-size: 1.5rem;
   color: #666;
-  text-align: flex-start;
   margin-bottom: 2rem;
   font-family: "Arial", sans-serif;
 }
 
-.hero-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-content img {
-  max-width: 100%;
-  transition: transform 0.4s;
-  /* Add slide-in animation */
-  animation: slideInFromRight 2.7s ease-out;
-}
-
-.hero-content img:hover {
-  transform: scale(1.1);
-}
-
-/* Keyframe for slide-in animation */
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100vw);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-
-
-/* Now we start styling vehicle section that displays our vehicles*/
+/* Vehicles Section */
 .vehicles-section {
   display: flex;
   flex-direction: column;
@@ -72,87 +43,79 @@
   text-align: center;
 }
 
-.vehicles-section h2{
-  text-align: center;
+.vehicles-section h2 {
   font-family: 'Fredericka the Great', cursive;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-  padding-bottom: 0.25em;
+  font-size: 3rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.25em;
+  color: #222;
 }
 
 .vehicles-section p {
-  text-align: center;
   font-family: 'Rye', cursive;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-  padding-bottom: 0.25em;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.25em;
 }
 
-/* this is the navbar for vrhicle types */
-.vehicle-type-navbar {
-  display: flex;
+/* Carousel Container */
+/* Carousel Container */
+.carousel-container {
+  width: 85%;
+  margin: 3rem auto;
+}
+
+/* Slick Carousel Core Fixes */
+.slick-list {
+  margin: 0 -5px; /* Remove default spacing between slides */
+}
+
+.slick-slide {
+  display: flex !important;
   justify-content: center;
-  gap: 1.5rem;
-  margin: 2rem 0;
 }
 
-.type-btn {
-  background: #fff;
-  color: #222;
-  border: 2px solid #222;
-  border-radius: 2rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+.slick-slide > div {
+  padding: 0 5px;
+  box-sizing: border-box;
 }
 
-.type-btn:hover,
-.type-btn.active {
-  background: #222;
-  color: #fff;
-  border-color: cornsilk;
-}
-
-/* Vehicle cards */
-.car-flashcards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin: 2rem 0;
-}
-
+/* Car Card Styling */
 .car-card {
-  background: #fff;
+  width: 100%;
+  height: 100%;
+  background:transparent;
   border-radius: 1.5rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
-  width: 250px;
   text-align: center;
   transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .car-card:hover {
   transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.car-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
 
 .car-info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   margin-top: 0.5rem;
 }
-.car-img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-}
+
 .car-type {
-  color: #ff9800;
+  color: #d5d2cd;
   font-weight: 600;
 }
 
@@ -161,39 +124,100 @@
   font-size: 1.1rem;
   font-weight: bold;
 }
-.show-more-btn {
-display: flex;
-  color: cornsilk;
-  justify-content: center;
-}
 
-/* This is the services flashcard0*/
+
+/* Services Section */
 .services-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 100px;
 }
+
 .services-section h2 {
   font-family: 'Fredericka the Great', cursive;
- font-size: 2rem;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-  padding-bottom: 0.25em;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
+  color: #222;
 }
 
 .services-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.5rem;
   margin-top: 2rem;
+  max-width: 1000px;
 }
-.card{
-  background: #fff;
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 1.5rem;
-  width: 300px;
+
+/* Flip card styles */
+.card {
+  width: 280px;
+  height: 280px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
   text-align: center;
-  transition: transform 0.2s;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.card-front {
+  color: #ff9800;
+  font-weight: 900;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 2.5rem;
+  user-select: none;
+}
+
+.card-front .icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #ff9800;
+}
+
+.card-front .title {
+  font-size: 1.5rem;
+  color: #222;
+}
+
+.card-back {
+  background: #222;
+  color: cornsilk;
+  transform: rotateY(180deg);
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  user-select: none;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }

@@ -1,31 +1,28 @@
-// server.js
 const express = require('express');
 const app = express();
 require('dotenv').config();
 
-const { connectDB } = require('./db/connection'); // Sequelize connection & sync
-const authRouter = require('./routes/auth'); // Auth routes
+const { connection } = require('./Database/db'); 
+const authRouter = require('./routes/auth');
 
-// Middleware to parse JSON requests
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 
-// Use auth routes
 app.use(authRouter);
 
-// Optional: test route
 app.get('/', (req, res) => {
   res.send('API is running');
 });
 
 const PORT = process.env.PORT || 5000;
 
-// Connect DB then start server
-connectDB()
+connection()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
+      console.log(`✅ Server started on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.error('Failed to connect to DB', err);
+    console.error('❌ Failed to connect to DB', err);
   });

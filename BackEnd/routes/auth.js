@@ -1,7 +1,7 @@
 // routes/auth.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Your Sequelize User model
+const User = require('../model/userSchema'); // Your Sequelize User model
 const bcrypt = require('bcrypt');
 
 // Register route

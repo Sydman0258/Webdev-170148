@@ -14,25 +14,26 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    try {
-      const response = await fetch("http://localhost:YOUR_BACKEND_PORT/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-      const resData = await response.json();
+    const resData = await response.json();
 
-      if (response.ok) {
-        alert("Registration successful!");
-        // Optionally clear/reset form or redirect
-      } else {
-        alert(resData.error || "Registration failed");
-      }
-    } catch (error) {
-      alert("Error: " + error.message);
+    if (response.ok) {
+      alert("Registration successful!");
+      // Optionally clear/reset form or redirect
+    } else {
+      alert(resData.error || "Registration failed");
     }
-  };
+  } catch (error) {
+    alert("Error: " + error.message);
+  }
+};
+
 
   return (
     <>

@@ -1,5 +1,6 @@
 ::selection {
-  background-color: gray;
+  background-color: var(--terracotta);
+  color: var(--beige);
 }
 
 .container {
@@ -12,17 +13,16 @@
 
 .form {
   width: 400px;
-
-  background-image: linear-gradient(to bottom, #424242, #212121);
+  background-image: linear-gradient(to bottom, #5E8B7E, #3E665F); /* muted teal gradient */
   display: flex;
   align-items: center;
   flex-direction: column;
   border-radius: 0.5rem;
-  box-shadow: 0 0 20px #1118;
+  box-shadow: 0 0 20px #3E665F88;
 }
 
 .title {
-  color: wheat;
+  color: var(--beige);
   margin: 3rem 0 2rem 0;
   font-size: 2rem;
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -34,66 +34,82 @@
   margin: 0.5rem 0;
   padding: 1rem 0.5rem;
   width: 20rem;
-  background-color: inherit;
-  color: wheat;
+  background-color: transparent;
+  color: var(--beige);
   border: none;
   outline: none;
-  border-bottom: 1px solid wheat;
+  border-bottom: 1px solid var(--beige);
   transition: all 400ms;
   font-size: 1.1rem;
   font-family: inherit;
 }
+
 .input:hover, .input:focus {
-  background-color: #424242;
-  border: none;
+  background-color: var(--teal);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px #0002;
+  box-shadow: 0 2px 8px #3E665Fcc;
+  border: none;
 }
 
 .btn {
   height: 3rem;
   width: 20rem;
   margin-top: 3rem;
-  background-color: wheat;
+  background-color: var(--terracotta);
   border-radius: 0.5rem;
   border: none;
   font-size: 1.2rem;
   transition: all 400ms;
   cursor: pointer;
   box-shadow:
-    0 0 10px antiquewhite,
-    0 0 10px antiquewhite;
+    0 0 10px #D96C5F,
+    0 0 10px #D96C5F;
   font-weight: 600;
   letter-spacing: 1px;
+  color: var(--beige);
 }
+
 .btn:hover {
-  background-color: antiquewhite;
+  background-color: #B95848; /* a deeper terracotta */
   box-shadow: none;
-  color: #222;
+  color: var(--beige);
 }
 
 .switch-link {
   margin-top: 1rem;
-  color: wheat;
+  color: var(--beige);
   font-size: 0.9rem;
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-weight: 500;
 }
+.forgot-password a {
+  color: var(--terracotta); /* terracotta red */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 600;
+}
+
+.forgot-password a:hover {
+  color: var(--beige); /* light beige on hover */
+  text-decoration: underline;
+}
 
 .switch-link a {
-  color: antiquewhite;
+  color: #D96C5F;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s;
 }
+
 .switch-link a:hover {
-  color: #fff;
+  color: #B95848;
   text-decoration: underline;
 }
+
 .auth-show-btn {
   background: none;
   border: none;
-  color: #ff9800;
+  color: var(--terracotta);
   cursor: pointer;
   font-size: 1.1rem;
   padding: 0;
@@ -105,7 +121,24 @@
 }
 
 .auth-show-btn:hover, .auth-show-btn:focus {
-  color: #fff;
+  color: #B95848;
   background: none;
   outline: none;
+}
+
+/* Palette variables */
+:root {
+  --terracotta: #D96C5F;
+  --beige: #FFF8E7;
+  --teal: #5E8B7E;
+}
+
+.input::placeholder {
+  color: rgba(255, 248, 231, 0.7); /* light beige with 70% opacity */
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.input:focus::placeholder {
+  color: rgba(255, 248, 231, 0.4); /* fade placeholder on focus */
 }

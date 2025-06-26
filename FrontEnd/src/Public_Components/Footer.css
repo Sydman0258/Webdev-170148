@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
-  background: black;
-  color: cornsilk;
+  background: var(--teal); /* muted teal background */
+  color: var(--beige); /* light beige text */
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -30,39 +30,38 @@
   font-size: 1.7rem;
   font-weight: bold;
   letter-spacing: 2px;
-  color: gold;
+  color: var(--terracotta); /* terracotta for logo */
 }
 
 .footer-desc {
   margin-top: 0.7rem;
   font-size: 1rem;
-  color: #ccc;
+  color: #d9d0c7; /* softer beige for description */
 }
 
 .footer-contact,
 .footer-links {
   flex: 1 1 200px;
   margin-left: 60px;
-
 }
 
 .footer-contact h4,
 .footer-links h4 {
   margin-bottom: 0.5rem;
-  color: gold;
+  color: var(--terracotta); /* terracotta headers */
   font-size: 1.1rem;
 }
 
 .footer-contact a,
 .footer-links a {
-  color: cornsilk;
+  color: var(--beige);
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 .footer-contact a:hover,
 .footer-links a:hover {
-  color: gold;
+  color: var(--terracotta);
 }
 
 .footer-links ul {
@@ -76,17 +75,17 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid #444;
+  border-top: 1px solid rgba(217, 108, 95, 0.5); /* semi-transparent terracotta border */
   margin-top: 2rem;
   padding-top: 1rem;
   text-align: center;
   font-size: 0.95rem;
-  color: #bbb;
+  color: #b7aea5; /* muted beige for bottom text */
 }
 
 .footer-legal {
   font-size: 0.9em;
-  color: #888;
+  color: #a09488; /* slightly darker beige */
 }
 
 /* Responsive Layout */
@@ -101,5 +100,13 @@
   .footer-contact,
   .footer-links {
     width: 100%;
+    margin-left: 0;
   }
+}
+
+/* Palette variables */
+:root {
+  --terracotta: #D96C5F;
+  --beige: #FFF8E7;
+  --teal: #5E8B7E;
 }

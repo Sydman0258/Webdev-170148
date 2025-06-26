@@ -4,9 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #171212d3;
+  color: #5E8B7Edd; /* Muted teal with some transparency */
   padding: 1rem 2rem;
- 
+  background: var(--beige); /* Light beige background */
+  box-shadow: 0 2px 8px rgba(217, 108, 95, 0.1); /* subtle terracotta shadow */
 }
 
 .logo {
@@ -15,6 +16,7 @@
   font-family: 'Dancing Script', cursive;
   letter-spacing: 1px;
   justify-content: flex-start;
+  color: var(--terracotta);
 }
 
 .nav {
@@ -22,7 +24,6 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-   
   gap: 2rem;
 }
 
@@ -30,23 +31,24 @@
   display: flex;
   gap: 2rem;
   list-style: none;
-    border: 1px solid cornsilk;
-     background: cornsilk;
-    border-radius: 2rem;
+  border: 1px solid var(--terracotta);
+  background: var(--beige);
+  border-radius: 2rem;
   margin: 0;
-  padding: 5px 35px ;
+  padding: 5px 35px;
 }
 
 .nav li a {
-  color: #000000;
+  color: var(--teal);
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.2s;
 }
 
 .nav li a:hover {
-  color: gray;
+  color: var(--terracotta);
 }
+
 .nav ul li {
   transition: transform 0.2s;
 }
@@ -58,38 +60,39 @@
 
 .menu-toggle {
   display: none;
-  background: #444;
-  color: #fff;
+  background: var(--teal);
+  color: var(--beige);
   border: none;
   padding: 0.7em 1.2em;
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
 }
+
 .bton {
   padding: 0.6em 1.5em;
-  border: solid 2px black;
+  border: solid 2px var(--terracotta);
   border-radius: 2em;
-  background: rgb(255, 255, 255);
+  background: var(--beige);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   margin-left: 0.7em;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(255, 15, 123, 0.12);
+  box-shadow: 0 2px 8px rgba(217, 108, 95, 0.12);
   text-decoration: none;
   display: inline-block;
+  color: var(--terracotta);
 }
 
-.bton:hover, .bton:focus {
-  background: cornsilk;
+.bton:hover,
+.bton:focus {
+  background: var(--terracotta);
   transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 16px rgba(255, 15, 123, 0.18);
-  color:black;
+  box-shadow: 0 4px 16px rgba(94, 139, 126, 0.18);
+  color: var(--beige);
   text-decoration: none;
 }
-
-
 
 @media (max-width: 768px) {
   .nav {
@@ -97,7 +100,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: #222;
+    background: var(--teal);
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
@@ -120,4 +123,11 @@
   .menu-toggle {
     display: block;
   }
+}
+
+/* Define the palette variables for convenience */
+:root {
+  --terracotta: #D96C5F;
+  --beige: #FFF8E7;
+  --teal: #5E8B7E;
 }

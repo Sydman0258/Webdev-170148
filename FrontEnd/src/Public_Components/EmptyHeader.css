@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 32px;
-    background: #222;
-    color: #fff;
+    background: var(--teal); /* muted teal background */
+    color: var(--beige); /* light beige text */
 }
 
 .empty-logo {
@@ -13,7 +13,7 @@
     letter-spacing: 2px;
     font-family: 'Dancing Script', cursive;
     text-decoration: none; /* Remove underline */
-    color: #fff; /* Ensure color stays white */
+    color: var(--terracotta); /* terracotta logo text */
 }
 
 .empty-nav {
@@ -31,21 +31,21 @@
 }
 
 .empty-nav li a {
-    color: #fff;
+    color: var(--beige);
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.2s;
 }
 
 .empty-nav li a:hover {
-    color: #ff9800;
+    color: var(--terracotta);
 }
 
 .empty-menu-toggle {
     display: none;
     background: none;
     border: none;
-    color: #fff;
+    color: var(--beige);
     font-size: 1.2rem;
     cursor: pointer;
 }
@@ -54,7 +54,7 @@
     .empty-nav ul {
         flex-direction: column;
         gap: 16px;
-        background: #222;
+        background: var(--teal);
         position: absolute;
         top: 64px;
         right: 0;
@@ -68,4 +68,11 @@
     .empty-menu-toggle {
         display: block;
     }
+}
+
+/* Define palette variables */
+:root {
+  --terracotta: #D96C5F;
+  --beige: #FFF8E7;
+  --teal: #5E8B7E;
 }

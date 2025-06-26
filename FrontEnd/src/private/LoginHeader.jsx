@@ -1,42 +1,56 @@
-// filepath: src/Public_Components/LoginHeader.jsx
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import './ LoginHeader.css';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "../private/LoginHeader.css";
 
 const LoginHeader = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    // Replace with dynamic user from context/localStorage
-    const username = "JohnDoe";
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
-    return (
-        <header className="header">
-            <div className="logo">VROOM TRACK</div>
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
-            <nav className="nav">
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/services">Services</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
-                </ul>
-            </nav>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
-            <div className="user-menu">
-                <div className="username" onClick={toggleDropdown}>
-                    {username} <span className="arrow">▼</span>
-                </div>
-                {dropdownOpen && (
-                    <div className="dropdown">
-                        <Link to="/profile">Profile</Link>
-                        <Link to="/settings">Settings</Link>
-                        <Link to="/logout">Logout</Link>
-                    </div>
-                )}
+  return (
+    <header className="lh-header">
+      <div className="lh-logo">VROOM TRACK</div>
+
+      <nav className="lh-nav">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/services">Services</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+        </ul>
+      </nav>
+
+      {user && (
+        <div className="lh-user-menu">
+          <div className="lh-username" onClick={toggleDropdown}>
+            {user.username || user.email || "User"} <span className="lh-arrow">▼</span>
+          </div>
+          {dropdownOpen && (
+            <div className="lh-dropdown">
+              <Link to="/profile">Profile</Link>
+              <Link to="/settings">Settings</Link>
+              <button onClick={handleLogout} className="logout-btn-link">Logout</button>
             </div>
-        </header>
-    );
+          )}
+        </div>
+      )}
+    </header>
+  );
 };
 
 export default LoginHeader;

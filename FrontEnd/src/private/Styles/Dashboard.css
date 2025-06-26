@@ -1,0 +1,82 @@
+:root {
+  --lux-black: #272727;    /* dominant */
+  --lux-beige: #D4AA7D;   /* secondary */
+  --lux-gold: #EFD09E;    /* accent */
+  --lux-shadow: rgba(239, 208, 158, 0.5);
+}
+
+.dashboard-main {
+  min-height: 70vh;
+  padding: 3rem 2rem;
+  background: var(--lux-black);
+  color: var(--lux-beige);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Removed max-width and margin to let it span full width */
+}
+
+.welcome-section h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--lux-gold);
+}
+
+.welcome-section h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--lux-beige);
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+
+.offer-section h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--lux-gold);
+  border-bottom: 2px solid var(--lux-gold);
+  padding-bottom: 0.3rem;
+  max-width: max-content;
+}
+
+.car-list {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.car-item {
+  background: var(--lux-black);
+  border: 2px solid var(--lux-gold);
+  border-radius: 12px;
+  padding: 0.5rem;
+  width: 180px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 0 10px var(--lux-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.car-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.7rem;
+}
+
+.car-item p {
+  font-weight: 600;
+  color: var(--lux-beige);
+  font-size: 1.1rem;
+}
+
+.car-item:hover,
+.car-item:focus {
+  border-color: var(--lux-beige);
+  box-shadow: 0 0 15px var(--lux-gold);
+  transform: scale(1.05);
+  outline: none;
+}

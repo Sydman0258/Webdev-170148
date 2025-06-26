@@ -1,5 +1,5 @@
 import React from 'react';
-import './Homepage.css';
+import '../Styles/Homepage.css';
 
 // Slick carousel styles
 import 'slick-carousel/slick/slick.css';
@@ -12,10 +12,11 @@ import Footer from './Footer';
 
 // Import your car images
 
-import rollsroyce from '../assets/Rolls.png';
-import lotus from '../assets/lotus.png';
-import lotus2 from '../assets/lotus2.png';
-import lotus3 from '../assets/lotus3.png';
+import rollsroyce from '../../assets/Rolls.png';
+import lotus from '../../assets/lotus.png';
+import lotus2 from '../../assets/lotus2.png';
+import lotus3 from '../../assets/lotus3.png';
+
 
 // Import professional icons from react-icons
 import { FaShieldAlt, FaClock, FaCarSide } from 'react-icons/fa';

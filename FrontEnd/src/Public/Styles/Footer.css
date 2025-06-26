@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
-  background: var(--teal); /* muted teal background */
-  color: var(--beige); /* light beige text */
+  background: var(--lux-black); /* dominant color background */
+  color: var(--lux-beige); /* secondary color text */
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -30,13 +30,13 @@
   font-size: 1.7rem;
   font-weight: bold;
   letter-spacing: 2px;
-  color: var(--terracotta); /* terracotta for logo */
+  color: var(--lux-gold); /* accent color for logo */
 }
 
 .footer-desc {
   margin-top: 0.7rem;
   font-size: 1rem;
-  color: #d9d0c7; /* softer beige for description */
+  color: #c9b89d; /* softer beige tone for description */
 }
 
 .footer-contact,
@@ -48,20 +48,20 @@
 .footer-contact h4,
 .footer-links h4 {
   margin-bottom: 0.5rem;
-  color: var(--terracotta); /* terracotta headers */
+  color: var(--lux-gold); /* accent color headers */
   font-size: 1.1rem;
 }
 
 .footer-contact a,
 .footer-links a {
-  color: var(--beige);
+  color: var(--lux-beige);
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 .footer-contact a:hover,
 .footer-links a:hover {
-  color: var(--terracotta);
+  color: var(--lux-gold);
 }
 
 .footer-links ul {
@@ -75,17 +75,17 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(217, 108, 95, 0.5); /* semi-transparent terracotta border */
+  border-top: 1px solid rgba(239, 208, 158, 0.5); /* semi-transparent accent color border */
   margin-top: 2rem;
   padding-top: 1rem;
   text-align: center;
   font-size: 0.95rem;
-  color: #b7aea5; /* muted beige for bottom text */
+  color: #b7a87a; /* muted beige tone */
 }
 
 .footer-legal {
   font-size: 0.9em;
-  color: #a09488; /* slightly darker beige */
+  color: #a3966b; /* slightly darker beige */
 }
 
 /* Responsive Layout */
@@ -106,7 +106,7 @@
 
 /* Palette variables */
 :root {
-  --terracotta: #D96C5F;
-  --beige: #FFF8E7;
-  --teal: #5E8B7E;
+  --lux-black: #272727;   /* dominant */
+  --lux-beige: #D4AA7D;  /* secondary */
+  --lux-gold: #EFD09E;   /* accent */
 }

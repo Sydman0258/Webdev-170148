@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/userSchema');
 require('dotenv').config();
 
-// JWT middleware (if you need it for protected routes)
+// JWT middleware
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// ✅ Register route
+// REGISTER
 router.post('/api/register', async (req, res) => {
   const { firstName, surname, email, username, password, dob } = req.body;
 
@@ -33,12 +33,14 @@ router.post('/api/register', async (req, res) => {
     const existingUsername = await User.findOne({ where: { username } });
     if (existingUsername) return res.status(400).json({ error: "Username already taken." });
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       firstName,
       surname,
       email,
       username,
-      password, // plain password - hashing is done in model
+      password: hashedPassword,
       dob,
     });
 
@@ -49,7 +51,7 @@ router.post('/api/register', async (req, res) => {
   }
 });
 
-// ✅ Login route
+// LOGIN
 router.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -81,6 +83,48 @@ router.post('/api/login', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error." });
+  }
+});
+
+// GET PROFILE
+router.get('/api/profile', verifyToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findOne({
+      where: { id: userId },
+      attributes: ['id', 'firstName', 'surname', 'email', 'username', 'dob']
+    });
+
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    res.json({ user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error." });
+  }
+});
+
+// ✅ UPDATE PROFILE
+router.put('/api/profile', verifyToken, async (req, res) => {
+  const { firstName, surname, email, username, dob } = req.body;
+
+  try {
+    const user = await User.findByPk(req.user.id);
+
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    user.firstName = firstName || user.firstName;
+    user.surname = surname || user.surname;
+    user.email = email || user.email;
+    user.username = username || user.username;
+    user.dob = dob || user.dob;
+
+    await user.save();
+
+    res.json({ message: "Profile updated successfully.", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update profile." });
   }
 });
 

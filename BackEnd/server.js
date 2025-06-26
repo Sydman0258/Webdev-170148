@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use(authRouter);
 
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });

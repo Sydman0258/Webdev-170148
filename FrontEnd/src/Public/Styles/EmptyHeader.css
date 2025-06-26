@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 32px;
-    background: var(--teal); /* muted teal background */
-    color: var(--beige); /* light beige text */
+    background: var(--lux-black); /* dominant color */
+    color: var(--lux-beige); /* secondary color */
 }
 
 .empty-logo {
@@ -13,7 +13,7 @@
     letter-spacing: 2px;
     font-family: 'Dancing Script', cursive;
     text-decoration: none; /* Remove underline */
-    color: var(--terracotta); /* terracotta logo text */
+    color: var(--lux-gold); /* accent color */
 }
 
 .empty-nav {
@@ -31,21 +31,21 @@
 }
 
 .empty-nav li a {
-    color: var(--beige);
+    color: var(--lux-beige);
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.2s;
 }
 
 .empty-nav li a:hover {
-    color: var(--terracotta);
+    color: var(--lux-gold);
 }
 
 .empty-menu-toggle {
     display: none;
     background: none;
     border: none;
-    color: var(--beige);
+    color: var(--lux-beige);
     font-size: 1.2rem;
     cursor: pointer;
 }
@@ -54,7 +54,7 @@
     .empty-nav ul {
         flex-direction: column;
         gap: 16px;
-        background: var(--teal);
+        background: var(--lux-black);
         position: absolute;
         top: 64px;
         right: 0;
@@ -70,9 +70,9 @@
     }
 }
 
-/* Define palette variables */
+/* Palette variables */
 :root {
-  --terracotta: #D96C5F;
-  --beige: #FFF8E7;
-  --teal: #5E8B7E;
+  --lux-black: #272727;  /* dominant */
+  --lux-beige: #D4AA7D;  /* secondary */
+  --lux-gold: #EFD09E;   /* accent */
 }

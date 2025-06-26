@@ -1,7 +1,7 @@
 // filepath: src/Public_Components/Header.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import './Header.css';
+import '../Styles/Header.css';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);

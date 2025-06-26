@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../private/LoginHeader.css";
+import "../Styles/LoginHeader.css";
 
 const LoginHeader = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

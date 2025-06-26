@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
-import "./Auth.css";
+import "../Styles/Auth.css";
 
 const Register = () => {
   const {

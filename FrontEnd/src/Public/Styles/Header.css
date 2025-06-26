@@ -4,10 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #5E8B7Edd; /* Muted teal with some transparency */
+  color: var(--lux-silver);
   padding: 1rem 2rem;
-  background: var(--beige); /* Light beige background */
-  box-shadow: 0 2px 8px rgba(217, 108, 95, 0.1); /* subtle terracotta shadow */
+  background: var(--lux-beige);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.1); /* soft gold shadow */
 }
 
 .logo {
@@ -16,7 +16,7 @@
   font-family: 'Dancing Script', cursive;
   letter-spacing: 1px;
   justify-content: flex-start;
-  color: var(--terracotta);
+  color: var(--lux-gold);
 }
 
 .nav {
@@ -31,22 +31,22 @@
   display: flex;
   gap: 2rem;
   list-style: none;
-  border: 1px solid var(--terracotta);
-  background: var(--beige);
+  border: 1px solid var(--lux-gold);
+  background: var(--lux-beige);
   border-radius: 2rem;
   margin: 0;
   padding: 5px 35px;
 }
 
 .nav li a {
-  color: var(--teal);
+  color: var(--lux-teal);
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.2s;
 }
 
 .nav li a:hover {
-  color: var(--terracotta);
+  color: var(--lux-gold);
 }
 
 .nav ul li {
@@ -60,8 +60,8 @@
 
 .menu-toggle {
   display: none;
-  background: var(--teal);
-  color: var(--beige);
+  background: var(--lux-teal);
+  color: var(--lux-beige);
   border: none;
   padding: 0.7em 1.2em;
   font-size: 1rem;
@@ -71,26 +71,26 @@
 
 .bton {
   padding: 0.6em 1.5em;
-  border: solid 2px var(--terracotta);
+  border: solid 2px var(--lux-gold);
   border-radius: 2em;
-  background: var(--beige);
+  background: var(--lux-beige);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   margin-left: 0.7em;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(217, 108, 95, 0.12);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.12);
   text-decoration: none;
   display: inline-block;
-  color: var(--terracotta);
+  color: var(--lux-gold);
 }
 
 .bton:hover,
 .bton:focus {
-  background: var(--terracotta);
+  background: var(--lux-gold);
   transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 16px rgba(94, 139, 126, 0.18);
-  color: var(--beige);
+  box-shadow: 0 4px 16px rgba(38, 70, 83, 0.18);
+  color: var(--lux-beige);
   text-decoration: none;
 }
 
@@ -100,7 +100,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--teal);
+    background: var(--lux-teal);
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
@@ -123,11 +123,4 @@
   .menu-toggle {
     display: block;
   }
-}
-
-/* Define the palette variables for convenience */
-:root {
-  --terracotta: #D96C5F;
-  --beige: #FFF8E7;
-  --teal: #5E8B7E;
 }

@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Homepage from './Public_Components/Homepage.jsx';
-import Login from './Public_Components/Login.jsx';
-import Register from './Public_Components/Register.jsx';
-import Dashboard from "./private/Dashboard.jsx";
+import Homepage from "./Public/Pages/Homepage";
+import Login from "./Public/Pages/Login";
+import Register from "./Public/Pages/Register";
+import Dashboard from "./private/Pages/Dashboard";
+import Profile from "./private/Pages/Profile";
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile/>}/>
 
       </Routes>
     </Router>

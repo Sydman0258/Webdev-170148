@@ -1,0 +1,162 @@
+:root {
+  --lux-black: #272727;    /* dominant */
+  --lux-beige: #D4AA7D;   /* secondary */
+  --lux-gold: #EFD09E;    /* accent */
+}
+
+::selection {
+  background-color: var(--lux-gold);
+  color: var(--lux-black);
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--lux-black);
+}
+
+.form {
+  width: 400px;
+  background-image: linear-gradient(to bottom, var(--lux-beige), var(--lux-black));
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 20px var(--lux-beige);
+}
+
+.title {
+  color: var(--lux-gold);
+  margin: 3rem 0 2rem 0;
+  font-size: 2rem;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.input {
+  margin: 0.5rem 0;
+  padding: 1rem 0.5rem;
+  width: 20rem;
+  background-color: transparent;
+  color: var(--lux-beige);
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--lux-beige);
+  transition: all 400ms;
+  font-size: 1.1rem;
+  font-family: inherit;
+}
+
+.input:hover, .input:focus {
+  background-color: var(--lux-gold);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px var(--lux-gold);
+  border: none;
+  color: var(--lux-black);
+}
+
+.input::placeholder {
+  color: rgba(212, 170, 125, 0.7);
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.input:focus::placeholder {
+  color: rgba(212, 170, 125, 0.4);
+}
+
+.btn {
+  height: 3rem;
+  width: 20rem;
+  margin-top: 3rem;
+  background-color: var(--lux-beige);
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1.2rem;
+  transition: all 400ms;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--lux-gold);
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--lux-black);
+}
+
+.btn:hover {
+  background-color: var(--lux-gold);
+  color: var(--lux-black);
+  box-shadow: none;
+}
+
+.switch-link {
+  margin-top: 1rem;
+  color: var(--lux-beige);
+  font-size: 0.9rem;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 500;
+}
+
+.switch-link a {
+  color: var(--lux-gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.switch-link a:hover {
+  color: var(--lux-beige);
+  text-decoration: underline;
+}
+
+.forgot-password {
+  margin-top: 1rem;
+  text-align: right;
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.forgot-password a {
+  color: var(--lux-gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+  color: var(--lux-beige);
+  text-decoration: underline;
+}
+
+.auth-show-btn {
+  background: none;
+  border: none;
+  color: var(--lux-gold);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, background 0.2s;
+  box-shadow: none;
+}
+
+.auth-show-btn:hover, .auth-show-btn:focus {
+  color: var(--lux-beige);
+  background: none;
+  outline: none;
+}
+.input::placeholder {
+  color: rgba(55, 51, 47, 0.9); /* stronger beige with 90% opacity */
+  font-weight: 600;               /* bolder */
+  font-style: normal;             /* remove italic */
+  font-size: 1.15rem;             /* slightly bigger */
+  transition: color 0.3s ease;
+}
+
+.input:focus::placeholder {
+  color: rgba(212, 170, 125, 0.6); /* fade a bit on focus */
+}

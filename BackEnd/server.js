@@ -21,9 +21,9 @@ const PORT = process.env.PORT || 5000;
 connection()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`✅ Server started on port ${PORT}`);
+      console.log(` Server started on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.error('❌ Failed to connect to DB', err);
+    console.error(' Failed to connect to DB', err);
   });

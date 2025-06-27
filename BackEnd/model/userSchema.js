@@ -45,6 +45,26 @@ const User = sequelize.define('User', {
     type: DataTypes.DATEONLY, 
     allowNull: false 
   },
+
+  // ✅ Payment Info fields (for demo purposes)
+  cardNumber: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  expiry: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  cvv: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+    isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false,
+  }
+
 }, {
   hooks: {
     beforeCreate: async (user) => {
@@ -59,15 +79,10 @@ const User = sequelize.define('User', {
         user.password = await bcrypt.hash(user.password, salt);
       }
     }
-  },
-  instanceMethods: {
-    validPassword: async function(password) {
-      return await bcrypt.compare(password, this.password);
-    }
   }
 });
 
-// Add a method to compare passwords
+// Instance method for password check
 User.prototype.validPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };

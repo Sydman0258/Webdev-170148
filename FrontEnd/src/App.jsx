@@ -4,6 +4,7 @@ import Login from "./Public/Pages/Login";
 import Register from "./Public/Pages/Register";
 import Dashboard from "./private/Pages/Dashboard";
 import Profile from "./private/Pages/Profile";
+import AdminDashboard from "./private/Pages/AdminDashboard";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile/>}/>
+         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
       </Routes>
     </Router>

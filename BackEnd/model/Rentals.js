@@ -1,0 +1,31 @@
+// models/Rental.js (Sequelize example)
+const { DataTypes } = require('sequelize');
+const sequelize = require('../Database/db').sequelize;
+const User = require('./User');
+const Car = require('./Car'); // Assuming you have a Car model
+
+const Rental = sequelize.define('Rental', {
+  rentalDate: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  returnDate: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.ENUM('active', 'completed', 'cancelled'),
+    defaultValue: 'active',
+  },
+});
+
+// Associations
+Rental.belongsTo(User, { foreignKey: 'userId' });
+Rental.belongsTo(Car, { foreignKey: 'carId' });
+
+module.exports = Rental;

@@ -1,70 +1,46 @@
-// src/Private/Pages/Profile.jsx
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import LoginHeader from "./LoginHeader";
-import Footer from "../../Public/Pages/Footer";
-import "../Styles/Profile.css";
+<div className="profile-container">
+  <h1>Edit Profile</h1>
+  {user ? (
+    <div className="profile-card">
+      <div className="profile-form">
 
-const Profile = () => {
-  const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({});
-  const [message, setMessage] = useState("");
+        {/* Personal Info Section */}
+        <div className="profile-section">
+          <h2>Personal Information</h2>
+          <label>First Name</label>
+          <input name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
+          
+          <label>Surname</label>
+          <input name="surname" value={formData.surname} onChange={handleChange} placeholder="Surname" />
+          
+          <label>Email</label>
+          <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+          
+          <label>Username</label>
+          <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" />
+          
+          <label>Date of Birth</label>
+          <input name="dob" value={formData.dob} onChange={handleChange} placeholder="Date of Birth" />
+        </div>
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUser(res.data.user);
-        setFormData(res.data.user);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProfile();
-  }, []);
+        {/* Payment Info Section */}
+        <div className="profile-section">
+          <h2>Payment Information</h2>
+          <label>Card Number</label>
+          <input name="cardNumber" value={formData.cardNumber || ''} onChange={handleChange} placeholder="Card Number" />
+          
+          <label>Expiry</label>
+          <input name="expiry" value={formData.expiry || ''} onChange={handleChange} placeholder="MM/YY" />
+          
+          <label>CVV</label>
+          <input name="cvv" value={formData.cvv || ''} onChange={handleChange} placeholder="CVV" />
+        </div>
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.put("http://localhost:5000/api/profile", formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setMessage("Profile updated successfully.");
-    } catch (err) {
-      console.error(err);
-      setMessage("Update failed. Try again.");
-    }
-  };
-
-  return (
-    <>
-      <LoginHeader />
-      <div className="profile-container">
-        <h1>Edit Profile</h1>
-        {user ? (
-          <div className="profile-form">
-            <input name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
-            <input name="surname" value={formData.surname} onChange={handleChange} placeholder="Surname" />
-            <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-            <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" />
-            <input name="dob" value={formData.dob} onChange={handleChange} placeholder="Date of Birth" />
-            <button className="save-btn" onClick={handleSave}>Save</button>
-            {message && <p className="save-message">{message}</p>}
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
+        <button className="save-btn" onClick={handleSave}>Save</button>
+        {message && <p className="save-message">{message}</p>}
       </div>
-      <Footer />
-    </>
-  );
-};
-
-export default Profile;
+    </div>
+  ) : (
+    <p>Loading...</p>
+  )}
+</div>

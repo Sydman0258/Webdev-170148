@@ -71,42 +71,52 @@ router.post('/api/login', async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.json({
-      message: "Login successful.",
-      token,
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
-    });
+  res.json({
+  message: "Login successful.",
+  token,
+  user: {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    isAdmin: user.isAdmin, // add this here
+  },
+});
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
 });
 
-// GET PROFILE
+// ✅ GET PROFILE (with payment info)
 router.get('/api/profile', verifyToken, async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await User.findOne({
       where: { id: userId },
-      attributes: ['id', 'firstName', 'surname', 'email', 'username', 'dob']
+      attributes: [
+        'id', 'firstName', 'surname', 'email', 'username', 'dob',
+        'cardNumber', 'expiry', 'cvv'
+      ]
     });
 
     if (!user) return res.status(404).json({ error: "User not found." });
 
-    res.json({ user });
+    const { cardNumber, expiry, cvv, ...profileData } = user.dataValues;
+
+    res.json({
+      user: profileData,
+      payment: { cardNumber, expiry, cvv }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
 });
 
-// ✅ UPDATE PROFILE
+// ✅ UPDATE PROFILE (with payment info)
 router.put('/api/profile', verifyToken, async (req, res) => {
-  const { firstName, surname, email, username, dob } = req.body;
+  const { firstName, surname, email, username, dob, payment } = req.body;
 
   try {
     const user = await User.findByPk(req.user.id);
@@ -118,6 +128,12 @@ router.put('/api/profile', verifyToken, async (req, res) => {
     user.email = email || user.email;
     user.username = username || user.username;
     user.dob = dob || user.dob;
+
+    if (payment) {
+      user.cardNumber = payment.cardNumber || user.cardNumber;
+      user.expiry = payment.expiry || user.expiry;
+      user.cvv = payment.cvv || user.cvv;
+    }
 
     await user.save();
 

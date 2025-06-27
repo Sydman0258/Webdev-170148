@@ -9,10 +9,10 @@
 .profile-container {
   background: var(--lux-black);
   min-height: 100vh;
-  padding: 4rem 2rem;
+  padding: 4rem 6rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* left-align */
   color: var(--lux-beige);
   font-family: 'Inter', sans-serif;
 }
@@ -26,18 +26,28 @@
 }
 
 .profile-card {
-  background-color: #1f1f1f;
-  padding: 2.5rem 2rem;
-  border-radius: 1.25rem;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 10px 30px rgba(239, 208, 158, 0.08);
+  max-width: 700px;
 }
 
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
+}
+
+.profile-section {
+  margin-bottom: 3rem;
+}
+
+.profile-section h2 {
+  color: var(--lux-gold);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
 }
 
 .profile-form label {
@@ -50,8 +60,9 @@
 .profile-form input {
   padding: 0.85rem 1rem;
   background-color: transparent;
-  border: 1px solid var(--lux-gold);
-  border-radius: 0.75rem;
+  border: none; /* ✅ No borders */
+  border-bottom: 1px solid var(--lux-gold);
+  border-radius: 0;
   color: var(--lux-beige);
   font-size: 1rem;
   outline: none;
@@ -59,13 +70,13 @@
 }
 
 .profile-form input:focus {
-  border-color: var(--lux-beige);
-  box-shadow: 0 0 8px var(--lux-gold);
+  border-bottom: 1px solid var(--lux-beige);
+  box-shadow: none;
 }
 
 .save-btn {
   margin-top: 1.5rem;
-  padding: 0.9rem;
+  padding: 0.9rem 1.5rem;
   background: linear-gradient(to right, var(--lux-gold), var(--lux-beige));
   color: var(--lux-black);
   border: none;
@@ -74,6 +85,7 @@
   font-size: 1.05rem;
   cursor: pointer;
   transition: background 0.3s ease;
+  align-self: flex-start;
 }
 
 .save-btn:hover {
@@ -85,5 +97,5 @@
   margin-top: 1rem;
   font-size: 0.95rem;
   color: var(--lux-gold);
-  text-align: center;
+  text-align: left;
 }

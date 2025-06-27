@@ -44,7 +44,12 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/dashboard"); // update as per your route
+      // Redirect based on admin status
+      if (data.user.isAdmin) {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.error("Login error:", err);
       setError(err.message || "Login failed. Please try again.");

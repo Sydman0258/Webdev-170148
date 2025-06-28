@@ -1,8 +1,7 @@
-// models/Rental.js (Sequelize example)
 const { DataTypes } = require('sequelize');
 const sequelize = require('../Database/db').sequelize;
 const User = require('./User');
-const Car = require('./Car'); // Assuming you have a Car model
+const Car = require('./Car'); 
 
 const Rental = sequelize.define('Rental', {
   rentalDate: {

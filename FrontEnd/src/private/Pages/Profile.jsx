@@ -1,46 +1,35 @@
-<div className="profile-container">
-  <h1>Edit Profile</h1>
-  {user ? (
-    <div className="profile-card">
-      <div className="profile-form">
+import React from "react";
 
+const ProfileDisplay = ({ user }) => {
+  if (!user) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div className="profile-container">
+      <h1>Profile</h1>
+
+      <div className="profile-card">
         {/* Personal Info Section */}
         <div className="profile-section">
           <h2>Personal Information</h2>
-          <label>First Name</label>
-          <input name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
-          
-          <label>Surname</label>
-          <input name="surname" value={formData.surname} onChange={handleChange} placeholder="Surname" />
-          
-          <label>Email</label>
-          <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-          
-          <label>Username</label>
-          <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" />
-          
-          <label>Date of Birth</label>
-          <input name="dob" value={formData.dob} onChange={handleChange} placeholder="Date of Birth" />
+          <p><strong>First Name:</strong> {user.firstName}</p>
+          <p><strong>Surname:</strong> {user.surname}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Username:</strong> {user.username}</p>
+          <p><strong>Date of Birth:</strong> {user.dob}</p>
         </div>
 
         {/* Payment Info Section */}
         <div className="profile-section">
           <h2>Payment Information</h2>
-          <label>Card Number</label>
-          <input name="cardNumber" value={formData.cardNumber || ''} onChange={handleChange} placeholder="Card Number" />
-          
-          <label>Expiry</label>
-          <input name="expiry" value={formData.expiry || ''} onChange={handleChange} placeholder="MM/YY" />
-          
-          <label>CVV</label>
-          <input name="cvv" value={formData.cvv || ''} onChange={handleChange} placeholder="CVV" />
+          <p><strong>Card Number:</strong> {user.cardNumber || "N/A"}</p>
+          <p><strong>Expiry:</strong> {user.expiry || "N/A"}</p>
+          <p><strong>CVV:</strong> {user.cvv ? "•••" : "N/A"}</p>
         </div>
-
-        <button className="save-btn" onClick={handleSave}>Save</button>
-        {message && <p className="save-message">{message}</p>}
       </div>
     </div>
-  ) : (
-    <p>Loading...</p>
-  )}
-</div>
+  );
+};
+
+export default ProfileDisplay;

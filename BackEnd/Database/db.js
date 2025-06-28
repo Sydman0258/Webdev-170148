@@ -16,9 +16,11 @@ const connection = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connected to PostgreSQL");
-    await sequelize.sync({ alter: true }); // auto-create/update tables
+if (process.env.NODE_ENV !== 'production') {
+  await sequelize.sync({ alter: true });
+}
   } catch (error) {
-    console.error(" DB connection failed:", error);
+    console.error(" DB connection failed:", error.message);
   }
 };
 

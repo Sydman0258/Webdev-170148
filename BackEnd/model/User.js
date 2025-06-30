@@ -6,47 +6,34 @@ const User = sequelize.define('User', {
   firstName: { 
     type: DataTypes.STRING, 
     allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    validate: { notEmpty: true }
   },
   surname: { 
     type: DataTypes.STRING, 
     allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    validate: { notEmpty: true }
   },
   email: { 
     type: DataTypes.STRING, 
     allowNull: false, 
     unique: true, 
-    validate: { 
-      isEmail: true,
-      notEmpty: true
-    } 
+    validate: { isEmail: true, notEmpty: true } 
   },
   username: { 
     type: DataTypes.STRING, 
     allowNull: false, 
     unique: true,
-    validate: {
-      notEmpty: true
-    }
+    validate: { notEmpty: true }
   },
   password: { 
     type: DataTypes.STRING, 
     allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    validate: { notEmpty: true }
   },
   dob: { 
     type: DataTypes.DATEONLY, 
     allowNull: false 
   },
-
-  // ✅ Payment Info fields (for demo purposes)
   cardNumber: {
     type: DataTypes.STRING,
     allowNull: true
@@ -59,12 +46,11 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: true
   },
-    isAdmin: {
+  isAdmin: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
-    allowNull: false,
+    allowNull: false
   }
-
 }, {
   hooks: {
     beforeCreate: async (user) => {
@@ -82,7 +68,6 @@ const User = sequelize.define('User', {
   }
 });
 
-// Instance method for password check
 User.prototype.validPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };

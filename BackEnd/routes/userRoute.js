@@ -1,23 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const User = require("../model/userSchema");
+const { register, login, getProfile, updateProfile } = require('../controller/userController');
+const { verifyToken } = require('../middleware/authMiddleware');
 
-router.post("/register", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(409).json({ message: "Email already registered" });
-    }
-
-    const user = await User.create({ email, password });
-
-    res.status(201).json({ message: "User registered", user });
-  } catch (err) {
-    console.error(" Error in registration:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+// Routes
+router.post('/register', register);
+router.post('/login', login);
+router.get('/profile', verifyToken, getProfile);
+router.put('/profile', verifyToken, updateProfile);
 
 module.exports = router;

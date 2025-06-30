@@ -1,25 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../model/userSchema');
+const User = require('../model/User');
 require('dotenv').config();
 
-// JWT middleware
-const verifyToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (!token) return res.sendStatus(403);
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};
-
-// REGISTER
-router.post('/api/register', async (req, res) => {
+// Register a new user
+const register = async (req, res) => {
   const { firstName, surname, email, username, password, dob } = req.body;
 
   if (!firstName || !surname || !email || !username || !password || !dob) {
@@ -33,26 +17,17 @@ router.post('/api/register', async (req, res) => {
     const existingUsername = await User.findOne({ where: { username } });
     if (existingUsername) return res.status(400).json({ error: "Username already taken." });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = await User.create({
-      firstName,
-      surname,
-      email,
-      username,
-      password: hashedPassword,
-      dob,
-    });
+    await User.create({ firstName, surname, email, username, password, dob });
 
     res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
-});
+};
 
-// LOGIN
-router.post('/api/login', async (req, res) => {
+// User login
+const login = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password)
@@ -62,7 +37,7 @@ router.post('/api/login', async (req, res) => {
     const user = await User.findOne({ where: { username } });
     if (!user) return res.status(400).json({ error: "User not found." });
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await user.validPassword(password);
     if (!isPasswordValid) return res.status(400).json({ error: "Invalid password." });
 
     const token = jwt.sign(
@@ -71,29 +46,28 @@ router.post('/api/login', async (req, res) => {
       { expiresIn: '1d' }
     );
 
-  res.json({
-  message: "Login successful.",
-  token,
-  user: {
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    isAdmin: user.isAdmin, // add this here
-  },
-});
+    res.json({
+      message: "Login successful.",
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
+    });
 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
-});
+};
 
-// ✅ GET PROFILE (with payment info)
-router.get('/api/profile', verifyToken, async (req, res) => {
+// Get profile
+const getProfile = async (req, res) => {
   try {
-    const userId = req.user.id;
     const user = await User.findOne({
-      where: { id: userId },
+      where: { id: req.user.id },
       attributes: [
         'id', 'firstName', 'surname', 'email', 'username', 'dob',
         'cardNumber', 'expiry', 'cvv'
@@ -112,10 +86,10 @@ router.get('/api/profile', verifyToken, async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
-});
+};
 
-// ✅ UPDATE PROFILE (with payment info)
-router.put('/api/profile', verifyToken, async (req, res) => {
+// Update profile
+const updateProfile = async (req, res) => {
   const { firstName, surname, email, username, dob, payment } = req.body;
 
   try {
@@ -142,6 +116,11 @@ router.put('/api/profile', verifyToken, async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to update profile." });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  register,
+  login,
+  getProfile,
+  updateProfile
+};

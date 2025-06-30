@@ -1,8 +1,24 @@
+const express = require('express');
+const router = express.Router();
 const jwt = require('jsonwebtoken');
-const User = require('../model/User');
+const User = require('../model/userSchema');
 require('dotenv').config();
 
-const register = async (req, res) => {
+// JWT middleware
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) return res.sendStatus(403);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+// REGISTER
+router.post('/api/register', async (req, res) => {
   const { firstName, surname, email, username, password, dob } = req.body;
 
   if (!firstName || !surname || !email || !username || !password || !dob) {
@@ -16,16 +32,24 @@ const register = async (req, res) => {
     const existingUsername = await User.findOne({ where: { username } });
     if (existingUsername) return res.status(400).json({ error: "Username already taken." });
 
-    await User.create({ firstName, surname, email, username, password, dob });
+    const newUser = await User.create({
+      firstName,
+      surname,
+      email,
+      username,
+      password, // plain password — Sequelize hook hashes it
+      dob,
+    });
 
     res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
-};
+});
 
-const login = async (req, res) => {
+// LOGIN
+router.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password)
@@ -59,12 +83,14 @@ const login = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
-};
+});
 
-const getProfile = async (req, res) => {
+// GET PROFILE
+router.get('/api/profile', verifyToken, async (req, res) => {
   try {
+    const userId = req.user.id;
     const user = await User.findOne({
-      where: { id: req.user.id },
+      where: { id: userId },
       attributes: [
         'id', 'firstName', 'surname', 'email', 'username', 'dob',
         'cardNumber', 'expiry', 'cvv'
@@ -83,9 +109,10 @@ const getProfile = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Server error." });
   }
-};
+});
 
-const updateProfile = async (req, res) => {
+// UPDATE PROFILE
+router.put('/api/profile', verifyToken, async (req, res) => {
   const { firstName, surname, email, username, dob, payment } = req.body;
 
   try {
@@ -112,11 +139,6 @@ const updateProfile = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to update profile." });
   }
-};
+});
 
-module.exports = {
-  register,
-  login,
-  getProfile,
-  updateProfile
-};
+module.exports = router;

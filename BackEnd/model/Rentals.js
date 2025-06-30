@@ -23,7 +23,6 @@ const Rental = sequelize.define('Rental', {
   },
 });
 
-// Associations
 Rental.belongsTo(User, { foreignKey: 'userId' });
 Rental.belongsTo(Car, { foreignKey: 'carId' });
 

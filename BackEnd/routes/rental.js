@@ -1,10 +1,9 @@
 // routes/rental.js
 const express = require('express');
 const router = express.Router();
-const { Rental, User, Car, sequelize } = require('../models'); // adjust paths/models as needed
-const verifyToken = require('./verifyToken'); // your JWT middleware
+const { Rental, User, Car, sequelize } = require('../models'); 
+const verifyToken = require('./verifyToken'); 
 
-// POST /api/rent - Create a new rental (user rents a car)
 router.post('/api/rent', verifyToken, async (req, res) => {
   try {
     const userId = req.user.id;

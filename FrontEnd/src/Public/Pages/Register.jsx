@@ -15,11 +15,11 @@ const Register = () => {
 
   const onSubmit = async (data) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
+});
 
     const resData = await response.json();
 

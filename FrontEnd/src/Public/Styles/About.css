@@ -1,0 +1,83 @@
+.about-container {
+  max-width: 900px;
+  margin: 100px auto 60px;
+  padding: 0 1rem;
+  font-family: Arial, sans-serif;
+  color: #5e8b7e; /* teal */
+  line-height: 1.6;
+}
+
+.about-container h1 {
+  font-family: 'Fredericka the Great', cursive;
+  color: #d96c5f; /* terracotta */
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.about-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Stats Section */
+.about-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 3rem 0 4rem;
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: #fff8e7; /* beige */
+  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2);
+  border-radius: 1rem;
+  padding: 2rem 3rem;
+  text-align: center;
+  flex: 1 1 160px;
+  min-width: 150px;
+  color: #d96c5f; /* terracotta */
+  cursor: default;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+}
+
+.stat-card h2 {
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 1.2rem;
+  color: #5e8b7e; /* teal */
+}
+
+/* Mission Section */
+.about-mission {
+  background: #fff8e7;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2);
+  color: #5e8b7e;
+}
+
+.about-mission h2 {
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #d96c5f;
+  text-align: center;
+}
+
+.about-mission p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}

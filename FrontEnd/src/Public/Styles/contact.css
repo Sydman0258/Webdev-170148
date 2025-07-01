@@ -1,0 +1,80 @@
+/* Contact.css */
+
+.contact-container {
+  max-width: 600px;
+  margin: 100px auto 60px;
+  padding: 0 1rem;
+  font-family: Arial, sans-serif;
+  color: #5e8b7e; /* teal */
+  line-height: 1.6;
+  text-align: center;
+}
+
+.contact-container h1 {
+  font-family: 'Fredericka the Great', cursive;
+  color: #d96c5f; /* terracotta */
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact-container p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.contact-form label {
+  font-weight: bold;
+  color: #d96c5f;
+  font-size: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  border: 2px solid #5e8b7e;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #d96c5f;
+  outline: none;
+}
+
+.contact-form button {
+  background-color: #d96c5f;
+  color: #fff8e7;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 1.3rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #b85a4d;
+}
+
+.success-message {
+  margin-top: 1rem;
+  color: #5e8b7e;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+}

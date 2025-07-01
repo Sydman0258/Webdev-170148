@@ -5,6 +5,8 @@ import Register from "./Public/Pages/Register";
 import Dashboard from "./private/Pages/Dashboard";
 import Profile from "./private/Pages/Profile";
 import AdminDashboard from "./private/Pages/AdminDashboard";
+import About from "./Public/Pages/Aboutus";
+import Contact from "./Public/Pages/Contact";
 
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile/>}/>
          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+         <Route path ="/about" element ={<About/>}/>
+         <Route path ="/contact" element ={<Contact/>}/>
 
       </Routes>
     </Router>

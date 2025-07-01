@@ -1,13 +1,4 @@
-:root {
-  --lux-black: #272727;    /* dominant */
-  --lux-beige: #D4AA7D;   /* secondary */
-  --lux-gold: #EFD09E;    /* accent */
-}
 
-::selection {
-  background-color: var(--lux-gold);
-  color: var(--lux-black);
-}
 
 .container {
   margin: 0 auto;
@@ -15,21 +6,20 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--lux-black);
+  background: whitesmoke;
 }
 
 .form {
   width: 400px;
-  background-image: linear-gradient(to bottom, var(--lux-beige), var(--lux-black));
+background:cornsilk ;
   display: flex;
   align-items: center;
   flex-direction: column;
   border-radius: 0.5rem;
-  box-shadow: 0 0 20px var(--lux-beige);
 }
 
 .title {
-  color: var(--lux-gold);
+  color: #22333b;
   margin: 3rem 0 2rem 0;
   font-size: 2rem;
   font-family: 'Segoe UI', 'Arial', sans-serif;

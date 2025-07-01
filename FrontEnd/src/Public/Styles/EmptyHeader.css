@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 32px;
-    background: var(--lux-black); /* dominant color */
-    color: var(--lux-beige); /* secondary color */
+    background: whitesmoke; /* dominant color */
+    color: #d6cfe0; /* secondary color */
 }
 
 .empty-logo {
@@ -13,7 +13,7 @@
     letter-spacing: 2px;
     font-family: 'Dancing Script', cursive;
     text-decoration: none; /* Remove underline */
-    color: var(--lux-gold); /* accent color */
+    color:#2e2e2e ; /* accent color */
 }
 
 .empty-nav {
@@ -31,14 +31,14 @@
 }
 
 .empty-nav li a {
-    color: var(--lux-beige);
+    color: #2e2e2e;
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.2s;
 }
 
 .empty-nav li a:hover {
-    color: var(--lux-gold);
+    color: #4e7a8e;
 }
 
 .empty-menu-toggle {
@@ -70,9 +70,3 @@
     }
 }
 
-/* Palette variables */
-:root {
-  --lux-black: #272727;  /* dominant */
-  --lux-beige: #D4AA7D;  /* secondary */
-  --lux-gold: #EFD09E;   /* accent */
-}

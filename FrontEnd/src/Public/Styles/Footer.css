@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
-  background: var(--lux-black); /* dominant color background */
-  color: var(--lux-beige); /* secondary color text */
+  background: #faf6e9; /* replaced lux-black with light cream */
+  color:#07004d; /* secondary color text (unchanged) */
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -30,13 +30,13 @@
   font-size: 1.7rem;
   font-weight: bold;
   letter-spacing: 2px;
-  color: var(--lux-gold); /* accent color for logo */
+  color: #2a3439; /* replaced lux-gold with gunmetal */
 }
 
 .footer-desc {
   margin-top: 0.7rem;
   font-size: 1rem;
-  color: #c9b89d; /* softer beige tone for description */
+  color: #52b2cf; /* softer beige tone for description */
 }
 
 .footer-contact,
@@ -48,20 +48,20 @@
 .footer-contact h4,
 .footer-links h4 {
   margin-bottom: 0.5rem;
-  color: var(--lux-gold); /* accent color headers */
+  color: #2a3439; /* replaced lux-gold with gunmetal */
   font-size: 1.1rem;
 }
 
 .footer-contact a,
 .footer-links a {
-  color: var(--lux-beige);
+  color: #52b2cf; /* unchanged */
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 .footer-contact a:hover,
 .footer-links a:hover {
-  color: var(--lux-gold);
+  color: #2a3439; /* replaced lux-gold with gunmetal */
 }
 
 .footer-links ul {
@@ -75,17 +75,17 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(239, 208, 158, 0.5); /* semi-transparent accent color border */
+  border-top: 1px solid rgba(42, 52, 57, 0.5); 
   margin-top: 2rem;
   padding-top: 1rem;
   text-align: center;
   font-size: 0.95rem;
-  color: #b7a87a; /* muted beige tone */
+  color: #b7a87a; 
 }
 
 .footer-legal {
   font-size: 0.9em;
-  color: #a3966b; /* slightly darker beige */
+  color: #a3966b; 
 }
 
 /* Responsive Layout */
@@ -102,11 +102,4 @@
     width: 100%;
     margin-left: 0;
   }
-}
-
-/* Palette variables */
-:root {
-  --lux-black: #272727;   /* dominant */
-  --lux-beige: #D4AA7D;  /* secondary */
-  --lux-gold: #EFD09E;   /* accent */
 }

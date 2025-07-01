@@ -4,9 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--lux-silver);
+  color: #d6cfe0;
   padding: 1rem 2rem;
-  background: var(--lux-beige);
+  background: whitesmoke; 
   box-shadow: 0 2px 8px rgba(212, 175, 55, 0.1); /* soft gold shadow */
 }
 
@@ -16,7 +16,7 @@
   font-family: 'Dancing Script', cursive;
   letter-spacing: 1px;
   justify-content: flex-start;
-  color: var(--lux-gold);
+  color: #2e2e2e;
 }
 
 .nav {
@@ -31,22 +31,21 @@
   display: flex;
   gap: 2rem;
   list-style: none;
-  border: 1px solid var(--lux-gold);
-  background: var(--lux-beige);
+
   border-radius: 2rem;
   margin: 0;
   padding: 5px 35px;
 }
 
 .nav li a {
-  color: var(--lux-teal);
+  color: #2e2e2e;
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.2s;
 }
 
 .nav li a:hover {
-  color: var(--lux-gold);
+  color: #4e7a8e;
 }
 
 .nav ul li {
@@ -71,9 +70,8 @@
 
 .bton {
   padding: 0.6em 1.5em;
-  border: solid 2px var(--lux-gold);
   border-radius: 2em;
-  background: var(--lux-beige);
+  background: #4e7a8e;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -82,15 +80,15 @@
   box-shadow: 0 2px 8px rgba(212, 175, 55, 0.12);
   text-decoration: none;
   display: inline-block;
-  color: var(--lux-gold);
+  color: whitesmoke;
 }
 
 .bton:hover,
 .bton:focus {
-  background: var(--lux-gold);
+  background: #f7f4e9;
   transform: translateY(-2px) scale(1.04);
   box-shadow: 0 4px 16px rgba(38, 70, 83, 0.18);
-  color: var(--lux-beige);
+  color: #4e7a8e;
   text-decoration: none;
 }
 

@@ -65,11 +65,10 @@ const Homepage = () => {
           <p>Luxury Rentals • Premium Service</p>
         
         </div>
-          <div className='hero-btns'>
-          <button>See Fleet</button>
-          <button>Contact Us</button>
-
-        </div>
+     <div className="hero-btns">
+  <Link to="/login">Login</Link>
+  <Link to="/contact">Contact Us</Link>
+</div>
         
       </div>
 
@@ -121,3 +120,4 @@ const Homepage = () => {
 };
 
 export default Homepage;
+//This is made by Siddhartha Bhattarai.

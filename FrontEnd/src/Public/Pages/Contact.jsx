@@ -8,6 +8,9 @@ import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
+//This is made by Siddhartha Bhattarai.
+
+
 const Contact = () => {
   const formRef = useRef(null);
   const buttonRef = useRef(null);
@@ -47,6 +50,9 @@ const Contact = () => {
       btn.removeEventListener('mouseleave', onLeave);
     };
   }, []);
+
+  //This is made by Siddhartha Bhattarai.
+
 
   const shakeButton = () => {
     const btn = buttonRef.current;

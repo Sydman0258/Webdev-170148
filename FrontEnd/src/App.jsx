@@ -8,6 +8,7 @@ import AdminDashboard from "./private/Pages/AdminDashboard";
 import About from "./Public/Pages/Aboutus";
 import Contact from "./Public/Pages/Contact";
 
+//This is made by Siddhartha Bhattarai.
 
 function App() {
   return (

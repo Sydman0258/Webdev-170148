@@ -33,7 +33,7 @@ const Footer = () => (
     <div className="footer-bottom">
       <span>
         &copy; {new Date().getFullYear()} VROOM TRACK<sup>®</sup>. All rights reserved. 
-        <span className="footer-legal"> | Registered Trademark. | Designed in California.</span>
+        <span className="footer-legal"> | Registered Trademark. | Designed by Siddhartha.</span>
       </span>
     </div>
   </footer>

@@ -7,44 +7,82 @@
 
 /* Hero Section */
 .hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;              /* Full viewport height */
+  overflow: hidden;
+}
+
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* Ensures the image fills the container */
+  display: block;
+}
+
+.hero-text-top-left {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+    z-index: 10;
+
+  color: black;
+  padding: 1rem 1.5rem;
+  max-width: 500px;
+   opacity: 0;               /* start invisible */
+  animation: fadeIn 2.5s ease forwards; /* fade in over 2 seconds */
+  animation-delay: 0.5s;    /* optional delay before fade starts */
+}
+@keyframes fadeIn {
+  to{
+    opacity: 1;
+  }
+
+  
+}
+.hero-btns {
+  position: absolute;
+  bottom: 3rem;          /* Distance from bottom of hero section */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 70px;
-  margin-left: 40px;
-  gap: 2rem;
+  gap: 1.5rem;
+  z-index: 10;
 }
-
-.Motto {
-  flex: 1;
-}
-.hero-image {
-  flex: 1;
-  text-align: right;
-}
-
-.hero-image img {
-  max-width: 100%;
-  height: 500px;
-  width: 55%;
-  border-radius: 1rem;
-}
-
-
-.hero-section h1 {
-  font-size: 5rem;
-  color: var(--terracotta);
-  margin-bottom: 1rem;
-  font-family: "Times New Roman", Times, serif;
+.hero-btns button {
+  padding: 0.8rem 1.8rem;
+  border: none;
+  background-color:#4e7a8e; 
+  color: white;
+  font-size: 1rem;
+  border-radius: 2rem;
   font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.hero-btns button:hover {
+  background-color:cornsilk;
+  color: #4e7a8e;
 }
 
-.hero-section p {
-  font-size: 1.5rem;
-  color: var(--teal);
-  margin-bottom: 2rem;
-  font-family: "Arial", sans-serif;
+
+.hero-text-top-left h1 {
+  font-family: 'Lequire';
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+
 }
+
+.hero-text-top-left p {
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  margin: 0;
+}
+
+
+
+
+
 
 /* Vehicles Section */
 .vehicles-section {
@@ -60,11 +98,11 @@
 }
 
 .vehicles-section h2 {
-  font-family: 'Fredericka the Great', cursive;
+  font-family: 'Lequire', cursive;
   font-size: 3rem;
-  text-shadow: 2px 2px 6px rgba(217, 108, 95, 0.6);
+  text-shadow: 2px 2px 6px rgba(159, 134, 131, 0.6);
   margin-bottom: 0.25em;
-  color: var(--terracotta);
+  color: black);
 }
 
 .vehicles-section p {
@@ -99,8 +137,9 @@
 .car-card {
   width: 100%;
   height: 100%;
-  background: var(--beige);
+  background:#d6cfe0 ;
   border-radius: 1.5rem;
+  text-decoration: none;
   box-shadow: 0 4px 24px rgba(94, 139, 126, 0.15);
   padding: 1.5rem;
   text-align: center;
@@ -108,6 +147,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
+  cursor: pointer;
+
+
 }
 
 .car-card:hover {

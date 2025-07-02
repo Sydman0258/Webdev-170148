@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const { connection } = require('./Database/db');  // Your DB connection function
 const userRouter = require('./routes/userRoute'); // Your user routes
+const rentalRouter = require('./routes/rentalRoute');
 
 const cors = require('cors');
 
@@ -17,6 +18,7 @@ app.use('/api/users', userRouter);
 app.get('/', (req, res) => {
   res.send('API is running');
 });
+app.use('/api', rentalRouter); 
 
 const PORT = process.env.PORT || 5000;
 

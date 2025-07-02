@@ -2,3 +2,9 @@ body {
  
   background: white;
 }
+@font-face {
+  font-family: 'Lequire';
+  src: url('./assets/fonts/Lequire.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

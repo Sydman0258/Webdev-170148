@@ -3,7 +3,6 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../Database/db');
 
 const Car = sequelize.define('Car', {
-  // Example fields — adjust as needed
   make: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -20,9 +19,8 @@ const Car = sequelize.define('Car', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  // Add other fields like color, VIN, etc.
 }, {
-  tableName: 'Cars', // optional, for exact DB table name
+  tableName: 'Cars', 
   timestamps: true,
 });
 

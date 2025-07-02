@@ -7,6 +7,7 @@ import Profile from "./private/Pages/Profile";
 import AdminDashboard from "./private/Pages/AdminDashboard";
 import About from "./Public/Pages/Aboutus";
 import Contact from "./Public/Pages/Contact";
+import AddRental from "./private/Pages/AddRentals";
 
 //This is made by Siddhartha Bhattarai.
 
@@ -22,6 +23,8 @@ function App() {
          <Route path="/admin/dashboard" element={<AdminDashboard />} />
          <Route path ="/about" element ={<About/>}/>
          <Route path ="/contact" element ={<Contact/>}/>
+                 <Route path="/rentals/add" element={<AddRental />} />
+
 
       </Routes>
     </Router>

@@ -1,0 +1,80 @@
+.add-rental-container {
+  background-color: #272727;
+  color: #EFD09E;
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.add-rental-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.add-rental-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.add-rental-form {
+  background-color: #1f1f1f;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(239, 208, 158, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.add-rental-form label {
+  font-weight: 500;
+}
+
+.add-rental-form input,
+.add-rental-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #000;
+}
+
+.add-rental-form input[type="file"] {
+  background-color: transparent;
+  color: #EFD09E;
+  border: none;
+  padding: 0;
+}
+
+.add-rental-form button {
+  background-color: #EFD09E;
+  color: #272727;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(239, 208, 158, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.add-rental-form button:hover {
+  transform: scale(1.02);
+}
+
+.add-rental-message {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.add-rental-message.success {
+  color: #90ee90;
+}
+
+.add-rental-message.error {
+  color: #ff6b6b;
+}

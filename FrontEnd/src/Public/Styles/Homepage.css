@@ -15,10 +15,12 @@
 
 .hero-bg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;          /* Ensures the image fills the container */
-  display: block;
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  z-index: -1;
 }
+
 
 .hero-text-top-left {
   position: absolute;

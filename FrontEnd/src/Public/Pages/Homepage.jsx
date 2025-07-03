@@ -1,43 +1,47 @@
-import React, { useRef } from 'react'; // React core and hooks
-import '../Styles/Homepage.css'; // Import CSS styles for homepage
+import React, { useRef, useEffect, useState } from 'react';
+import '../Styles/Homepage.css';
 import { Link } from 'react-router-dom';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-import 'slick-carousel/slick/slick.css'; // Slick carousel default styles
-import 'slick-carousel/slick/slick-theme.css'; // Slick carousel theme styles
+import Slider from 'react-slick';
 
-import Slider from 'react-slick'; // Carousel component
+import Header from './Header';
+import Footer from './Footer';
 
-import Header from './Header'; // Site header component
-import Footer from './Footer'; // Site footer component
+import heroimg from '../../assets/heroimg.png';
 
-import rollsroyce from '../../assets/Rolls.png'; // Rolls Royce car image
-import lotus from '../../assets/lotus.png'; // Lotus Elise car image
-import lotus2 from '../../assets/lotus2.png'; // Lotus Evora car image
-import lotus3 from '../../assets/lotus3.png'; // Lotus Exige car image
-import heroimg from '../../assets/heroimg.png'; // Hero section main image
-
-import { FaShieldAlt, FaClock, FaCarSide } from 'react-icons/fa'; // Service icons
+import { FaShieldAlt, FaClock, FaCarSide } from 'react-icons/fa';
 
 const Homepage = () => {
-  const textRef = useRef(null); // Ref for hero text (still here if needed)
+  const textRef = useRef(null);
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Car list
-  const cars = [
-    { name: "Rolls Royce Phantom", image: rollsroyce, price: "$500/day", type: "Petrol" },
-    { name: "Lotus Elise", image: lotus, price: "$310/day", type: "Petrol" },
-    { name: "Lotus Evora", image: lotus2, price: "$320/day", type: "Hybrid" },
-    { name: "Lotus Exige", image: lotus3, price: "$330/day", type: "Petrol" },
-  ];
+  const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
-  // Services list
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/cars`);
+        const data = await res.json();
+        setCars(data);
+      } catch (error) {
+        console.error('Failed to fetch cars:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCars();
+  }, []);
+
   const services = [
     { title: "Fully Insured", icon: <FaShieldAlt />, description: "All vehicles are fully insured for your peace of mind." },
     { title: "24/7 Service", icon: <FaClock />, description: "Our support team is available around the clock." },
     { title: "Premium Fleet", icon: <FaCarSide />, description: "Choose from the latest luxury and performance cars." },
   ];
 
-  // Carousel settings
   const settings = {
     infinite: true,
     slidesToShow: 3,
@@ -57,43 +61,54 @@ const Homepage = () => {
     <>
       <Header />
 
-      {/* Hero section with image and static top-left text */}
+      {/* Hero Section */}
       <div className="hero-section">
         <img src={heroimg} alt="Luxury Car" className="hero-bg" />
         <div className="hero-text-top-left" ref={textRef}>
           <h1>Drive Your Journey</h1>
           <p>Luxury Rentals • Premium Service</p>
-        
         </div>
-     <div className="hero-btns">
-  <Link to="/login">Login</Link>
-  <Link to="/contact">Contact Us</Link>
-</div>
-        
+        <div className="hero-btns">
+          <Link to="/login">Login</Link>
+          <Link to="/contact">Contact Us</Link>
+        </div>
       </div>
 
-      {/* Vehicles Carousel Section */}
+      {/* Carousel Section */}
       <div className="vehicles-section">
         <h2>Choose What Others Only Dream Of</h2>
         <p>Because when you choose from the extraordinary, you don’t browse — you claim</p>
 
-      <div className="carousel-container">
-  <Slider {...settings}>
-    {cars.map((car, idx) => (
-      <div key={idx}>
-        <Link to="/login" className="car-card">
-          <img src={car.image} alt={car.name} className="car-img" />
-          <h3>{car.name}</h3>
-          <div className="car-info-row">
-            <span className="car-type">{car.type}</span>
-            <span className="car-price">{car.price}</span>
+        {loading ? (
+          <p>Loading cars...</p>
+        ) : cars.length === 0 ? (
+          <p>No cars available</p>
+        ) : (
+          <div className="carousel-container">
+            <Slider {...settings}>
+              {cars.map((car, idx) => (
+                <div key={idx}>
+                  <Link to="/login" className="car-card">
+                    <img
+                      src={
+                        car.image
+                          ? `${API_BASE}/uploads/${car.image}`
+                          : 'https://via.placeholder.com/300x200?text=No+Image'
+                      }
+                      alt={car.model}
+                      className="car-img"
+                    />
+                    <h3>{car.make} {car.model}</h3>
+                    <div className="car-info-row">
+                      <span className="car-type">{car.fuelType || 'N/A'}</span>
+                      <span className="car-price">${car.pricePerDay}/day</span>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </Slider>
           </div>
-        </Link>
-      </div>
-    ))}
-  </Slider>
-</div>
-
+        )}
       </div>
 
       {/* Services Section */}
@@ -120,4 +135,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-//This is made by Siddhartha Bhattarai.

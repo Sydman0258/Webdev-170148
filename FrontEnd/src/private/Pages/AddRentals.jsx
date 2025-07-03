@@ -1,57 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import '../Styles/AddRental.css';
 
 const AddRental = () => {
-  const [cars, setCars] = useState([]);
-  const [carId, setCarId] = useState('');
-  const [price, setPrice] = useState('');
+  const [make, setMake] = useState('');
+  const [model, setModel] = useState('');
+  const [year, setYear] = useState('');
+  const [pricePerDay, setPricePerDay] = useState('');
+  const [fuelType, setFuelType] = useState('');
+  const [company, setCompany] = useState('');
+  const [price, setPrice] = useState(''); // total rental price
   const [returnDate, setReturnDate] = useState('');
+  const [image, setImage] = useState(null);
   const [message, setMessage] = useState('');
+
   const API_BASE = import.meta.env.VITE_BACKEND_URL;
   const token = localStorage.getItem('token');
 
-  // Fetch available cars
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/api/cars`);
-        const data = await res.json();
-        setCars(data);
-      } catch (error) {
-        console.error('Failed to fetch cars:', error);
-        setMessage('Could not load cars');
-      }
-    };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
 
-    fetchCars();
-  }, [API_BASE]);
-
-  // Handle rental submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!carId || !price) {
-      setMessage('Please fill in required fields');
+
+    if (!make || !model || !year || !pricePerDay || !image) {
+      setMessage('Please fill in all required fields');
       return;
     }
+
+    const formData = new FormData();
+    formData.append('make', make);
+    formData.append('model', model);
+    formData.append('year', year);
+    formData.append('pricePerDay', pricePerDay);
+    formData.append('fuelType', fuelType);
+    formData.append('company', company);
+    formData.append('image', image);
 
     try {
       const res = await fetch(`${API_BASE}/api/rent`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ carId, price, returnDate }),
+        body: formData, // Let browser set Content-Type for multipart/form-data
       });
 
       const data = await res.json();
 
       if (res.ok) {
         setMessage('✅ Rental created successfully!');
-        setCarId('');
+        // Clear form fields
+        setMake('');
+        setModel('');
+        setYear('');
+        setPricePerDay('');
+        setFuelType('');
+        setCompany('');
         setPrice('');
-        setReturnDate('');
+        setImage(null);
       } else {
-        setMessage(data.error || 'Rental failed');
+        setMessage(data.error || 'Rental creation failed');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -60,52 +70,94 @@ const AddRental = () => {
   };
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
-      <h2>Add a Rental</h2>
+    <div className="add-rental-container">
+      <div className="add-rental-form-wrapper">
+        <h2 className="add-rental-title">Add a Rental</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="carId">Select Car:</label>
-        <select
-          id="carId"
-          value={carId}
-          onChange={(e) => setCarId(e.target.value)}
-          required
+        <form
+          className="add-rental-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
         >
-          <option value="">-- Choose a car --</option>
-          {cars.map((car) => (
-            <option key={car.id} value={car.id}>
-              {car.make} {car.model} ({car.year})
-            </option>
-          ))}
-        </select>
+          <label htmlFor="make">Car Company (Make):</label>
+          <input
+            id="make"
+            value={make}
+            onChange={(e) => setMake(e.target.value)}
+            required
+            placeholder="e.g. Tesla"
+          />
 
-        <br /><br />
+          <label htmlFor="model">Car Model:</label>
+          <input
+            id="model"
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            required
+            placeholder="e.g. Model S"
+          />
 
-        <label htmlFor="price">Rental Price:</label>
-        <input
-          type="number"
-          id="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
+          <label htmlFor="year">Year:</label>
+          <input
+            id="year"
+            type="number"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            required
+            placeholder="e.g. 2023"
+          />
 
-        <br /><br />
+          <label htmlFor="pricePerDay">Price Per Day ($):</label>
+          <input
+            id="pricePerDay"
+            type="number"
+            value={pricePerDay}
+            onChange={(e) => setPricePerDay(e.target.value)}
+            required
+            placeholder="e.g. 120"
+          />
 
-        <label htmlFor="returnDate">Return Date (optional):</label>
-        <input
-          type="date"
-          id="returnDate"
-          value={returnDate}
-          onChange={(e) => setReturnDate(e.target.value)}
-        />
+          <label htmlFor="fuelType">Fuel Type:</label>
+          <input
+            id="fuelType"
+            value={fuelType}
+            onChange={(e) => setFuelType(e.target.value)}
+            placeholder="e.g. Electric, Petrol"
+          />
 
-        <br /><br />
+          <label htmlFor="company">Car Company (Optional):</label>
+          <input
+            id="company"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            placeholder="Optional"
+          />
 
-        <button type="submit">Add Rental</button>
-      </form>
+       
+      
 
-      {message && <p style={{ marginTop: '1rem' }}>{message}</p>}
+          <label htmlFor="image">Upload Car Image:</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+            required
+          />
+
+          <button type="submit">Add Rental</button>
+        </form>
+
+        {message && (
+          <p
+            className={`add-rental-message ${
+              message.startsWith('✅') ? 'success' : 'error'
+            }`}
+          >
+            {message}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

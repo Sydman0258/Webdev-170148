@@ -19,8 +19,20 @@ const Car = sequelize.define('Car', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+  fuelType: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  company: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  image: {
+    type: DataTypes.STRING, // Store filename or cloud URL
+    allowNull: true,
+  },
 }, {
-  tableName: 'Cars', 
+  tableName: 'Cars',
   timestamps: true,
 });
 

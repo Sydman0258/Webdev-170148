@@ -1,9 +1,10 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 require('dotenv').config();
 
 const { connection } = require('./Database/db');  // Your DB connection function
-const userRouter = require('./routes/userRoute'); // Your user routes
+const userRouter = require('./routes/userRoute');
 const rentalRouter = require('./routes/rentalRoute');
 
 const cors = require('cors');
@@ -11,18 +12,22 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
+// ✅ Serve uploaded images
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Mount user routes at /api/users
 app.use('/api/users', userRouter);
 
-// Simple root test route
+// Rental routes (e.g., /api/rent)
+app.use('/api', rentalRouter); 
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });
-app.use('/api', rentalRouter); 
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to DB and then start server
+// Connect to DB and start server
 connection()
   .then(() => {
     app.listen(PORT, () => {

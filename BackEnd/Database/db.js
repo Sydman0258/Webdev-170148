@@ -25,3 +25,4 @@ if (process.env.NODE_ENV !== 'production') {
 };
 
 module.exports = { sequelize, connection };
+//This is made by Siddhartha Bhattarai.

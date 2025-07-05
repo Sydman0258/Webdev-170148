@@ -24,6 +24,9 @@ app.use('/api', rentalRouter);
 app.get('/', (req, res) => {
   res.send('API is running');
 });
+const authRouter = require('./routes/auth'); 
+app.use('/api/auth', authRouter);           
+
 
 const PORT = process.env.PORT || 5000;
 

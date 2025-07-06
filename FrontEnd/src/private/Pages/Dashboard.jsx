@@ -3,16 +3,14 @@ import { useNavigate } from "react-router-dom";
 import LoginHeader from "./LoginHeader";
 import Footer from "../../Public/Pages/Footer";
 
-import rollsroyce from '../../assets/Rolls.png';
-import lotus from '../../assets/lotus.png';
-import lotus2 from '../../assets/lotus2.png';
-import lotus3 from '../../assets/lotus3.png';
-
 import "../Styles/Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [cars, setCars] = useState([]);
+
+  const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -21,12 +19,24 @@ const Dashboard = () => {
     } else {
       setUser(JSON.parse(storedUser));
     }
+
+    // Fetch cars from backend
+    const fetchCars = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/cars`);
+        const data = await res.json();
+        setCars(data);
+      } catch (err) {
+        console.error("Failed to fetch cars:", err);
+      }
+    };
+
+    fetchCars();
   }, [navigate]);
 
-  const handleCarClick = (carName) => {
-    alert(`You clicked on ${carName}`);
-    // You can navigate to car details page or modal here
-  };
+ const handleCarClick = (carId) => {
+  navigate(`/booking/${carId}`);
+};
 
   return (
     <>
@@ -40,32 +50,36 @@ const Dashboard = () => {
         <section className="offer-section">
           <h3>Offers for You</h3>
           <div className="car-list">
-            {[{
-              name: "Rolls Royce Phantom",
-              image: rollsroyce,
-            }, {
-              name: "Lotus Elise",
-              image: lotus,
-            }, {
-              name: "Lotus Evora",
-              image: lotus2,
-            }, {
-              name: "Lotus Exige",
-              image: lotus3,
-            }].map((car, idx) => (
-              <div
-                key={idx}
-                className="car-item"
-                onClick={() => handleCarClick(car.name)}
-                tabIndex={0}
-                role="button"
-                onKeyDown={(e) => { if (e.key === "Enter") handleCarClick(car.name); }}
-                aria-label={`View details for ${car.name}`}
-              >
-                <img src={car.image} alt={car.name} />
-                <p>{car.name}</p>
-              </div>
-            ))}
+            {cars.length === 0 ? (
+              <p>No cars available.</p>
+            ) : (
+              cars.map((car, idx) => (
+                <div
+                  key={idx}
+                  className="car-item"
+                  tabIndex={0}
+                  aria-label={`View details for ${car.make} ${car.model}`}
+                >
+                  <img
+                    src={
+                      car.image
+                        ? `${API_BASE}/uploads/${car.image}`
+                        : "https://via.placeholder.com/300x200?text=No+Image"
+                    }
+                    alt={`${car.make} ${car.model}`}
+                  />
+                  <p>{car.make} {car.model}</p>
+                  <p>Fuel Type: {car.fuelType || "N/A"}</p>
+                  <p>Price: ${car.pricePerDay}/day</p>
+                  <button
+                    className="book-button"
+                    onClick={() => handleCarClick(car.id)}
+                  >
+                    Book This
+                  </button>
+                </div>
+              ))
+            )}
           </div>
         </section>
       </main>

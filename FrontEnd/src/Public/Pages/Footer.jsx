@@ -14,8 +14,8 @@ const Footer = () => (
       <div className="footer-contact">
         <h4>Contact Us</h4>
         <p>
-          Email: <a href="mailto:info@vroomtrack.com">info@vroomtrack.com</a><br />
-          Phone: <a href="tel:+1234567890">+1 (234) 567-890</a><br />
+          Email: <a href="mailto:info@vroomtrack.com">vroomtrack0258@gmail.com</a><br />
+          Phone: <a >+977 9841258444</a><br />
           123 Car ave, Suite 100<br />
          Madhyapur Thimi, Bhaktapur, Nepal
         </p>

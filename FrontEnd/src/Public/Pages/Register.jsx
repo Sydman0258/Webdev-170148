@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
 import "../Styles/Auth.css";
+import heroimg from '../../assets/heroimg.png';
+
 
 const Register = () => {
   const {
@@ -39,6 +41,8 @@ const Register = () => {
     <>
       <EmptyHeader />
       <div className="container">
+                <img src={heroimg} alt="Luxury Car" className="hero-blur" />
+        
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <p className="title">Register</p>
 
@@ -85,13 +89,29 @@ const Register = () => {
           />
           {errors.password && <span className="auth-error">{errors.password.message}</span>}
 
-          <input
-            type="date"
-            placeholder="Date of Birth"
-            className="input"
-            {...register("dob", { required: "Date of birth is required" })}
-          />
-          {errors.dob && <span className="auth-error">{errors.dob.message}</span>}
+        <input
+  type="date"
+  placeholder="Date of Birth"
+  className="input"
+  {...register("dob", {
+    required: "Date of birth is required",
+    validate: (value) => {
+      const today = new Date();
+      const dob = new Date(value);
+      const ageDiff = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      const d = today.getDate() - dob.getDate();
+
+      const is18OrOlder =
+        ageDiff > 18 ||
+        (ageDiff === 18 && (m > 0 || (m === 0 && d >= 0)));
+
+      return is18OrOlder || "You must be at least 18 years old.";
+    },
+  })}
+/>
+{errors.dob && <span className="auth-error">{errors.dob.message}</span>}
+
 
           <button className="btn" type="submit">Register</button>
 

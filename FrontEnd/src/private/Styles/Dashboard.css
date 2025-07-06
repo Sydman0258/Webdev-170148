@@ -1,82 +1,99 @@
 :root {
-  --lux-black: #272727;    /* dominant */
-  --lux-beige: #D4AA7D;   /* secondary */
-  --lux-gold: #EFD09E;    /* accent */
-  --lux-shadow: rgba(239, 208, 158, 0.5);
+  --gunmetal: #2a3439;        /* Dominant background color */
+  --khaki: #c3b091;           /* Secondary text color */
+  --steel-blue: #4682B4;      /* Accent color */
+  --lux-shadow: rgba(239, 208, 158, 0.5); /* Shadow color with opacity */
 }
 
 .dashboard-main {
-  min-height: 70vh;
-  padding: 3rem 2rem;
-  background: var(--lux-black);
-  color: var(--lux-beige);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* Removed max-width and margin to let it span full width */
+  min-height: 70vh;           /* Minimum height for main section */
+  padding: 3rem 2rem;         /* Vertical and horizontal padding */
+  background: var(--gunmetal); /* Background color */
+  color: var(--khaki);        /* Text color */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font family */
 }
 
 .welcome-section h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  color: var(--lux-gold);
+  font-size: 2.8rem;          /* Large heading font size */
+  font-weight: 700;           /* Bold font weight */
+  margin-bottom: 0.3rem;      /* Small space below heading */
+  color: var(--steel-blue);   /* Accent color for heading */
 }
 
 .welcome-section h2 {
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: var(--lux-beige);
-  margin-top: 0;
-  margin-bottom: 3rem;
+  font-size: 1.8rem;          /* Subheading font size */
+  font-weight: 500;           /* Medium font weight */
+  color: var(--khaki);        /* Secondary text color */
+  margin-top: 0;              /* Remove top margin */
+  margin-bottom: 3rem;        /* Space below subheading */
 }
 
 .offer-section h3 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: var(--lux-gold);
-  border-bottom: 2px solid var(--lux-gold);
-  padding-bottom: 0.3rem;
-  max-width: max-content;
+  font-size: 2rem;            /* Section heading size */
+  font-weight: 600;           /* Semi-bold font */
+  margin-bottom: 1.5rem;      /* Space below heading */
+  color: var(--steel-blue);   /* Accent color */
+  border-bottom: 2px solid var(--steel-blue); /* Underline with accent color */
+  padding-bottom: 0.3rem;     /* Padding below text for underline spacing */
+  max-width: max-content;     /* Width adjusts to content */
 }
 
 .car-list {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: flex;              /* Use flexbox for layout */
+  gap: 1.5rem;                /* Space between items */
+  flex-wrap: wrap;            /* Wrap items to next line if needed */
+  justify-content: center;    /* Center the items horizontally */
 }
 
 .car-item {
-  background: var(--lux-black);
-  border: 2px solid var(--lux-gold);
-  border-radius: 12px;
-  padding: 0.5rem;
-  width: 180px;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 0 0 10px var(--lux-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  user-select: none;
+  background: var(--gunmetal); /* Background color for each car card */
+  border: 2px solid var(--steel-blue); /* Border with accent color */
+  border-radius: 12px;        /* Rounded corners */
+  padding: 0.5rem;            /* Inner spacing */
+  width: 220px;               /* Slightly increased width from 180px */
+  cursor: pointer;            /* Pointer cursor on hover */
+  text-align: center;         /* Center text inside */
+  box-shadow: 0 0 10px var(--lux-shadow); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+  user-select: none;          /* Prevent text selection */
 }
 
 .car-item img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 0.7rem;
+  width: 100%;                /* Full width image */
+  height: 140px;              /* Slightly increased height from 120px */
+  object-fit: cover;          /* Cover image without distortion */
+  border-radius: 8px;         /* Rounded image corners */
+  margin-bottom: 0.7rem;      /* Space below image */
 }
 
 .car-item p {
-  font-weight: 600;
-  color: var(--lux-beige);
-  font-size: 1.1rem;
+  font-weight: 600;           /* Semi-bold text */
+  color: var(--khaki);        /* Secondary text color */
+  font-size: 1.1rem;          /* Slightly larger font */
+  margin: 0.3rem 0;           /* Vertical margin for spacing */
 }
 
 .car-item:hover,
 .car-item:focus {
-  border-color: var(--lux-beige);
-  box-shadow: 0 0 15px var(--lux-gold);
-  transform: scale(1.05);
-  outline: none;
+  border-color: var(--khaki); /* Change border color on hover/focus */
+  box-shadow: 0 0 15px var(--steel-blue); /* Stronger shadow on hover */
+  transform: scale(1.07);     /* Slightly larger scale on hover */
+  outline: none;              /* Remove default outline */
+}
+
+.book-button {
+  margin-top: 0.5rem;         /* Space above button */
+  padding: 0.6rem 1.5rem;     /* Vertical and horizontal padding */
+  font-size: 1rem;            /* Button font size */
+  font-weight: bold;          /* Bold text */
+  border: none;               /* Remove default border */
+  border-radius: 1rem;        /* Rounded pill-shaped button */
+  background-color: #d96c5f;  /* Button background color */
+  color: #fff;                /* White text */
+  cursor: pointer;            /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.book-button:hover {
+  background-color: #b85a4d;  /* Darker background on hover */
 }

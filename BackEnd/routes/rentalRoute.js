@@ -15,6 +15,21 @@ router.post('/rent', verifyToken, upload.single('image'), createRental);
 
 router.get('/admin/stats', verifyToken, getAdminStats);
 
+
+// GET /api/cars/:id
+router.get('/cars/:id', async (req, res) => {
+  try {
+    const car = await Car.findByPk(req.params.id);
+    if (!car) return res.status(404).json({ error: "Car not found" });
+    res.json(car);
+  } catch (error) {
+    console.error('Error fetching car by id:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
 // Add this route to fetch all cars
 router.get('/cars', async (req, res) => {
   try {

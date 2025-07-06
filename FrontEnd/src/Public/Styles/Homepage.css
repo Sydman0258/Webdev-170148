@@ -95,7 +95,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 200px;
+  margin-top: 65px;
   text-align: center;
   background: #d6cfe0;
   padding: 2rem 1rem;
@@ -196,7 +196,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 9px;
   background: #e7e6e4;
   padding: 2rem 1rem;
   border-radius: 1rem;
@@ -297,3 +297,74 @@
   --beige: #FFF8E7;
   --teal: #5E8B7E;
 }
+.testimonials-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem 0;
+}
+
+/* Each testimonial box */
+.testimonial-card {
+  display: flex;
+  gap: 2rem;
+  width: 70%;
+  /* Align left by default */
+}
+
+/* Second testimonial container aligned to right */
+.testimonial-card.right-align {
+  margin-left: auto; /* push entire box to right */
+}
+
+/* Image styles */
+.testimonial-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(78, 122, 142, 0.3);
+  flex-shrink: 0;
+}
+
+/* When image on right (for odd index) */
+.testimonial-photo.photo-right {
+  order: 2; /* push image to the right */
+}
+
+/* Text container */
+.testimonial-content {
+  background: #f0f4f8;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 10px rgba(78, 122, 142, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #33475b;
+  line-height: 1.5;
+  font-size: 1.1rem;
+  max-width: 75%;
+}
+
+/* Text alignment for odd index (text on left) */
+.testimonial-content.text-left {
+  text-align: left;
+}
+
+/* Text alignment for even index (text on right) */
+.testimonial-content.text-right {
+  text-align: right;
+  margin-left: auto;
+}
+
+/* Testimonial name styling */
+.testimonial-name {
+  margin-top: 1rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #4e7a8e;
+  font-style: italic;
+}
+

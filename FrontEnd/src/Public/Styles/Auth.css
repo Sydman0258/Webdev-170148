@@ -1,152 +1,157 @@
-
-
 .container {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: whitesmoke;
+  margin: 0 auto;                        /* Center container horizontally */
+  display: flex;                        /* Use flexbox layout */
+  justify-content: center;              /* Center children horizontally */
+  align-items: center;                  /* Center children vertically */
+  min-height: 100vh;                    /* Full viewport height */
+}
+
+.hero-blur {
+  width: 100%;                         /* Full width */
+  height: auto;                        /* Automatic height */
+  object-fit: cover;                   /* Cover container maintaining aspect ratio */
+  position: absolute;                  /* Absolute positioning */
+  z-index: -1;                        /* Behind all other elements */
+  filter: blur(10px);                 /* Blur effect */
 }
 
 .form {
-  width: 400px;
-background:cornsilk ;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 0.5rem;
+  width: 400px;                       /* Fixed width */
+  background: mistyrose;               /* Cornsilk background color */
+  display: flex;                     /* Use flexbox layout */
+  align-items: center;               /* Center items vertically */
+  flex-direction: column;            /* Stack items vertically */
+  border-radius: 0.5rem;             /* Rounded corners */
 }
 
 .title {
-  color: #22333b;
-  margin: 3rem 0 2rem 0;
-  font-size: 2rem;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-weight: 700;
-  letter-spacing: 1px;
+  color: #22333B;                   /* Dark blue color for text */
+  margin: 3rem 0 2rem 0;            /* Top 3rem, bottom 2rem, no left/right margin */
+  font-size: 2rem;                  /* Font size 2rem */
+  font-family: 'Segoe UI', 'Arial', sans-serif; /* Font family */
+  font-weight: 700;                 /* Bold text */
+  letter-spacing: 1px;              /* Spacing between letters */
 }
 
 .input {
-  margin: 0.5rem 0;
-  padding: 1rem 0.5rem;
-  width: 20rem;
-  background-color: transparent;
-  color: var(--lux-beige);
-  border: none;
-  outline: none;
-  border-bottom: 1px solid var(--lux-beige);
-  transition: all 400ms;
-  font-size: 1.1rem;
-  font-family: inherit;
+  margin: 0.5rem 0;                 /* Vertical margin 0.5rem */
+  padding: 1rem 0.5rem;             /* Top/bottom padding 1rem, left/right 0.5rem */
+  width: 20rem;                    /* Fixed width */
+  background-color: lavenderblush;   /* Transparent background */
+  border: 1px solid #e3eeb2;                    /* No border */
+  border-radius: 30px;
+  outline: none;                   /* Remove outline on focus */
+  transition: all 400ms;            /* Smooth transition for all properties over 400ms */
+  font-size: 1.1rem;               /* Font size */
+  font-family: inherit;            /* Inherit font from parent */
 }
 
 .input:hover, .input:focus {
-  background-color: var(--lux-gold);
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px var(--lux-gold);
-  border: none;
-  color: var(--lux-black);
+  border: 1px solid #cee07e;        
+  
 }
 
 .input::placeholder {
-  color: rgba(212, 170, 125, 0.7);
-  font-style: italic;
-  transition: color 0.3s ease;
+  color: rgba(212, 170, 125, 0.7);  /* Placeholder color with opacity */
+  font-style: italic;                /* Italic text */
+  transition: color 0.3s ease;       /* Smooth color transition */
 }
 
 .input:focus::placeholder {
-  color: rgba(212, 170, 125, 0.4);
+  color: rgba(212, 170, 125, 0.4);  /* Placeholder color fades on focus */
 }
 
 .btn {
-  height: 3rem;
-  width: 20rem;
-  margin-top: 3rem;
-  background-color: var(--lux-beige);
-  border-radius: 0.5rem;
-  border: none;
-  font-size: 1.2rem;
-  transition: all 400ms;
-  cursor: pointer;
-  box-shadow: 0 0 10px var(--lux-gold);
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--lux-black);
+  height: 3rem;                     /* Fixed height */
+  width: 10rem;                    /* Fixed width */
+  margin-top: 3rem;                /* Top margin */
+  background-color: #545d50; /* Button background color */
+  border-radius: 20px;            /* Rounded corners */
+  border: none;                   /* No border */
+  font-size: 1.2rem;              /* Font size */
+  transition: all 400ms;           /* Smooth transition */
+  cursor: pointer;                /* Pointer cursor on hover */
+  box-shadow: 0 0 10px ghostwhite; /* Glow shadow */
+  font-weight: 600;               /* Semi-bold font */
+  letter-spacing: 1px;            /* Letter spacing */
+  color: ivory;         /* Text color */
 }
 
 .btn:hover {
-  background-color: var(--lux-gold);
-  color: var(--lux-black);
-  box-shadow: none;
+  background-color: ivory; /* Darker gold background on hover */
+  color: #545d50;            /* Text color remains black */
+  box-shadow: none;                   /* Remove shadow on hover */
 }
 
 .switch-link {
-  margin-top: 1rem;
-  color: var(--lux-beige);
-  font-size: 0.9rem;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-weight: 500;
+  margin-top: 1rem;                  /* Top margin */
+  color:black;            /* Text color */
+  font-size: 0.9rem;                 /* Smaller font size */
+  font-family: 'Segoe UI', 'Arial', sans-serif; /* Font family */
+  font-weight: 500;                  /* Medium font weight */
 }
 
 .switch-link a {
-  color: var(--lux-gold);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s;
+  color:  #4e7a8e;             /* Link color */
+  text-decoration: none;             /* No underline */
+  font-weight: 600;                  /* Bold font */
+  transition: color 0.2s;            /* Smooth color transition */
 }
 
 .switch-link a:hover {
-  color: var(--lux-beige);
-  text-decoration: underline;
+  color: #4e7a8e;                 /* Change text color on hover */
+  text-decoration: none;          /* Remove underline on hover */
+  transform: scale(1.5);         /* Slightly enlarge the link on hover */
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for scale and color */
 }
 
+
 .forgot-password {
-  margin-top: 1rem;
-  text-align: right;
-  width: 100%;
-  padding-right: 2rem;
+  margin-top: 1rem;                  /* Top margin */
+  text-align: right;                 /* Align text right */
+  width: 100%;                      /* Full width */
+  padding-right: 2rem;              /* Right padding */
 }
 
 .forgot-password a {
-  color: var(--lux-gold);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
+  color: #4e7a4e  ;            /* Link color */
+  text-decoration: none;             /* No underline */
+  font-weight: 600;                  /* Bold font */
+  transition: color 0.3s ease;       /* Smooth color transition */
+} 
 
 .forgot-password a:hover {
-  color: var(--lux-beige);
-  text-decoration: underline;
+  color:black           /* Change color on hover */
 }
 
 .auth-show-btn {
-  background: none;
-  border: none;
-  color: var(--lux-gold);
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s, background 0.2s;
-  box-shadow: none;
+  background: none;                 /* No background */
+  border: none;                    /* No border */
+  color: var(--lux-gold);           /* Text color */
+  cursor: pointer;                 /* Pointer cursor */
+  font-size: 1.1rem;               /* Font size */
+  padding: 0;                     /* No padding */
+  margin: 0;                      /* No margin */
+  display: flex;                  /* Flexbox for alignment */
+  align-items: center;            /* Center align items vertically */
+  transition: color 0.2s, background 0.2s; /* Smooth color/background transitions */
+  box-shadow: none;               /* No shadow */
 }
 
 .auth-show-btn:hover, .auth-show-btn:focus {
-  color: var(--lux-beige);
-  background: none;
-  outline: none;
+  color: var(--lux-beige);          /* Color on hover/focus */
+  background: none;                /* No background */
+  outline: none;                  /* Remove outline */
 }
+
 .input::placeholder {
-  color: rgba(55, 51, 47, 0.9); /* stronger beige with 90% opacity */
-  font-weight: 600;               /* bolder */
-  font-style: normal;             /* remove italic */
-  font-size: 1.15rem;             /* slightly bigger */
-  transition: color 0.3s ease;
+  color: rgba(55, 51, 47, 0.9);    /* Placeholder color with opacity */
+  font-weight: 600;                /* Bold placeholder text */
+  font-style: normal;              /* Normal font style */
+  font-size: 1.15rem;              /* Slightly larger font */
+  transition: color 0.3s ease;     /* Smooth color transition */
 }
 
 .input:focus::placeholder {
-  color: rgba(212, 170, 125, 0.6); /* fade a bit on focus */
+  color: rgba(212, 170, 125, 0.6); /* Placeholder fades on focus */
 }

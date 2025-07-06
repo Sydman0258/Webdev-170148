@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
+import heroimg from '../../assets/heroimg.png';
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -59,9 +61,11 @@ const Login = () => {
   };
 
   return (
-    <>
+    <>  
       <EmptyHeader />
       <div className="container">
+        <img src={heroimg} alt="Luxury Car" className="hero-blur" />
+        
         <form className="form" onSubmit={handleSubmit}>
           <p className="title">Login</p>
 

@@ -1,79 +1,89 @@
 /* Contact.css */
 
+/* Container styling for the whole contact section */
 .contact-container {
-  max-width: 600px;
-  margin: 100px auto 60px;
-  padding: 0 1rem;
-  font-family: Arial, sans-serif;
-  color: #5e8b7e; /* teal */
-  line-height: 1.6;
-  text-align: center;
+  max-width: 600px;                        /* Limit width for readability */
+  margin: 100px auto 60px;                /* Vertical spacing and horizontal centering */
+  padding: 0 1rem;                        /* Horizontal padding */
+  font-family: Arial, sans-serif;         /* Base font for content */
+  color: #5e8b7e;                         /* Teal text color */
+  line-height: 1.6;                       /* Better readability */
+  text-align: center;                     /* Centered text */
 }
 
+/* Styling for the heading inside the contact section */
 .contact-container h1 {
-  font-family: 'Fredericka the Great', cursive;
-  color: #d96c5f; /* terracotta */
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
+  font-family: 'Fredericka the Great', cursive;  /* Decorative font for elegance */
+  color: #d96c5f;                                /* Terracotta color */
+  font-size: 3.5rem;                             /* Large font size */
+  margin-bottom: 1rem;                           /* Space below heading */
 }
 
+/* Paragraph below heading */
 .contact-container p {
-  font-size: 1.2rem;
-  margin-bottom: 3rem;
-  max-width: 500px;
-  margin-left: auto;
+  font-size: 1.2rem;                /* Slightly larger font for readability */
+  margin-bottom: 3rem;              /* Space below paragraph */
+  max-width: 500px;                 /* Limit width */
+  margin-left: auto;                /* Center horizontally */
   margin-right: auto;
 }
 
+/* Styling for the form layout */
 .contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  text-align: left;
+  display: flex;                    /* Flex layout */
+  flex-direction: column;          /* Stack items vertically */
+  gap: 1.25rem;                     /* Space between form fields */
+  text-align: left;                /* Align form elements to the left */
 }
 
+/* Label styling */
 .contact-form label {
-  font-weight: bold;
-  color: #d96c5f;
+  font-weight: bold;               /* Bold labels */
+  color: #d96c5f;                  /* Match theme color */
   font-size: 1rem;
 }
 
+/* Input and textarea styling */
 .contact-form input,
 .contact-form textarea {
-  padding: 0.75rem 1rem;
-  border-radius: 0.6rem;
-  border: 2px solid #5e8b7e;
+  padding: 0.75rem 1rem;           /* Comfortable padding */
+  border-radius: 0.6rem;           /* Rounded corners */
+  border: 2px solid #5e8b7e;       /* Teal border */
   font-size: 1rem;
   font-family: Arial, sans-serif;
-  transition: border-color 0.3s ease;
-  resize: vertical;
+  transition: border-color 0.3s ease;  /* Smooth border color on focus */
+  resize: vertical;                    /* Allow vertical resizing for textarea */
 }
 
+/* Focus state styling for inputs and textarea */
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #d96c5f;
-  outline: none;
+  border-color: #d96c5f;           /* Change border to terracotta on focus */
+  outline: none;                   /* Remove default outline */
 }
 
+/* Submit button styling */
 .contact-form button {
-  background-color: #d96c5f;
-  color: #fff8e7;
+  background-color: #d96c5f;       /* Terracotta background */
+  color: #fff8e7;                  /* Soft white text */
   font-family: 'Fredericka the Great', cursive;
   font-size: 1.3rem;
   padding: 0.8rem;
   border: none;
-  border-radius: 0.8rem;
+  border-radius: 0.8rem;           /* Rounded button */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;  /* Animate hover effects */
 }
 
+/* Hover effect for button */
 .contact-form button:hover {
-  background-color: #b85a4d;
+  background-color: #b85a4d;       /* Darker terracotta on hover */
 }
 
+/* Success message shown after form submission */
 .success-message {
   margin-top: 1rem;
-  color: #5e8b7e;
+  color: #5e8b7e;                  /* Teal text */
   font-weight: 600;
   font-size: 1.1rem;
   text-align: center;

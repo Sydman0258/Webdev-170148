@@ -10,7 +10,7 @@ import Contact from "./Public/Pages/Contact";
 import AddRental from "./private/Pages/AddRentals";
 import ForgotPassword from "./Public/Pages/ForgotPassword";
 import ResetPassword from "./Public/Pages/ResetPassword";
-
+import BookingPage from "./private/Pages/BookingPage";
 //This is made by Siddhartha Bhattarai.
 
 function App() {
@@ -28,6 +28,8 @@ function App() {
       <Route path="/add-rental" element={<AddRental />} />
       <Route path="/forgot-password" element={<ForgotPassword/>}/>
               <Route path="/reset-password/:token" element={<ResetPassword />} />
+              <Route path="/booking/:carId" element={<BookingPage />} />
+
 
 
 

@@ -1,83 +1,92 @@
+/* Main container for the About page */
 .about-container {
-  max-width: 900px;
-  margin: 100px auto 60px;
-  padding: 0 1rem;
-  font-family: Arial, sans-serif;
-  color: #5e8b7e; /* teal */
-  line-height: 1.6;
+  max-width: 900px; /* Limits the width for better readability */
+  margin: 100px auto 60px; /* Top margin: 100px, bottom: 60px, auto horizontally centers */
+  padding: 0 1rem; /* Horizontal padding for inner spacing */
+  font-family: Arial, sans-serif; /* Base font for content */
+  color: #5e8b7e; /* Text color (teal) */
+  line-height: 1.6; /* Improves readability by spacing lines */
 }
 
+/* Main heading inside the About container */
 .about-container h1 {
-  font-family: 'Fredericka the Great', cursive;
-  color: #d96c5f; /* terracotta */
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  font-family: 'Fredericka the Great', cursive; /* Custom decorative font */
+  color: #d96c5f; /* Terracotta color */
+  font-size: 3.5rem; /* Large font size for emphasis */
+  margin-bottom: 1.5rem; /* Spacing below the heading */
+  text-align: center; /* Center align the heading */
 }
 
+/* Paragraph text inside the About container */
 .about-container p {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.2rem; /* Slightly larger text for readability */
+  margin-bottom: 1.5rem; /* Space below each paragraph */
 }
 
-/* Stats Section */
+/* Stats section layout */
 .about-stats {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 3rem 0 4rem;
-  gap: 1.5rem;
+  display: flex; /* Flex layout for horizontal alignment */
+  justify-content: space-around; /* Evenly space out children */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  margin: 3rem 0 4rem; /* Top margin: 3rem, bottom: 4rem */
+  gap: 1.5rem; /* Gap between flex items */
 }
 
+/* Individual statistic card styling */
 .stat-card {
-  background: #fff8e7; /* beige */
-  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2);
-  border-radius: 1rem;
-  padding: 2rem 3rem;
-  text-align: center;
-  flex: 1 1 160px;
-  min-width: 150px;
-  color: #d96c5f; /* terracotta */
-  cursor: default;
-  transition: transform 0.3s ease;
+  background: #fff8e7; /* Light beige background */
+  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2); /* Soft shadow using teal tone */
+  border-radius: 1rem; /* Rounded corners */
+  padding: 2rem 3rem; /* Inner spacing */
+  text-align: center; /* Centered content */
+  flex: 1 1 160px; /* Grow/shrink allowed, base width 160px */
+  min-width: 150px; /* Minimum width for layout stability */
+  color: #d96c5f; /* Text color (terracotta) */
+  cursor: default; /* Default cursor on hover (non-clickable) */
+  transition: transform 0.3s ease; /* Smooth transform animation on hover */
 }
 
+/* Hover effect on stat cards */
 .stat-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
+/* Stat number styling */
 .stat-card h2 {
-  font-family: 'Fredericka the Great', cursive;
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+  font-family: 'Fredericka the Great', cursive; /* Stylish font */
+  font-size: 3rem; /* Large font size for stats */
+  margin-bottom: 0.5rem; /* Space below the number */
 }
 
+/* Stat description text */
 .stat-card p {
-  font-size: 1.2rem;
-  color: #5e8b7e; /* teal */
+  font-size: 1.2rem; /* Consistent with body text size */
+  color: #5e8b7e; /* Teal color to differentiate from heading */
 }
 
-/* Mission Section */
+/* Mission section container */
 .about-mission {
-  background: #fff8e7;
-  padding: 2rem 3rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2);
-  color: #5e8b7e;
+  background: #fff8e7; /* Beige background like stat cards */
+  padding: 2rem 3rem; /* Inner spacing */
+  border-radius: 1rem; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.2); /* Same soft shadow as stat cards */
+  color: #5e8b7e; /* Text color (teal) */
 }
 
+/* Mission heading styling */
 .about-mission h2 {
-  font-family: 'Fredericka the Great', cursive;
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
-  color: #d96c5f;
-  text-align: center;
+  font-family: 'Fredericka the Great', cursive; /* Fancy heading font */
+  font-size: 2.8rem; /* Slightly smaller than the main h1 */
+  margin-bottom: 1rem; /* Space below heading */
+  color: #d96c5f; /* Terracotta color for heading */
+  text-align: center; /* Centered heading */
 }
 
+/* Mission paragraph text */
 .about-mission p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
+  font-size: 1.2rem; /* Readable text size */
+  line-height: 1.5; /* Line spacing for readability */
+  max-width: 700px; /* Restrict line length for comfort */
+  margin: 0 auto; /* Center the paragraph horizontally */
+  text-align: center; /* Center the paragraph text */
 }

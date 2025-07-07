@@ -18,6 +18,9 @@ import Header from './Header';
 import Footer from './Footer';
 // Import shared Header and Footer components
 
+import onetest from '../../assets/one.jpeg';
+import twotest from '../../assets/two.jpeg';
+
 import heroimg from '../../assets/heroimg.png';
 // Import hero section background image
 
@@ -72,8 +75,8 @@ const Homepage = () => {
     slidesToShow: 3,           // Show 3 slides at a time
     slidesToScroll: 1,         // Scroll 1 at a time
     autoplay: true,            // Enable auto-slide
-    autoplaySpeed: 3000,       // 3-second delay
-    speed: 1000,               // Transition speed
+    autoplaySpeed: 1500,       // 3-second delay
+    speed: 750,               // Transition speed
     cssEase: 'ease',           // CSS easing function
     pauseOnHover: true,        // Pause on hover
     responsive: [              // Responsive breakpoints
@@ -121,7 +124,7 @@ const Homepage = () => {
           <div className="carousel-container">
             <Slider {...settings}>
               {/* Render each car inside the slider */}
-              {cars.map((car, idx) => (
+              {cars.slice(-3).reverse().map((car, idx) => (
                 <div key={idx}>
                   <Link to="/login" className="car-card">
                     <img
@@ -169,12 +172,12 @@ const Homepage = () => {
 <div className="testimonials-wrapper">
   {[
     {
-      photo: "https://randomuser.me/api/portraits/women/65.jpg",
+      photo: onetest,
       text: "Renting from this company was an absolute delight! The car was spotless and the service was top-notch.",
       name: "Sam T."
     },
     {
-      photo: "https://randomuser.me/api/portraits/men/32.jpg",
+      photo: twotest,
       text: "Fantastic experience. The booking was easy, and the staff was very friendly. Highly recommend!",
       name: "Lil Dicky."
     },

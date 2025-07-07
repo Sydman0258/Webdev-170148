@@ -1,4 +1,4 @@
-const User = require('./model/userSchema');
+const User = require('./model/User');
 
 async function createAdmin() {
   const [admin, created] = await User.findOrCreate({

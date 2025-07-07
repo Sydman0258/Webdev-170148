@@ -170,6 +170,7 @@ const Homepage = () => {
 
 {/* Testimonials Section */}
 <div className="testimonials-wrapper">
+    <h2 className="testimonials-title">What Our Customers Say</h2>
   {[
     {
       photo: onetest,

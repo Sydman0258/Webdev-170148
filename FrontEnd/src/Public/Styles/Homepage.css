@@ -367,4 +367,12 @@
   color: #4e7a8e;
   font-style: italic;
 }
+.testimonials-title {
+  font-family:"Lequire",cursive;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: blueviolet;
+  font-weight: bold;
+}
 

@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import "../Styles/AdminDashboard.css";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,17 +38,13 @@ const AdminDashboard = () => {
     fetchStats();
   }, []);
 
-  if (loading) return <div style={{ color: "#EFD09E" }}>Loading dashboard...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
-  if (!stats) return null;
-
-  const profitByMonth = stats.profitByMonth || [];
+  const profitByMonth = stats?.profitByMonth || [];
   const months = profitByMonth.map((item) => item.month);
   const profits = profitByMonth.map((item) => Number(item.total_profit));
 
-  const totalProfit = typeof stats.totalProfit === "number" ? stats.totalProfit : 0;
-  const activeRentals = typeof stats.activeRentals === "number" ? stats.activeRentals : 0;
-  const totalRentals = typeof stats.totalRentals === "number" ? stats.totalRentals : 0;
+  const totalProfit = stats?.totalProfit || 0;
+  const activeRentals = stats?.activeRentals || 0;
+  const totalRentals = stats?.totalRentals || 0;
 
   const data = {
     labels: months,
@@ -54,7 +52,7 @@ const AdminDashboard = () => {
       {
         label: "Monthly Profit ($)",
         data: profits,
-        backgroundColor: "rgba(229, 180, 105, 0.7)",
+        backgroundColor: "rgba(175, 19, 218, 0.7)",
       },
     ],
   };
@@ -62,110 +60,65 @@ const AdminDashboard = () => {
   const chartOptions = {
     responsive: true,
     plugins: {
-      legend: {
-        position: "top",
-      },
+      legend: { position: "top" },
     },
     scales: {
       y: {
         ticks: {
-          callback: function (value) {
-            return `$${value}`;
-          },
+          callback: (value) => `$${value}`,
         },
       },
     },
   };
 
   return (
-    <div
-      style={{
-        padding: "2rem",
-        fontFamily: "'Inter', sans-serif",
-        background: "#272727",
-        minHeight: "100vh",
-        color: "#D4AA7D",
-      }}
-    >
-      <h1
-        style={{
-          fontFamily: "'Playfair Display', serif",
-          fontSize: "2.5rem",
-          marginBottom: "1rem",
-          color: "#EFD09E",
-        }}
-      >
-        Admin Dashboard
-      </h1>
+    <div className="admin-layout">
+      {/* Sidebar */}
+      <aside className={`sidebar ${isSidebarOpen ? "open" : "collapsed"}`}>
+        <div className="sidebar-toggle" onClick={() => setSidebarOpen(!isSidebarOpen)}>
+          ☰
+        </div>
+        {isSidebarOpen && (
+          <nav className="nav-links">
+            <p onClick={() => navigate("/admin")}>Dashboard</p>
+            <p onClick={() => navigate("/add-rental")}>Add Rental</p>
+            <p onClick={() => navigate("/manage-rentals")}>Manage Rentals</p>
+            <p onClick={() => navigate("/logout")}>Logout</p>
+          </nav>
+        )}
+      </aside>
 
-      {/* Add Rental Button */}
-      <div style={{ marginBottom: "2rem" }}>
-        <button
-          style={{
-            backgroundColor: "#EFD09E",
-            color: "#272727",
-            fontWeight: "600",
-            padding: "0.75rem 1.5rem",
-            fontSize: "1rem",
-            border: "none",
-            borderRadius: "0.75rem",
-            cursor: "pointer",
-            boxShadow: "0 6px 16px rgba(239, 208, 158, 0.2)",
-            transition: "transform 0.2s ease",
-          }}
-          onClick={() => navigate("/add-rental")}
-          onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-          onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-        >
-          + Add Rental
-        </button>
-      </div>
+      {/* Main Content */}
+      <div className="admin-dashboard">
+        <h1>Admin Dashboard</h1>
 
-      {/* Stats Cards */}
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          marginBottom: "3rem",
-          flexWrap: "wrap",
-        }}
-      >
-        <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
-        <StatCard title="Active Rentals" value={activeRentals} />
-        <StatCard title="Total Rentals" value={totalRentals} />
-      </div>
+        {loading && <p style={{ color: "#EFD09E" }}>Loading dashboard...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {!loading && !error && (
+          <>
+           
 
-      {/* Bar Chart */}
-      <div
-        style={{
-          backgroundColor: "#1f1f1f",
-          padding: "2rem",
-          borderRadius: "1rem",
-          boxShadow: "0 10px 30px rgba(239, 208, 158, 0.08)",
-        }}
-      >
-        <h2 style={{ marginBottom: "1rem", color: "#EFD09E" }}>Monthly Profit</h2>
-        <Bar data={data} options={chartOptions} />
+            <div className="stats-container">
+              <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
+              <StatCard title="Active Rentals" value={activeRentals} />
+              <StatCard title="Total Rentals" value={totalRentals} />
+            </div>
+
+            <div className="chart-container">
+              <h2>Monthly Profit</h2>
+              <Bar data={data} options={chartOptions} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
 const StatCard = ({ title, value }) => (
-  <div
-    style={{
-      backgroundColor: "#EFD09E",
-      color: "#272727",
-      padding: "1.5rem",
-      borderRadius: "1rem",
-      flex: "1",
-      minWidth: "180px",
-      textAlign: "center",
-      boxShadow: "0 8px 20px rgba(239, 208, 158, 0.2)",
-    }}
-  >
-    <h3 style={{ marginBottom: "0.5rem" }}>{title}</h3>
-    <p style={{ fontSize: "2rem", fontWeight: "700" }}>{value}</p>
+  <div className="stat-card">
+    <h3>{title}</h3>
+    <p>{value}</p>
   </div>
 );
 

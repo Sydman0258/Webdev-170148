@@ -140,9 +140,8 @@ const Contact = () => {
 
           {submitted && <p className="success-message">Thank you! Your message has been sent.</p>}
           {error && <p className="error-message">{error}</p>}
-        </form>
-
-        {/* Add your embedded map here if needed */}
+        </form><br />
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4998.207757824396!2d85.41040770045248!3d27.647222233118647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb11a772250ddd%3A0x7098894cd34efef4!2sMatsyashwor%20Mahadev%20Mandir!5e0!3m2!1sen!2snp!4v1751898452057!5m2!1sen!2snp" width="500" height="350" ></iframe>     
       </main>
 
       <Footer />

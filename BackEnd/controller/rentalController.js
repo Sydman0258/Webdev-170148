@@ -101,7 +101,54 @@ const getAdminStats = async (req, res) => {
   }
 };
 
+const getAllRentals = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({ error: 'Access denied. Admins only.' });
+    }
+
+    const rentals = await Rental.findAll({
+      include: {
+        model: Car,
+        attributes: ['make', 'model', 'year', 'pricePerDay', 'fuelType', 'company', 'image']
+      },
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.json(rentals);
+  } catch (error) {
+    console.error('Error fetching rentals:', error);
+    res.status(500).json({ error: 'Failed to fetch rentals' });
+  }
+};
+const deleteRental = async (req, res) => {
+  try {
+    const rentalId = req.params.id;
+    const user = await User.findByPk(req.user.id);
+
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({ error: 'Access denied. Admins only.' });
+    }
+
+    const rental = await Rental.findByPk(rentalId);
+    if (!rental) {
+      return res.status(404).json({ error: 'Rental not found' });
+    }
+
+    await rental.destroy();
+    res.json({ message: 'Rental deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting rental:', error);
+    res.status(500).json({ error: 'Failed to delete rental' });
+  }
+};
+
+
+
 module.exports = {
   createRental,
   getAdminStats,
+  getAllRentals,
+  deleteRental,
 };

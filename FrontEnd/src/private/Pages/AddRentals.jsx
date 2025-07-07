@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import '../Styles/AddRental.css';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const AddRental = () => {
+  const navigate = useNavigate();
+
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
@@ -51,7 +56,6 @@ const AddRental = () => {
 
       if (res.ok) {
         setMessage('✅ Rental created successfully!');
-        // Clear form fields
         setMake('');
         setModel('');
         setYear('');
@@ -79,13 +83,13 @@ const AddRental = () => {
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
-          <label htmlFor="make">Car Company (Make):</label>
+          <label htmlFor="make">Car Make:</label>
           <input
             id="make"
             value={make}
             onChange={(e) => setMake(e.target.value)}
             required
-            placeholder="e.g. Tesla"
+            placeholder="e.g. Mk"
           />
 
           <label htmlFor="model">Car Model:</label>
@@ -145,7 +149,14 @@ const AddRental = () => {
             required
           />
 
-          <button type="submit">Add Rental</button>
+        <div className="form-buttons">
+  <button type="submit">Add Rental</button>
+  <button type="button" className="go-back-btn" onClick={() => navigate(-1)}>
+    ← Go Back
+  </button>
+</div>
+
+
         </form>
 
         {message && (

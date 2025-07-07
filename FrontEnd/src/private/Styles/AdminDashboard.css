@@ -1,158 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display:wght@500&display=swap');
+.admin-layout {
+  display: flex;
+  width: 100vw;       /* force it to stay inside the viewport */
+  overflow-x: hidden; /* prevent side-scroll */
+}
 
-.admin-dashboard {
-  padding: 2rem;
-  background: #1f1f1f;
+
+.sidebar {
+  width: 220px;
+  background-color: whitesmoke;
+  color: #0e0c0a;
+  padding: 1rem;
   min-height: 100vh;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-links p {
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #333;
+  transition: color 0.2s;
+}
+
+.nav-links p:hover {
+  color: #d4aa7d;
+}
+
+/* Main Content */
+.admin-dashboard {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;       /* ✅ Prevent it from pushing the page horizontally */
+  padding: 2rem;
   font-family: 'Inter', sans-serif;
+  background: ivory;
+  min-height: 100vh;
   color: #D4AA7D;
 }
 
-.dashboard-title {
+
+.admin-dashboard h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #EFD09E;
+  margin-bottom: 1rem;
+  color: #4e7a8e;
 }
 
-/* Summary cards container */
-.summary-cards {
-  display: flex;
-  margin-bottom: 2rem;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Each summary card */
-.summary-card {
-  background: #272727;
-  border-radius: 15px;
-  padding: 1.5rem;
-  color: #EFD09E;
-  flex: 1;
-  margin: 0 1rem;
-  box-shadow: 0 4px 15px rgba(239, 208, 158, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.add-rental-btn {
+  background-color: #EFD09E;
+  color: #272727;
   font-weight: 600;
-  font-size: 1.5rem;
-  gap: 0.5rem;
-  min-width: 150px;
-  max-width: 200px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(239, 208, 158, 0.2);
+  transition: transform 0.2s ease;
 }
 
-.summary-icon {
-  font-size: 2.5rem;
+.add-rental-btn:hover {
+  transform: scale(1.05);
 }
 
-.summary-title {
-  font-size: 1.1rem;
-}
-
-.summary-value {
-  font-weight: 700;
-  font-size: 2rem;
-}
-
-/* Charts container */
-.charts-section {
+.stats-container {
   display: flex;
   gap: 2rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
-.chart-card {
-  background: #272727;
-  padding: 1rem;
-  border-radius: 15px;
+.stat-card {
+  background-color: #EFD09E;
+  color: #272727;
+  padding: 1.5rem;
+  border-radius: 1rem;
   flex: 1;
-  min-width: 300px;
-  max-width: 600px;
-}
-
-.chart-title {
-  margin-bottom: 1rem;
-  color: #EFD09E;
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-/* Table card container */
-.table-card {
-  background: #272727;
-  border-radius: 15px;
-  padding: 1rem;
-  margin-bottom: 3rem;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.table-title {
-  margin-bottom: 1rem;
-  color: #EFD09E;
-  font-weight: 600;
-  font-size: 1.5rem;
-}
-
-/* Table styles */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #D4AA7D;
-  font-size: 1rem;
-}
-
-.data-table th,
-.data-table td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #444;
-}
-
-.data-table th {
-  border-bottom: 2px solid #EFD09E;
-  text-align: left;
-}
-
-.table-row:hover {
-  background-color: rgba(239, 208, 158, 0.1);
-}
-
-.center {
+  min-width: 180px;
   text-align: center;
+  box-shadow: 0 8px 20px rgba(239, 208, 158, 0.2);
 }
 
-.right {
-  text-align: right;
+.stat-card h3 {
+  margin-bottom: 0.5rem;
 }
 
-/* Status styling */
-.status {
-  font-weight: 600;
-  text-align: center;
+.stat-card p {
+  font-size: 2rem;
+  font-weight: 700;
 }
 
-.status.available {
-  color: #4caf50; /* green */
+.chart-container {
+  background-color: #cccccc;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(239, 208, 158, 0.08);
 }
 
-.status.sold {
-  color: #f44336; /* red */
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .summary-cards, .charts-section {
-    flex-direction: column;
-  }
-
-  .summary-card, .chart-card {
-    max-width: 100%;
-    margin: 0 auto 1rem auto;
-  }
+.chart-container h2 {
+  margin-bottom: 1rem;
+  color: #8217c5;
 }

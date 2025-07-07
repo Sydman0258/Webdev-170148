@@ -1,6 +1,6 @@
 .add-rental-container {
-  background-color: #272727;
-  color: #EFD09E;
+  background-color: ivory;
+  color: #3f2a07;
   min-height: 100vh;
   padding: 3rem 2rem;
   font-family: 'Inter', sans-serif;
@@ -18,7 +18,7 @@
 }
 
 .add-rental-form {
-  background-color: #1f1f1f;
+  background-color: #e7d6d6;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 10px 30px rgba(239, 208, 158, 0.08);
@@ -44,7 +44,7 @@
 
 .add-rental-form input[type="file"] {
   background-color: transparent;
-  color: #EFD09E;
+  color: #0e0c09;
   border: none;
   padding: 0;
 }
@@ -77,4 +77,27 @@
 
 .add-rental-message.error {
   color: #ff6b6b;
+}
+.form-buttons {
+  display: flex;
+  justify-content: center; /* or use center/start if needed */
+  gap: 1rem;
+  flex-wrap: wrap; 
+}
+
+.go-back-btn {
+  background-color: #272727;
+  color: #EFD09E;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.go-back-btn:hover {
+  transform: scale(1.02);
 }

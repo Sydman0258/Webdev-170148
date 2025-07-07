@@ -21,6 +21,10 @@ app.use('/api/users', userRouter);
 // Rental routes (e.g., /api/rent)
 app.use('/api', rentalRouter); 
 
+const contactRouter = require('./routes/contactRoute');
+app.use('/api/contact', contactRouter);  // <- this registers the route
+
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });

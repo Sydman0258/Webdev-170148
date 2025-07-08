@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Styles/ManageRental.css';
 
 const ManageRental = () => {
   const [rentals, setRentals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingRental, setEditingRental] = useState(null);
-  const [newStatus, setNewStatus] = useState('');
+  const [editForm, setEditForm] = useState({
+    make: '',
+    model: '',
+    year: '',
+    fuelType: '',
+    pricePerDay: '',
+    rentalPrice: '',
+  });
   const [deleteRentalId, setDeleteRentalId] = useState(null);
+
   const API_BASE = import.meta.env.VITE_BACKEND_URL;
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchRentals();
@@ -31,29 +41,63 @@ const ManageRental = () => {
 
   const openEditModal = (rental) => {
     setEditingRental(rental);
-    setNewStatus(rental.status);
+    setEditForm({
+      make: rental.Car?.make || '',
+      model: rental.Car?.model || '',
+      year: rental.Car?.year || '',
+      fuelType: rental.Car?.fuelType || '',
+      pricePerDay: rental.Car?.pricePerDay || '',
+      rentalPrice: rental.price || '',
+    });
   };
 
   const closeEditModal = () => {
     setEditingRental(null);
-    setNewStatus('');
+    setEditForm({
+      make: '',
+      model: '',
+      year: '',
+      fuelType: '',
+      pricePerDay: '',
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const saveEdit = async () => {
     try {
+      const payload = {
+        status: editForm.status,
+        price: editForm.rentalPrice,
+        Car: {
+          make: editForm.make,
+          model: editForm.model,
+          year: editForm.year,
+          fuelType: editForm.fuelType,
+          pricePerDay: editForm.pricePerDay,
+        },
+      };
+
       const res = await fetch(`${API_BASE}/api/admin/rent/${editingRental.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify(payload),
       });
+
       if (!res.ok) throw new Error('Failed to update rental');
+
       const updatedRental = await res.json();
+
       setRentals((prev) =>
         prev.map((rental) => (rental.id === updatedRental.id ? updatedRental : rental))
       );
+
       closeEditModal();
     } catch (error) {
       console.error('Update failed:', error);
@@ -87,7 +131,17 @@ const ManageRental = () => {
 
   return (
     <div className="manage-rental-container">
+      {/* Go Back Button */}
+      <button
+        className="go-back-btn"
+        onClick={() => navigate(-1)}
+        style={{ marginBottom: '1rem', cursor: 'pointer' }}
+      >
+        &larr; Go Back
+      </button>
+
       <h2 className="title">Manage Rentals</h2>
+
       <div className="cards-wrapper">
         {rentals.map((rental) => (
           <div key={rental.id} className="rental-card">
@@ -105,8 +159,6 @@ const ManageRental = () => {
               <p><strong>Year:</strong> {rental.Car?.year || 'N/A'}</p>
               <p><strong>Fuel Type:</strong> {rental.Car?.fuelType || 'N/A'}</p>
               <p><strong>Price/Day:</strong> ${rental.Car?.pricePerDay || 'N/A'}</p>
-              <p><strong>Rental Price:</strong> ${rental.price}</p>
-              <p><strong>Status:</strong> <span className={`status-badge status-${rental.status.toLowerCase()}`}>{rental.status}</span></p>
             </div>
             <div className="btn-group">
               <button className="btn edit-btn" onClick={() => openEditModal(rental)}>Edit</button>
@@ -120,17 +172,72 @@ const ManageRental = () => {
       {editingRental && (
         <div className="modal-backdrop">
           <div className="modal">
-            <h3>Edit Rental Status</h3>
-            <p>
-              Car: {editingRental.Car?.make} {editingRental.Car?.model}
-            </p>
-            <input
-              type="text"
-              value={newStatus}
-              onChange={(e) => setNewStatus(e.target.value)}
-              className="status-input"
-              placeholder="Enter new status"
-            />
+            <h3>Edit Rental & Car Details</h3>
+
+            {/* Form Group for each field */}
+            <div className="form-group">
+              <label htmlFor="make">Make:</label>
+              <input
+                id="make"
+                type="text"
+                name="make"
+                value={editForm.make}
+                onChange={handleInputChange}
+                placeholder="Car Make"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="model">Model:</label>
+              <input
+                id="model"
+                type="text"
+                name="model"
+                value={editForm.model}
+                onChange={handleInputChange}
+                placeholder="Car Model"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="year">Year:</label>
+              <input
+                id="year"
+                type="number"
+                name="year"
+                value={editForm.year}
+                onChange={handleInputChange}
+                placeholder="Year"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="fuelType">Fuel Type:</label>
+              <input
+                id="fuelType"
+                type="text"
+                name="fuelType"
+                value={editForm.fuelType}
+                onChange={handleInputChange}
+                placeholder="Fuel Type"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="pricePerDay">Price Per Day:</label>
+              <input
+                id="pricePerDay"
+                type="number"
+                name="pricePerDay"
+                value={editForm.pricePerDay}
+                onChange={handleInputChange}
+                placeholder="Price Per Day"
+              />
+            </div>
+
+          
+
+
             <div className="modal-btn-group">
               <button className="btn save-btn" onClick={saveEdit}>Save</button>
               <button className="btn cancel-btn" onClick={closeEditModal}>Cancel</button>

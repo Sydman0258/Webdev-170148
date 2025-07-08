@@ -144,11 +144,111 @@ const deleteRental = async (req, res) => {
   }
 };
 
+const updateRental = async (req, res) => {
+  try {
+    const rentalId = req.params.id;
+    const user = await User.findByPk(req.user.id);
 
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({ error: 'Access denied. Admins only.' });
+    }
+
+    const rental = await Rental.findByPk(rentalId, {
+      include: Car,
+    });
+
+    if (!rental) {
+      return res.status(404).json({ error: 'Rental not found' });
+    }
+
+    // Extract fields from req.body
+    const {
+      status,
+      price,
+      Car: carUpdates, // nested car updates object
+    } = req.body;
+
+    // Update rental fields if provided
+    if (status !== undefined) rental.status = status;
+    if (price !== undefined) rental.price = price;
+
+    // Update car fields if provided
+    if (carUpdates) {
+      const car = await Car.findByPk(rental.carId);
+      if (!car) {
+        return res.status(404).json({ error: 'Associated car not found' });
+      }
+
+      // Update each car field if provided
+      const carFields = ['make', 'model', 'year', 'pricePerDay', 'fuelType', 'company', 'image'];
+      carFields.forEach(field => {
+        if (carUpdates[field] !== undefined) {
+          car[field] = carUpdates[field];
+        }
+      });
+
+      await car.save();
+    }
+
+    await rental.save();
+
+    // Reload rental with updated car info
+    const updatedRental = await Rental.findByPk(rentalId, {
+      include: {
+        model: Car,
+        attributes: ['make', 'model', 'year', 'pricePerDay', 'fuelType', 'company', 'image'],
+      },
+    });
+
+    res.json(updatedRental);
+  } catch (error) {
+    console.error('Error updating rental:', error);
+    res.status(500).json({ error: 'Failed to update rental' });
+  }
+};
+
+const createBooking = async (req, res) => {
+  try {
+    const { carId, startDate, endDate } = req.body;
+    const userId = req.user.id;
+
+    const car = await Car.findByPk(carId);
+    if (!car) return res.status(404).json({ error: "Car not found" });
+
+    const pricePerDay = car.pricePerDay;
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+
+    if (days <= 0) {
+      return res.status(400).json({ error: "Invalid rental dates" });
+    }
+
+    const totalPrice = pricePerDay * days;
+
+const newBooking = await Rental.create({
+  userId,
+  carId,
+  rentalDate: startDate,
+  returnDate: endDate,
+  price: totalPrice,
+  status: 'active',
+});
+
+
+    res.status(201).json({ message: "Booking successful", booking: newBooking });
+  } catch (err) {
+    console.error("Booking failed:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
 
 module.exports = {
   createRental,
   getAdminStats,
   getAllRentals,
   deleteRental,
+  updateRental,
+  createBooking,
 };

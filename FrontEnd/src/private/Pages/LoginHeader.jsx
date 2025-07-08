@@ -26,14 +26,7 @@ const LoginHeader = () => {
     <header className="lh-header">
       <div className="lh-logo">VROOM TRACK</div>
 
-      <nav className="lh-nav">
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/services">Services</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-        </ul>
-      </nav>
+   
 
       {user && (
         <div className="lh-user-menu">

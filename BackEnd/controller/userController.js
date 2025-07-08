@@ -114,9 +114,24 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const deleteAccount = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(404).json({ error: "User not found." });
+
+    await user.destroy();
+    res.json({ message: "Account deleted successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete account." });
+  }
+};
+
+
 module.exports = {
   register,
   login,
   getProfile,
-  updateProfile
+  updateProfile,
+  deleteAccount
 };

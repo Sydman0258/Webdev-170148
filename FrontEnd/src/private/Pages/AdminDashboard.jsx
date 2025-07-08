@@ -83,7 +83,7 @@ const AdminDashboard = () => {
             <p onClick={() => navigate("/admin")}>Dashboard</p>
             <p onClick={() => navigate("/add-rental")}>Add Rental</p>
             <p onClick={() => navigate("/manage-rentals")}>Manage Rentals</p>
-            <p onClick={() => navigate("/logout")}>Logout</p>
+            <p onClick={() => navigate("/")}>Logout</p>
           </nav>
         )}
       </aside>

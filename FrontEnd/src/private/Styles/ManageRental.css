@@ -171,31 +171,83 @@
 
 .modal {
   background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
+  padding: 1.5rem 2rem;
+
   width: 90%;
   max-width: 400px;
+  max-height: 80vh; /* Limit height to 80% of viewport */
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  text-align: left;
+  overflow-y: auto; /* Scroll vertically if content too tall */
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Modal Title */
+.modal h3 {
+  margin-bottom: 1.5rem;
+  color: #34495e;
   text-align: center;
 }
 
-.modal h3 {
+/* Form Group for aligned labels and inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
-  color: #34495e;
 }
 
-.status-input {
-  width: 100%;
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group input {
   padding: 10px 12px;
   font-size: 1rem;
-  margin: 1rem 0 1.5rem 0;
-  border-radius: 6px;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Modal buttons container */
 .modal-btn-group {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto; /* Allow scrolling if modal taller than viewport */
+  padding: 1rem; /* Add padding so modal doesn't touch edges on small screens */
+}
+
+/* Go Back Button */
+.go-back-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1rem;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.go-back-btn:hover {
+  color: #710be6;
 }
 
 /* Responsive */

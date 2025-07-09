@@ -1,96 +1,149 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../Styles/Profile.css"; 
-import { useNavigate } from "react-router-dom";
+import "../Styles/Profile.css";
 
-const ProfileDisplay = () => {
-  const [user, setUser] = useState(null);
-  const [payment, setPayment] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const Profile = () => {
+  const [profile, setProfile] = useState(null);
+  const [payment, setPayment] = useState(null);
+  const [bookings, setBookings] = useState([]);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [loadingBookings, setLoadingBookings] = useState(true);
+  const [deletingBookingId, setDeletingBookingId] = useState(null);
 
-  const apiUrl = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate();
+  const API_BASE = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setError("User is not logged in.");
-          setLoading(false);
-          return;
-        }
-
-        const response = await axios.get(`${apiUrl}/api/users/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const res = await axios.get(`${API_BASE}/api/users/profile`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
+        setProfile(res.data.user);
+        setPayment(res.data.payment);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
 
-        setUser(response.data.user);
-        setPayment(response.data.payment);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        setError("Failed to load profile. Please try again.");
-        setLoading(false);
+    const fetchBookings = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/rentals/my-bookings`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setBookings(res.data.bookings || []);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      } finally {
+        setLoadingBookings(false);
       }
     };
 
     fetchProfile();
-  }, [apiUrl]);
+    fetchBookings();
+  }, []);
 
-  const handleBack = () => {
-    navigate(-1); // Go back to previous page
+  const handleDeleteBooking = async (bookingId) => {
+    if (!window.confirm("Are you sure you want to delete this booking?")) return;
+
+    setDeletingBookingId(bookingId);
+    try {
+      await axios.delete(`${API_BASE}/api/bookings/${bookingId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Remove deleted booking from UI
+      setBookings((prev) => prev.filter((b) => b.id !== bookingId));
+    } catch (error) {
+      console.error("Failed to delete booking:", error);
+      alert("Failed to delete booking. Please try again.");
+    } finally {
+      setDeletingBookingId(null);
+    }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!user) return <p>User not found.</p>;
+  if (loadingProfile) return <p>Loading profile...</p>;
+  if (!profile) return <p>No profile data found.</p>;
 
   return (
     <div className="profile-container">
-      <h1>User Profile</h1>
-
-      <div className="profile-card">
-        {/* Personal Info */}
-        <div className="profile-section">
-          <h2>Personal Information</h2>
-          <p><strong>First Name:</strong> {user.firstName}</p>
-          <p><strong>Surname:</strong> {user.surname}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Date of Birth:</strong> {user.dob}</p>
-        </div>
-
-        {/* Payment Info */}
-        <div className="profile-section">
-          <h2>Payment Information</h2>
-          <p><strong>Card Number:</strong> {payment.cardNumber || "N/A"}</p>
-          <p><strong>Expiry:</strong> {payment.expiry || "N/A"}</p>
-          <p><strong>CVV:</strong> {payment.cvv ? "•••" : "N/A"}</p>
-        </div>
+      {/* PROFILE SECTION */}
+      <h1>Your Profile</h1>
+      <div className="profile-info">
+        <p>
+          <strong>Name:</strong> {profile.firstName} {profile.surname}
+        </p>
+        <p>
+          <strong>Email:</strong> {profile.email}
+        </p>
+        <p>
+          <strong>Username:</strong> {profile.username}
+        </p>
+        <p>
+          <strong>Date of Birth:</strong>{" "}
+          {profile.dob ? new Date(profile.dob).toLocaleDateString() : "N/A"}
+        </p>
       </div>
 
-      {/* Back Button */}
-      <button 
-        onClick={handleBack} 
-        style={{
-          marginTop: '2rem',
-          padding: '0.6rem 1.2rem',
-          fontSize: '1rem',
-          cursor: 'pointer',
-          borderRadius: '5px',
-          border: 'none',
-          backgroundColor: '#4a90e2',
-          color: 'white'
-        }}
-      >
-        ← Back
-      </button>
+      <h2>Payment Information</h2>
+      <div className="payment-info">
+        <p>
+          <strong>Card Number:</strong> {payment?.cardNumber || "Not set"}
+        </p>
+        <p>
+          <strong>Expiry:</strong> {payment?.expiry || "Not set"}
+        </p>
+        <p>
+          <strong>CVV:</strong> {payment?.cvv ? "***" : "not set"}
+        </p>
+      </div>
+
+      {/* BOOKINGS SECTION */}
+      <h1>Your Bookings</h1>
+      {loadingBookings && <p>Loading bookings...</p>}
+      {!loadingBookings && bookings.length === 0 && <p>You have no bookings yet.</p>}
+
+      <div className="bookings-cards-container">
+        {bookings.map((booking) => {
+          const car = booking.Car;
+          return (
+            <div key={booking.id} className="booking-card">
+              <img
+                src={`${API_BASE}/uploads/${car.image}`}
+                alt={`${car.make} ${car.model}`}
+                className="car-image"
+              />
+              <div className="car-info">
+                <h3>
+                  {car.make} {car.model} ({car.year})
+                </h3>
+                <p>Fuel Type: {car.fuelType}</p>
+                <p>Price per Day: ${car.pricePerDay}</p>
+                <p>
+                  Rental Dates:{" "}
+                  {new Date(booking.rentalDate).toLocaleDateString()} -{" "}
+                  {new Date(booking.returnDate).toLocaleDateString()}
+                </p>
+                <p>Total Price Paid: ${booking.price.toFixed(2)}</p>
+                <p>Status: {booking.status}</p>
+
+                <button
+                  className="delete-booking-button"
+                  disabled={deletingBookingId === booking.id}
+                  onClick={() => handleDeleteBooking(booking.id)}
+                >
+                  {deletingBookingId === booking.id ? "Deleting..." : "Delete Booking"}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
-export default ProfileDisplay;
+export default Profile;

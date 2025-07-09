@@ -244,6 +244,45 @@ const newBooking = await Rental.create({
   }
 };
 
+const getUserBookings = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const bookings = await Rental.findAll({
+      where: { userId },
+      include: {
+        model: Car,
+        attributes: ['make', 'model', 'year', 'pricePerDay', 'fuelType', 'company', 'image'],
+      },
+      order: [['rentalDate', 'DESC']],
+    });
+
+    res.json({ bookings });
+  } catch (error) {
+    console.error("Error fetching user bookings:", error);
+    res.status(500).json({ error: "Failed to fetch bookings" });
+  }
+};
+const deleteBooking = async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+    const userId = req.user.id;
+
+    const booking = await Rental.findByPk(bookingId);
+    if (!booking) return res.status(404).json({ error: "Booking not found" });
+
+    if (booking.userId !== userId) {
+      return res.status(403).json({ error: "Not authorized to delete this booking" });
+    }
+
+    await booking.destroy();
+    res.json({ message: "Booking deleted successfully" });
+  } catch (error) {
+    console.error('Failed to delete booking:', error);
+    res.status(500).json({ error: "Failed to delete booking" });
+  }
+};
+
 module.exports = {
   createRental,
   getAdminStats,
@@ -251,4 +290,6 @@ module.exports = {
   deleteRental,
   updateRental,
   createBooking,
+  getUserBookings,
+  deleteBooking,
 };

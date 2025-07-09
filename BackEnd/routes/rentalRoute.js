@@ -11,6 +11,8 @@ const {
   deleteRental,
   updateRental,
   createBooking,
+  getUserBookings,
+  deleteBooking
 } = require('../controller/rentalController');
 
 const Car = require('../model/Car');
@@ -25,6 +27,7 @@ router.post('/bookings', verifyToken, createBooking);
 // ✅ Route: Get admin statistics (only if user is admin)
 router.get('/admin/stats', verifyToken, getAdminStats);
 
+router.get('/my-bookings', verifyToken, getUserBookings);
 // ✅ Route: Get all rentals (admin only)
 router.get('/admin/rentals', verifyToken, getAllRentals);
 
@@ -33,6 +36,9 @@ router.delete('/admin/rent/:id', verifyToken, deleteRental);
 
 // ✅ Route: Update rental (admin only)
 router.patch('/admin/rent/:id', verifyToken, updateRental);
+
+router.delete('/bookings/:id', verifyToken, deleteBooking);
+
 
 // ✅ Route: Get car details by ID
 router.get('/cars/:id', async (req, res) => {
@@ -74,5 +80,7 @@ router.get('/cars', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch cars' });
   }
 });
+
+
 
 module.exports = router;

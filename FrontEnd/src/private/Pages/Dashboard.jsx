@@ -35,7 +35,7 @@ const Dashboard = () => {
   }, [navigate]);
 
  const handleCarClick = (carId) => {
-  navigate(`/booking/${carId}`);
+  navigate(`/booking/${carId}`);  
 };
 
   return (

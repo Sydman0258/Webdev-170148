@@ -1,7 +1,8 @@
-const Rental = require('../model/Rentals');    // Or '../models/Rental' based on your folder name
-const User = require('../model/User');        // Adjust path as needed
-const Car = require('../model/Car');          // You already import Car somewhere, make sure path is consistent
+const Rental = require('../model/Rentals'); 
+const User = require('../model/User');  
+const Car = require('../model/Car');  
 const { sequelize } = require('../Database/db');
+const { Op } = require('sequelize'); 
 
 
 
@@ -10,7 +11,6 @@ const createRental = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // Extract all needed fields from req.body (multipart/form-data parsed by multer)
     const {
       make,
       model,
@@ -20,7 +20,6 @@ const createRental = async (req, res) => {
       company,
     } = req.body;
 
-    // Basic validation
     if (!make || !model || !year || !pricePerDay ) {
       return res.status(400).json({ error: 'Missing required car or rental fields' });
     }
@@ -79,6 +78,16 @@ const getAdminStats = async (req, res) => {
     const activeRentals = await Rental.count({ where: { status: 'active' } });
     const totalRentals = await Rental.count();
 
+    // New: Cars
+    const totalCars = await Car.count();
+    const bookedCarIds = await Rental.findAll({
+      where: { status: 'active' },
+      attributes: ['carId'],
+      group: ['carId'],
+    });
+    const bookedCarCount = bookedCarIds.length;
+    const availableCars = totalCars - bookedCarCount;
+
     const [profitByMonth] = await sequelize.query(`
       SELECT 
         TO_CHAR("rentalDate", 'YYYY-MM') AS month,
@@ -94,12 +103,16 @@ const getAdminStats = async (req, res) => {
       activeRentals,
       totalRentals,
       profitByMonth,
+      totalCars,
+      bookedCars: bookedCarCount,
+      availableCars,
     });
   } catch (error) {
     console.error('Error fetching admin stats:', error);
     res.status(500).json({ error: 'Failed to fetch admin stats' });
   }
 };
+
 
 const getAllRentals = async (req, res) => {
   try {
@@ -282,6 +295,28 @@ const deleteBooking = async (req, res) => {
     res.status(500).json({ error: "Failed to delete booking" });
   }
 };
+const getAvailableCars = async (req, res) => {
+  try {
+    const activeRentals = await Rental.findAll({
+      where: { status: 'active' },
+      attributes: ['carId']
+    });
+
+    const bookedCarIds = activeRentals.map(rental => rental.carId);
+
+    const availableCars = await Car.findAll({
+      where: {
+        id: bookedCarIds.length > 0 ? { [Op.notIn]: bookedCarIds } : { [Op.ne]: null }
+      }
+    });
+
+    res.json(availableCars);
+  } catch (error) {
+    console.error('Failed to fetch available cars:', error);
+    res.status(500).json({ error: 'Server error fetching available cars' });
+  }
+};
+
 
 module.exports = {
   createRental,
@@ -292,4 +327,5 @@ module.exports = {
   createBooking,
   getUserBookings,
   deleteBooking,
+  getAvailableCars,
 };

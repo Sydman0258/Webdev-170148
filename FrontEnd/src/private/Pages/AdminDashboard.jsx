@@ -25,9 +25,10 @@ const AdminDashboard = () => {
     async function fetchStats() {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("/api/admin/stats", {
+const response = await axios.get("http://localhost:5000/api/admin/stats", {
           headers: { Authorization: `Bearer ${token}` },
         });
+         console.log("Admin stats data:", response.data);
         setStats(response.data);
       } catch (err) {
         setError("Failed to load dashboard data");
@@ -45,6 +46,9 @@ const AdminDashboard = () => {
   const totalProfit = stats?.totalProfit || 0;
   const activeRentals = stats?.activeRentals || 0;
   const totalRentals = stats?.totalRentals || 0;
+  const totalCars = stats?.totalCars || 0;
+  const bookedCars = stats?.bookedCars || 0;
+  const availableCars = stats?.availableCars || 0;
 
   const data = {
     labels: months,
@@ -94,15 +98,18 @@ const AdminDashboard = () => {
 
         {loading && <p style={{ color: "#EFD09E" }}>Loading dashboard...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
+
         {!loading && !error && (
           <>
-           
+           <div className="stats-container">
+  <StatCard title="Total Cars" value={stats.totalCars} />
+  <StatCard title="Booked Cars" value={stats.bookedCars} />
+  <StatCard title="Available Cars" value={stats.availableCars} />
+  <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
+  <StatCard title="Active Rentals" value={activeRentals} />
+  <StatCard title="Total Rentals" value={totalRentals} />
+</div>
 
-            <div className="stats-container">
-              <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
-              <StatCard title="Active Rentals" value={activeRentals} />
-              <StatCard title="Total Rentals" value={totalRentals} />
-            </div>
 
             <div className="chart-container">
               <h2>Monthly Profit</h2>

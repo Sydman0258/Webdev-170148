@@ -1,118 +1,144 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../Styles/Profile.css";
-import { useNavigate } from "react-router-dom";
+import "../Styles/Booking.css";
 
-const ProfileDisplay = () => {
-  const [user, setUser] = useState(null);
-  const [payment, setPayment] = useState({});
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const apiUrl = import.meta.env.VITE_BACKEND_URL;
+const Booking = () => {
+  const { carId } = useParams();
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_BACKEND_URL;
 
+  const [car, setCar] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // Fetch car details on mount
   useEffect(() => {
-    const fetchProfileAndBookings = async () => {
+    const fetchCar = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setError("User is not logged in.");
-          setLoading(false);
-          return;
-        }
-
-        const headers = { Authorization: `Bearer ${token}` };
-
-        const [profileRes, bookingsRes] = await Promise.all([
-          axios.get(`${apiUrl}/api/users/profile`, { headers }),
-          axios.get(`${apiUrl}/api/rentals/my-bookings`, { headers }),
-        ]);
-
-        setUser(profileRes.data.user);
-        setPayment(profileRes.data.payment || {});
-        setBookings(bookingsRes.data.bookings || []);
-        setLoading(false);
+        const res = await axios.get(`${API}/api/cars/${carId}`);
+        setCar(res.data);
       } catch (err) {
-        console.error("Error loading data:", err);
-        setError("Failed to load profile/bookings.");
+        console.error(err);
+        setError("Failed to fetch car details.");
+      } finally {
         setLoading(false);
       }
     };
+    fetchCar();
+  }, [carId]);
 
-    fetchProfileAndBookings();
-  }, [apiUrl]);
+  // Calculate total price
+  useEffect(() => {
+    if (startDate && endDate && car?.pricePerDay) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
 
-  const handleBack = () => {
-    navigate(-1);
+      if (days > 0) {
+        setTotalPrice(days * car.pricePerDay);
+        setError("");
+      } else {
+        setTotalPrice(0);
+        setError("Invalid rental dates.");
+      }
+    }
+  }, [startDate, endDate, car]);
+
+  const handleBooking = async () => {
+    try {
+      if (!startDate || !endDate) {
+        setError("Please select both start and end dates.");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const res = await axios.post(
+        `${API}/api/bookings`,
+        {
+          carId,
+          startDate,
+          endDate,
+        },
+        { headers }
+      );
+
+      setMessage("Booking successful!");
+      setTimeout(() => navigate("/profile"), 1500);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to book the car.");
+    }
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!user) return <p>User not found.</p>;
+  if (error && !car) return <p className="error">{error}</p>;
 
   return (
-    <div className="profile-container">
-      <h1>User Profile</h1>
+    <div className="booking-container">
+      <h1>Book This Car</h1>
 
-      <div className="profile-card">
-
-        {/* Personal Info */}
-        <div className="profile-section">
-          <h2>Personal Information</h2>
-          <p><strong>First Name:</strong> {user.firstName}</p>
-          <p><strong>Surname:</strong> {user.surname}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Date of Birth:</strong> {user.dob}</p>
+      {car && (
+        <div className="car-card">
+          <img
+            src={
+              car.image
+                ? `${API}/uploads/${car.image}`
+                : "https://via.placeholder.com/300x200?text=No+Image"
+            }
+            alt={`${car.make} ${car.model}`}
+          />
+          <div className="car-info">
+            <h2>{car.make} {car.model} ({car.year})</h2>
+            <p><strong>Fuel Type:</strong> {car.fuelType}</p>
+            <p><strong>Price Per Day:</strong> ${car.pricePerDay}</p>
+          </div>
         </div>
+      )}
 
-        {/* Booking Info */}
-        <div className="profile-section">
-          <h2>Booking Information</h2>
-          {bookings.length > 0 ? (
-            bookings.map((booking, index) => (
-              <div key={index} className="booking-card">
-                <p><strong>Car:</strong> {booking.Car?.make} {booking.Car?.model} ({booking.Car?.year})</p>
-                <p><strong>Fuel Type:</strong> {booking.Car?.fuelType || "N/A"}</p>
-                <p><strong>Start Date:</strong> {new Date(booking.rentalDate).toLocaleDateString()}</p>
-                <p><strong>End Date:</strong> {new Date(booking.returnDate).toLocaleDateString()}</p>
-                <p><strong>Total Price:</strong> ${booking.price}</p>
-                <p><strong>Status:</strong> {booking.status}</p>
-              </div>
-            ))
-          ) : (
-            <p>No bookings available.</p>
-          )}
-        </div>
+      <div className="booking-form">
+        <label>
+          Start Date:
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </label>
 
-        {/* Payment Info */}
-        <div className="profile-section">
-          <h2>Payment Information</h2>
-          <p><strong>Card Number:</strong> {payment.cardNumber || "N/A"}</p>
-          <p><strong>Expiry:</strong> {payment.expiry || "N/A"}</p>
-          <p><strong>CVV:</strong> {payment.cvv ? "•••" : "N/A"}</p>
-        </div>
+        <label>
+          End Date:
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </label>
+
+        <p><strong>Total Price:</strong> ${totalPrice}</p>
+
+        <button className="confirm-button" onClick={handleBooking}>
+          Confirm Booking
+        </button>
+
+        {message && <p className="success">{message}</p>}
+        {error && <p className="error">{error}</p>}
       </div>
-
-      <button
-        onClick={handleBack}
-        style={{
-          marginTop: '2rem',
-          padding: '0.6rem 1.2rem',
-          fontSize: '1rem',
-          cursor: 'pointer',
-          borderRadius: '5px',
-          border: 'none',
-          backgroundColor: '#4a90e2',
-          color: 'white'
-        }}
-      >
-        ← Back
-      </button>
     </div>
   );
 };
 
-export default ProfileDisplay;
+export default Booking;

@@ -31,7 +31,7 @@ const Profile = () => {
 
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/rentals/my-bookings`, {
+        const res = await axios.get(`${API_BASE}/api/my-bookings`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBookings(res.data.bookings || []);
@@ -51,14 +51,14 @@ const Profile = () => {
 
     setDeletingBookingId(bookingId);
     try {
-      await axios.delete(`${API_BASE}/api/bookings/${bookingId}`, {
+      await axios.delete(`${API_BASE}/api/rentals/bookings/${bookingId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       // Remove deleted booking from UI
       setBookings((prev) => prev.filter((b) => b.id !== bookingId));
     } catch (error) {
-      console.error("Failed to delete booking:", error);
+      console.error("Failed to delete booking:", error);    
       alert("Failed to delete booking. Please try again.");
     } finally {
       setDeletingBookingId(null);

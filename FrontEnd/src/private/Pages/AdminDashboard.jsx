@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  BarElement,
+  LineElement,
+  PointElement,
   CategoryScale,
   LinearScale,
   Tooltip,
@@ -12,7 +13,8 @@ import {
 } from "chart.js";
 import "../Styles/AdminDashboard.css";
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+// Register chart.js components
+ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -25,10 +27,10 @@ const AdminDashboard = () => {
     async function fetchStats() {
       try {
         const token = localStorage.getItem("token");
-const response = await axios.get("http://localhost:5000/api/admin/stats", {
+        const response = await axios.get("http://localhost:5000/api/admin/stats", {
           headers: { Authorization: `Bearer ${token}` },
         });
-         console.log("Admin stats data:", response.data);
+        console.log("Admin stats data:", response.data);
         setStats(response.data);
       } catch (err) {
         setError("Failed to load dashboard data");
@@ -39,8 +41,14 @@ const response = await axios.get("http://localhost:5000/api/admin/stats", {
     fetchStats();
   }, []);
 
+  // Extract and format data for chart
   const profitByMonth = stats?.profitByMonth || [];
-  const months = profitByMonth.map((item) => item.month);
+  const months = profitByMonth.map((item) =>
+    new Date(item.month + "-01").toLocaleDateString("en-US", {
+      month: "short",
+      year: "numeric",
+    })
+  );
   const profits = profitByMonth.map((item) => Number(item.total_profit));
 
   const totalProfit = stats?.totalProfit || 0;
@@ -56,7 +64,11 @@ const response = await axios.get("http://localhost:5000/api/admin/stats", {
       {
         label: "Monthly Profit ($)",
         data: profits,
-        backgroundColor: "rgba(175, 19, 218, 0.7)",
+        borderColor: "rgba(175, 19, 218, 1)",
+        backgroundColor: "rgba(175, 19, 218, 0.2)",
+        fill: true,
+        tension: 0.3,
+        pointBackgroundColor: "rgba(175, 19, 218, 1)",
       },
     ],
   };
@@ -65,9 +77,24 @@ const response = await axios.get("http://localhost:5000/api/admin/stats", {
     responsive: true,
     plugins: {
       legend: { position: "top" },
+      tooltip: {
+        callbacks: {
+          label: (context) => `$${context.parsed.y}`,
+        },
+      },
     },
     scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Month",
+        },
+      },
       y: {
+        title: {
+          display: true,
+          text: "Profit ($)",
+        },
         ticks: {
           callback: (value) => `$${value}`,
         },
@@ -101,19 +128,18 @@ const response = await axios.get("http://localhost:5000/api/admin/stats", {
 
         {!loading && !error && (
           <>
-           <div className="stats-container">
-  <StatCard title="Total Cars" value={stats.totalCars} />
-  <StatCard title="Booked Cars" value={stats.bookedCars} />
-  <StatCard title="Available Cars" value={stats.availableCars} />
-  <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
-  <StatCard title="Active Rentals" value={activeRentals} />
-  <StatCard title="Total Rentals" value={totalRentals} />
-</div>
-
+            <div className="stats-container">
+              <StatCard title="Total Cars" value={totalCars} />
+              <StatCard title="Booked Cars" value={bookedCars} />
+              <StatCard title="Available Cars" value={availableCars} />
+              <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
+              <StatCard title="Active Rentals" value={activeRentals} />
+              <StatCard title="Total Rentals" value={totalRentals} />
+            </div>
 
             <div className="chart-container">
               <h2>Monthly Profit</h2>
-              <Bar data={data} options={chartOptions} />
+              <Line data={data} options={chartOptions} />
             </div>
           </>
         )}
@@ -122,6 +148,7 @@ const response = await axios.get("http://localhost:5000/api/admin/stats", {
   );
 };
 
+// Stat card component
 const StatCard = ({ title, value }) => (
   <div className="stat-card">
     <h3>{title}</h3>

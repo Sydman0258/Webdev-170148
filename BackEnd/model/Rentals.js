@@ -18,8 +18,8 @@ const Rental = sequelize.define('Rental', {
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM('active', 'completed', 'cancelled'),
-    defaultValue: 'active',
+    type: DataTypes.ENUM('active', 'completed', 'cancelled','inactive'),
+    defaultValue: 'inactive',
   },
 });
 

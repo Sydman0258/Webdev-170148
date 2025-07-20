@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
@@ -27,8 +27,8 @@ const Register = () => {
 
     if (response.ok) {
       alert("Registration successful!");
-      // Optionally clear/reset form or redirect
-    } else {
+      Navigate("/login");
+        } else {
       alert(resData.error || "Registration failed");
     }
   } catch (error) {

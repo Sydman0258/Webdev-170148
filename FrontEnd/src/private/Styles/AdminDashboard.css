@@ -1,22 +1,23 @@
+/* === LAYOUT CONTAINER === */
 .admin-layout {
   display: flex;
-  width: 100vw;       /* force it to stay inside the viewport */
-  overflow-x: hidden; /* prevent side-scroll */
+  width: 100vw;       /* Ensure layout fits full viewport width */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-
+/* === SIDEBAR === */
 .sidebar {
-  width: 220px;
-  background-color: whitesmoke;
-  color: #0e0c0a;
+  width: 220px;                    /* Default width */
+  background-color: whitesmoke;   /* Sidebar background */
+  color: #0e0c0a;                  /* Sidebar text color */
   padding: 1rem;
-  min-height: 100vh;
-  transition: width 0.3s ease;
+  min-height: 100vh;              /* Full height */
+  transition: width 0.3s ease;    /* Smooth collapse transition */
   position: relative;
 }
 
 .sidebar.collapsed {
-  width: 60px;
+  width: 60px; /* Narrower sidebar when collapsed */
 }
 
 .sidebar-toggle {
@@ -27,43 +28,45 @@
   text-align: right;
 }
 
+/* === SIDEBAR NAV LINKS === */
 .nav-links {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1rem; /* Spacing between links */
 }
 
 .nav-links p {
   cursor: pointer;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #333; /* Divider line */
   transition: color 0.2s;
 }
 
 .nav-links p:hover {
-  color: #d4aa7d;
+  color: #d4aa7d; /* Hover color */
 }
 
-/* Main Content */
+/* === MAIN DASHBOARD AREA === */
 .admin-dashboard {
   flex-grow: 1;
   flex-shrink: 1;
-  min-width: 0;       /* ✅ Prevent it from pushing the page horizontally */
+  min-width: 0;               /* Prevent layout push on overflow */
   padding: 2rem;
   font-family: 'Inter', sans-serif;
-  background: ivory;
+  background: ivory;          /* Light dashboard background */
   min-height: 100vh;
-  color: #D4AA7D;
+  color: #D4AA7D;             /* Primary text color */
 }
 
-
+/* === DASHBOARD TITLE === */
 .admin-dashboard h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #4e7a8e;
+  color: #4e7a8e;             /* Title accent color */
 }
 
+/* === ADD RENTAL BUTTON === */
 .add-rental-btn {
   background-color: #EFD09E;
   color: #272727;
@@ -73,19 +76,20 @@
   border: none;
   border-radius: 0.75rem;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(239, 208, 158, 0.2);
+  box-shadow: 0 6px 16px rgba(239, 208, 158, 0.2); /* Soft shadow */
   transition: transform 0.2s ease;
 }
 
 .add-rental-btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Button grows slightly on hover */
 }
 
+/* === STATS SECTION === */
 .stats-container {
   display: flex;
   gap: 2rem;
   margin-bottom: 3rem;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Responsive wrapping */
 }
 
 .stat-card {
@@ -108,14 +112,56 @@
   font-weight: 700;
 }
 
+/* === CHART CONTAINER === */
 .chart-container {
   background-color: #cccccc;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(239, 208, 158, 0.08);
+  box-shadow: 0 10px 30px rgba(239, 208, 158, 0.08); /* Subtle shadow */
 }
 
+/* Chart container title */
 .chart-container h2 {
   margin-bottom: 1rem;
-  color: #8217c5;
+  color: #8217c5; /* Vibrant purple title */
+}
+
+/* === CHART ROW (holds multiple charts) === */
+.chart-row {
+  display: flex;
+  flex-wrap: wrap;               /* Allow wrapping of chart boxes */
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: space-between;
+  align-items: flex-start;       /* Align top edges */
+}
+
+/* === INDIVIDUAL CHART BOX === */
+.chart-box {
+  flex: 1 1 48%;                 /* Responsive width */
+  min-width: 400px;             /* Prevent too-small chart widths */
+  max-width: 48%;
+  background-color: #f7f7f7;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;    /* Smooth resizing on sidebar toggle */
+}
+
+.chart-box h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+/* === RESPONSIVENESS FOR SMALLER SCREENS === */
+@media (max-width: 768px) {
+  .chart-box {
+    min-width: 100%; /* Full width on small screens */
+    max-width: 100%;
+  }
+
+  .chart-row {
+    flex-direction: column; /* Stack charts vertically */
+  }
 }

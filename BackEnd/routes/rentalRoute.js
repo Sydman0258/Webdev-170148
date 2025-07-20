@@ -23,8 +23,11 @@ const Rental = require('../model/Rentals'); // Import the Rental model to check 
 router.post('/rent', verifyToken, upload.single('image'), createRental);
 
 // ✅ Route: Create booking (used from BookingPage.jsx)
-router.post('/bookings', verifyToken, createBooking);
-
+// filepath: c:\Users\Victus\OneDrive\Desktop\Final\Webdev-170148\BackEnd\routes\rentalRoute.js
+router.post('/bookings', verifyToken, (req, res, next) => {
+  console.log('POST /api/bookings hit');
+  next();
+}, createBooking);
 // ✅ Route: Get admin statistics (only if user is admin)
 router.get('/admin/stats', verifyToken, getAdminStats);
 

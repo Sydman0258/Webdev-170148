@@ -301,7 +301,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 /* Each testimonial box */
@@ -319,8 +319,8 @@
 
 /* Image styles */
 .testimonial-photo {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(78, 122, 142, 0.3);

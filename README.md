@@ -35,7 +35,6 @@ VroomTrack is a full-stack car rental and booking platform built for second-year
 - Postman (API Testing)
 - pgAdmin (DB GUI)
 - GitHub (Version Control)
-- Figma (UI Prototyping)
 - Visual Studio Code
 
 ---

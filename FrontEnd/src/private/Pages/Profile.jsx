@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../Styles/Profile.css";
+import { useNavigate } from "react-router-dom";
+
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const [profile, setProfile] = useState(null);
   const [payment, setPayment] = useState(null);
   const [bookings, setBookings] = useState([]);
@@ -51,7 +55,7 @@ const Profile = () => {
 
     setDeletingBookingId(bookingId);
     try {
-      await axios.delete(`${API_BASE}/api/rentals/bookings/${bookingId}`, {
+      await axios.delete(`${API_BASE}/api/bookings/${bookingId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -69,7 +73,28 @@ const Profile = () => {
   if (!profile) return <p>No profile data found.</p>;
 
   return (
+    
+
+
     <div className="profile-container">
+    <button 
+  onClick={() => navigate(-1)} 
+  className="go-back-button"
+  style={{
+    marginBottom: "1rem",
+    padding: "8px 12px",
+    backgroundColor: "#4e7a8e",
+    width: "100px",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  }}
+>
+  ← Go Back
+</button>
+
       {/* PROFILE SECTION */}
       <h1>Your Profile</h1>
       <div className="profile-info">

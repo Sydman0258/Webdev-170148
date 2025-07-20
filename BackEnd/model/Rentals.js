@@ -6,7 +6,7 @@ const Car = require('./Car');
 const Rental = sequelize.define('Rental', {
   rentalDate: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
     defaultValue: DataTypes.NOW,
   },
   returnDate: {

@@ -25,19 +25,22 @@ const ManageRental = () => {
   }, []);
 
   const fetchRentals = async () => {
-    try {
-      const res = await fetch(`${API_BASE}/api/admin/rentals`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error('Failed to fetch rentals');
-      const data = await res.json();
-      setRentals(data);
-    } catch (error) {
-      console.error('Error fetching rentals:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const res = await fetch(`${API_BASE}/api/admin/rentals`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error('Failed to fetch rentals');
+    const data = await res.json();
+    // Force remove duplicates by ID (just for debugging)
+    const uniqueRentals = Array.from(new Map(data.map(r => [r.id, r])).values());
+    setRentals(uniqueRentals);
+  } catch (error) {
+    console.error('Error fetching rentals:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const openEditModal = (rental) => {
     setEditingRental(rental);

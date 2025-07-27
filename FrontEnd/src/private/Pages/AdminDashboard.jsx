@@ -19,7 +19,8 @@ import {
   LinearScale,
   Tooltip,
   Legend,
-  ArcElement, // Required for pie charts
+  ArcElement,
+  Filler
 } from "chart.js";
 
 // Import custom styles
@@ -33,7 +34,8 @@ ChartJS.register(
   LinearScale,
   ArcElement,
   Tooltip,
-  Legend
+  Legend,
+  Filler,
 );
 
 // Main Admin Dashboard component
@@ -193,6 +195,7 @@ const AdminDashboard = () => {
             <p onClick={() => navigate("/admin/dashboard")}>Dashboard</p>
             <p onClick={() => navigate("/add-rental")}>Add Rental</p>
             <p onClick={() => navigate("/manage-rentals")}>Manage Rentals</p>
+              <p onClick={() => navigate("/all-cars")}>All Cars</p> 
             <p onClick={() => navigate("/")}>Logout</p>
           </nav>
         )}

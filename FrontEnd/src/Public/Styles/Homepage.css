@@ -42,6 +42,9 @@
 
   
 }
+.hero-text-top-left h1 {
+  color: black;;
+}
 .hero-btns {
   position: absolute;
   bottom: 3rem;          /* Distance from bottom of hero section */

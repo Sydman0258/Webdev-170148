@@ -13,6 +13,7 @@ import BookingPage from "./private/Pages/BookingPage";
 import ManageRental from "./private/Pages/ManageRental";
 import ProfileDisplay from "./private/Pages/Profile";
 import Settings from './private/Pages/Settings';
+import AllCars from "./private/Pages/AllCars";
 
 //This is made by Siddhartha Bhattarai.
 
@@ -32,6 +33,8 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword/>}/>
               <Route path="/reset-password/:token" element={<ResetPassword />} />
               <Route path="/booking/:carId" element={<BookingPage />} />
+<Route path="/all-cars" element={<AllCars />} />
+
 <Route path="/manage-rentals" element={<ManageRental />} />
 <Route path="/settings" element={<Settings />} />
 

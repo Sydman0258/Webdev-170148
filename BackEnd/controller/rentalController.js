@@ -149,6 +149,7 @@ const getAllRentals = async (req, res) => {
 const deleteRental = async (req, res) => {
   try {
     const rentalId = req.params.id;
+
     const user = await User.findByPk(req.user.id);
 
     if (!user || !user.isAdmin) {
@@ -340,6 +341,68 @@ const completePastRentals = async () => {
     console.error('❌ Error auto-completing rentals:', error);
   }
 };
+const deleteCar = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({ error: "Access denied. Admins only." });
+    }
+
+    const carId = req.params.id;
+
+    const car = await Car.findByPk(carId);
+    if (!car) {
+      return res.status(404).json({ error: "Car not found" });
+    }
+
+    // Optional: prevent deletion if the car has active rentals
+    const activeRental = await Rental.findOne({ where: { carId, status: 'active' } });
+    if (activeRental) {
+      return res.status(400).json({ error: "Car is currently rented and cannot be deleted" });
+    }
+
+    await car.destroy();
+    res.json({ message: "Car deleted successfully" });
+  } catch (error) {
+    console.error("Failed to delete car:", error);
+    res.status(500).json({ error: "Server error while deleting car" });
+  }
+};
+
+const getAllCars = async (req, res) => {
+  try {
+    const cars = await Car.findAll({
+      order: [['createdAt', 'DESC']], // optional, latest first
+    });
+    res.json(cars);
+  } catch (error) {
+    console.error('Failed to fetch all cars:', error);
+    res.status(500).json({ error: 'Server error fetching all cars' });
+  }
+};
+
+const getAllBookings = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({ error: 'Access denied. Admins only.' });
+    }
+
+    const bookings = await Rental.findAll({
+      include: [
+        { model: Car },
+{ model: User, attributes: ['firstName', 'surname', 'email'] }
+      ],
+      order: [['rentalDate', 'DESC']],
+    });
+
+    res.json({ bookings });
+  } catch (error) {
+    console.error('Admin fetch bookings error:', error);
+    res.status(500).json({ message: 'Failed to fetch bookings' });
+  }
+};
+
 
 // Export all controller functions
 module.exports = {
@@ -352,4 +415,7 @@ module.exports = {
   getUserBookings,
   deleteBooking,
   getAvailableCars,
+  deleteCar,
+  getAllCars,
+  getAllBookings,
 };

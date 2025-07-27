@@ -23,7 +23,7 @@ const Dashboard = () => {
     // Fetch cars from backend
     const fetchCars = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/cars`);
+        const res = await fetch(`${API_BASE}/api/cars/available`);
         const data = await res.json();
         setCars(data);
       } catch (err) {

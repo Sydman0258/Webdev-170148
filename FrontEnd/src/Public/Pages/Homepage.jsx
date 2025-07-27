@@ -38,7 +38,7 @@ const Homepage = () => {
     // Fetch cars when component mounts
     const fetchCars = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/cars`); // Make request to backend
+        const res = await fetch(`${API_BASE}/api/cars/available`); // Make request to backend
         const data = await res.json(); // Parse response
         setCars(data); // Save cars in state
       } catch (error) {

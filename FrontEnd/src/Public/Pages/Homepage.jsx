@@ -18,8 +18,8 @@ import Header from './Header';
 import Footer from './Footer';
 // Import shared Header and Footer components
 
-import onetest from '../../assets/one.jpeg';
-import twotest from '../../assets/two.jpeg';
+import onetest from '../../assets/one.png';
+import twotest from '../../assets/two.png';
 
 import heroimg from '../../assets/heroimg.png';
 // Import hero section background image
@@ -71,7 +71,7 @@ const Homepage = () => {
 
   // Configuration for slick carousel
   const settings = {
-    infinite: true,            // Infinite loop
+    infinite: cars.length>1,            // Infinite loop
     slidesToShow: 3,           // Show 3 slides at a time
     slidesToScroll: 1,         // Scroll 1 at a time
     autoplay: true,            // Enable auto-slide
@@ -108,47 +108,43 @@ const Homepage = () => {
         </div>
       </div>
 
-      {/* Carousel Section */}
-      <div className="vehicles-section">
-        <h2>Choose What Others Only Dream Of</h2>
-        <p>
-          Because when you choose from the extraordinary, you don’t browse — you claim
-        </p>
+     <div className="vehicles-section">
+  <h2>Choose What Others Only Dream Of</h2>
+  <p>Because when you choose from the extraordinary, you don’t browse — you claim</p>
 
-        {/* Display messages based on fetch state */}
-        {loading ? (
-          <p>Loading cars...</p>
-        ) : cars.length === 0 ? (
-          <p>No cars available</p>
-        ) : (
-          <div className="carousel-container">
-            <Slider {...settings}>
-              {/* Render each car inside the slider */}
-              {cars.slice(-3).reverse().map((car, idx) => (
-                <div key={idx}>
-                  <Link to="/login" className="car-card">
-                    <img
-                      src={
-                        car.image
-                          ? `${API_BASE}/uploads/${car.image}` // Image from server
-                          : 'https://via.placeholder.com/300x200?text=No+Image' // Placeholder
-                      }
-                      alt={car.model}
-                      className="car-img"
-                    />
-                    <h3>{car.make} {car.model}</h3>
-                    <div className="car-info-row">
-                      <span className="car-type">{car.fuelType || 'N/A'}</span>
-                      <span className="car-price">${car.pricePerDay}/day</span>
-                    </div>
-                  </Link>
+  {loading ? (
+    <p>Loading cars...</p>
+  ) : cars.length === 0 ? (
+    <p>No cars available</p>
+  ) : (
+    <div className="carousel-container">
+      <Slider {...settings}>
+        {cars.slice(-3).reverse().map((car, idx) => (
+          <div key={idx} className="car-slide"> {/* New wrapper for slide */}
+            <Link to="/login" className="car-cardo">
+              {/* Image (Top/Center) */}
+              <div className="car-img-container">
+                <img
+                  src={car.image ? `${API_BASE}/uploads/${car.image}` : 'https://via.placeholder.com/300x200?text=No+Image'}
+                  alt={car.model}
+                  className="car-img"
+                />
+              </div>
+              {/* Info (Bottom) */}
+              <div className="car-info-wrapper">
+                <h3>{car.make} {car.model}</h3>
+                <div className="car-info-row">
+                  <span className="car-type">{car.fuelType || 'N/A'}</span>
+                  <span className="car-price">${car.pricePerDay}/day</span>
                 </div>
-              ))}
-            </Slider>
+              </div>
+            </Link>
           </div>
-        )}
-      </div>
-
+        ))}
+      </Slider>
+    </div>
+  )}
+</div>
       {/* Services Section */}
       <div className="services-section">
         <h2>Our Services</h2>
@@ -180,12 +176,12 @@ const Homepage = () => {
     {
       photo: twotest,
       text: "Fantastic experience. The booking was easy, and the staff was very friendly. Highly recommend!",
-      name: "Lil Dicky."
+      name: "Lil Dock."
     },
     {
       photo: "https://randomuser.me/api/portraits/women/44.jpg",
       text: "A luxury car rental service that truly cares about its customers. I will definitely rent again!",
-      name: "Meme hehe."
+      name: "Memer heck."
     },
   ].map((testimony, idx) => (
     <div

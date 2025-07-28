@@ -47,19 +47,11 @@ const createRental = async (req, res) => {
       });
     }
 
-    // Create a rental linked to user and car
-    const rental = await Rental.create({
-      userId,
-      carId: car.id,
-      price: parseFloat(pricePerDay), // Assuming price is just per day for now
-      rentalDate: new Date(),
-      status: 'inactive', // Defaults to inactive
-    });
+    
 
     // Return success response
     res.status(201).json({
       message: 'Rental and car created successfully',
-      rental,
       car,
     });
   } catch (error) {

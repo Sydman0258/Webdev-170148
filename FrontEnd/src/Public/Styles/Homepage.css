@@ -100,10 +100,9 @@
   align-items: center;
   margin-top: 65px;
   text-align: center;
-  background: #d6cfe0;
+  background: ivory;
   padding: 2rem 1rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(94, 139, 126, 0.3);
 }
 
 .vehicles-section h2 {
@@ -130,10 +129,11 @@
 /* Slick Carousel Core Fixes */
 .slick-list {
   margin: 0 -5px; /* Remove default spacing between slides */
+  
 }
 
 .slick-slide {
-  display: flex !important;
+  display: flex ;
   justify-content: center;
 }
 
@@ -143,44 +143,84 @@
 }
 
 /* Car Card Styling */
-.car-card {
-  width: 100%;
-  height: 100%;
-  background:#d6cfe0 ;
-  border-radius: 1.5rem;
-  text-decoration: none;
-  box-shadow: 0 4px 24px rgba(94, 139, 126, 0.15);
-  padding: 1.5rem;
+.car-cardo {
+  background: transparent;          /* no box or heavy background */
+  border-radius: 10px;
+  /* Optional very subtle background to separate from page bg */
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* Or a subtle gradient or very light color */
+  box-shadow: none;                 /* no heavy shadow */
+  overflow: hidden;
   text-align: center;
-  transition: transform 0.2s;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+  height: 100%;
   cursor: pointer;
-
-
+  transition: transform 0.3s ease;
 }
 
-.car-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(217, 108, 95, 0.3);
+.car-cardo:hover {
+  transform: translateY(-5px) scale(1.03);
+  /* maybe add subtle glow */
+  box-shadow: 0 0 12px rgba(78, 122, 142, 0.3);
 }
 
 .car-img {
-  width: 310px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-  filter: saturate(0.9);
+  width: 100%;
+  height: 160px;                   /* fixed height for uniformity */
+  object-fit: cover;               /* cover so image fills nicely */
+  border-radius: 10px 10px 0 0;   /* rounded top corners only */
+  display: block;
+}
+.car-info-wrapper {
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent white bg */
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 10px 10px;   /* rounded bottom corners only */
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+  color: #333;
+}
+
+.car-info-wrapper h3 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: 'Lequire', cursive;
+  color: #222;
 }
 
 .car-info-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--teal);
+}
+
+.car-type {
+  color: var(--teal);
+}
+
+.car-price {
+  color: var(--terracotta);
+  font-weight: 700;
+}
+
+.car-card h3 {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.car-info-row {
   margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .car-type {

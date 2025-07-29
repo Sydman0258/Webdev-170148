@@ -5,9 +5,12 @@ import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
 import "../Styles/Auth.css";
 import heroimg from '../../assets/heroimg.png';
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -27,7 +30,7 @@ const Register = () => {
 
     if (response.ok) {
       alert("Registration successful!");
-      Navigate("/login");
+      navigate("/login");
         } else {
       alert(resData.error || "Registration failed");
     }

@@ -137,80 +137,7 @@ const getAllRentals = async (req, res) => {
   }
 };
 
-// Delete a rental (admin only)
-const deleteRental = async (req, res) => {
-  try {
-    const rentalId = req.params.id;
 
-    const user = await User.findByPk(req.user.id);
-
-    if (!user || !user.isAdmin) {
-      return res.status(403).json({ error: 'Access denied. Admins only.' });
-    }
-
-    const rental = await Rental.findByPk(rentalId);
-    if (!rental) {
-      return res.status(404).json({ error: 'Rental not found' });
-    }
-
-    await rental.destroy(); // Delete from DB
-    res.json({ message: 'Rental deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting rental:', error);
-    res.status(500).json({ error: 'Failed to delete rental' });
-  }
-};
-
-// Update rental and optionally the associated car
-const updateRental = async (req, res) => {
-  try {
-    const rentalId = req.params.id;
-    const user = await User.findByPk(req.user.id);
-
-    if (!user || !user.isAdmin) {
-      return res.status(403).json({ error: 'Access denied. Admins only.' });
-    }
-
-    const rental = await Rental.findByPk(rentalId, { include: Car });
-    if (!rental) {
-      return res.status(404).json({ error: 'Rental not found' });
-    }
-
-    const { status, price, Car: carUpdates } = req.body;
-
-    // Update rental status/price if provided
-    if (status !== undefined) rental.status = status;
-    if (price !== undefined) rental.price = price;
-
-    // Update linked car details if provided
-    if (carUpdates) {
-      const car = await Car.findByPk(rental.carId);
-      if (!car) return res.status(404).json({ error: 'Associated car not found' });
-
-      const fields = ['make', 'model', 'year', 'pricePerDay', 'fuelType', 'company', 'image'];
-      fields.forEach(field => {
-        if (carUpdates[field] !== undefined) car[field] = carUpdates[field];
-      });
-
-      await car.save(); // Save updated car
-    }
-
-    await rental.save(); // Save rental changes
-
-    // Reload with updated car info
-    const updatedRental = await Rental.findByPk(rentalId, {
-      include: {
-        model: Car,
-        attributes: ['make', 'model', 'year', 'pricePerDay', 'fuelType', 'company', 'image'],
-      },
-    });
-
-    res.json(updatedRental);
-  } catch (error) {
-    console.error('Error updating rental:', error);
-    res.status(500).json({ error: 'Failed to update rental' });
-  }
-};
 
 // User creates a booking by selecting a car and date range
 const createBooking = async (req, res) => {
@@ -394,20 +321,57 @@ const getAllBookings = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch bookings' });
   }
 };
+const updateCar = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({ error: "Access denied. Admins only." });
+    }
+
+    const carId = req.params.id;
+    const {
+      make,
+      model,
+      year,
+      pricePerDay,
+      fuelType,
+      company
+    } = req.body;
+
+    const car = await Car.findByPk(carId);
+    if (!car) {
+      return res.status(404).json({ error: "Car not found" });
+    }
+
+    // Update only provided fields
+    await car.update({
+      make: make ?? car.make,
+      model: model ?? car.model,
+      year: year ?? car.year,
+      pricePerDay: pricePerDay ?? car.pricePerDay,
+      fuelType: fuelType ?? car.fuelType,
+      company: company ?? car.company,
+    });
+
+    res.json({ message: "Car updated successfully", car });
+  } catch (error) {
+    console.error("Failed to update car:", error);
+    res.status(500).json({ error: "Server error while updating car" });
+  }
+};
 
 
 // Export all controller functions
 module.exports = {
-  createRental,
-  getAdminStats,
-  getAllRentals,
-  deleteRental,
-  updateRental,
-  createBooking,
-  getUserBookings,
-  deleteBooking,
-  getAvailableCars,
-  deleteCar,
-  getAllCars,
-  getAllBookings,
+  createRental, // Adds car to be rentable
+  getAdminStats, // Fetches admin Stats
+  getAllRentals, // Fetches all rentals for admim
+  createBooking, // Creates a booking for user
+  getUserBookings, // Fetches all the booking of the current user
+  deleteBooking, // Delets user booking
+  getAvailableCars, // Displays only "available" cars i.e inactive
+  deleteCar, // Deletes a car 
+  getAllCars, // gets all car
+  getAllBookings, // gets all booking for admin
+  updateCar,
 };

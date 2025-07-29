@@ -97,9 +97,7 @@ const AdminDashboard = () => {
   // Extract individual statistics
   const totalProfit = stats?.totalProfit || 0;
   const activeRentals = stats?.activeRentals || 0;
-  const totalRentals = stats?.totalRentals || 0;
   const totalCars = stats?.totalCars || 0;
-  const bookedCars = stats?.bookedCars || 0;
   const availableCars = stats?.availableCars || 0;
 
   // Data for Line Chart (Monthly Profit)
@@ -158,7 +156,7 @@ const AdminDashboard = () => {
     datasets: [
       {
         label: "Car Distribution",
-        data: [bookedCars, availableCars],
+        data: [activeRentals, availableCars],
         backgroundColor: ["#00BFFF", "#FFD700"], // Blue and gold
         borderColor: ["#0033cc", "#b8860b"],
         borderWidth: 1,
@@ -215,11 +213,9 @@ const AdminDashboard = () => {
             {/* Quick stat cards */}
             <div className="stats-container">
               <StatCard title="Total Cars" value={totalCars} />
-              <StatCard title="Booked Cars" value={bookedCars} />
               <StatCard title="Available Cars" value={availableCars} />
               <StatCard title="Total Profit" value={`$${totalProfit.toFixed(2)}`} />
               <StatCard title="Active Rentals" value={activeRentals} />
-              <StatCard title="Total Rentals" value={totalRentals} />
             </div>
 
             {/* Chart section with pie on left, line on right */}

@@ -176,12 +176,12 @@ const Homepage = () => {
     {
       photo: twotest,
       text: "Fantastic experience. The booking was easy, and the staff was very friendly. Highly recommend!",
-      name: "Lil Dock."
+      name: "Lil Sam."
     },
     {
       photo: "https://randomuser.me/api/portraits/women/44.jpg",
       text: "A luxury car rental service that truly cares about its customers. I will definitely rent again!",
-      name: "Memer heck."
+      name: "Merp heck."
     },
   ].map((testimony, idx) => (
     <div

@@ -48,7 +48,7 @@ const Dashboard = () => {
         </section>
 
         <section className="offer-section">
-          <h3>Offers for You</h3>
+          <h3>Available Now</h3>
           <div className="car-list">
             {cars.length === 0 ? (
               <p>No cars available.</p>

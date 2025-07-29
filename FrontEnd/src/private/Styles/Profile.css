@@ -65,10 +65,7 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.booking-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-}
+
 
 .car-image {
   width: 100%;
@@ -99,12 +96,19 @@
 }
 .delete-booking-button{
 
-  width:100px;
+  width:140px;
+  align-self: center;;
   height:30px;
   border-radius: 12px;
   background-color: #e74c3c;
   margin-top: 20px;
   font-weight: 500;
+  font-size: medium;
+}
+.delete-booking-button:hover{
+
+ transform: scale(1.05) translateY(-5px);
+ box-shadow: #e74c3c;
 }
 
 /* Responsive */

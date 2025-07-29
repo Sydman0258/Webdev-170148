@@ -5,18 +5,17 @@ const upload = require('../middleware/upload');
 const { Op } = require('sequelize');
 
 const {
-  createRental,
-  getAdminStats,
-  getAllRentals,
-  deleteRental,
-  updateRental,
-  createBooking,
-  getUserBookings,
-  deleteBooking,
-  getAvailableCars,
-  deleteCar,
-  getAllCars,
-  getAllBookings,
+ createRental, // Adds car to be rentable
+  getAdminStats, // Fetches admin Stats
+  getAllRentals, // Fetches all rentals for admim
+  createBooking, // Creates a booking for user
+  getUserBookings, // Fetches all the booking of the current user
+  deleteBooking, // Delets user booking
+  getAvailableCars, // Displays only "available" cars i.e inactive
+  deleteCar, // Deletes a car 
+  getAllCars, // gets all car
+  getAllBookings, // gets all booking for admin
+  updateCar,
 } = require('../controller/rentalController');
 
 const Car = require('../model/Car');
@@ -43,11 +42,6 @@ router.get('/all-bookings', verifyToken, getAllBookings);
 // Admin rentals
 router.get('/admin/rentals', verifyToken, getAllRentals);
 
-// Delete rental (admin)
-router.delete('/admin/rent/:id', verifyToken, deleteRental);
-
-// Update rental (admin)
-router.patch('/admin/rent/:id', verifyToken, updateRental);
 
 // Delete booking
 router.delete('/bookings/:id', verifyToken, deleteBooking);
@@ -60,6 +54,8 @@ router.get('/cars/all', getAllCars);
 
 // Get available cars - explicitly separate route
 router.get('/cars/available', getAvailableCars);
+router.put('/car/:id', verifyToken, updateCar);
+
 
 // Get car details by ID (with validation)
 router.get('/cars/:id', async (req, res) => {

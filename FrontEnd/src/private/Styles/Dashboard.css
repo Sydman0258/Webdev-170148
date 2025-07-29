@@ -14,8 +14,10 @@
 }
 
 .welcome-section h1 {
+  text-align: left;;
   font-size: 2.8rem;          /* Large heading font size */
-  font-weight: 700;           /* Bold font weight */
+  font-weight: 200;           /* Bold font weight */
+  font-family: lequire;
   margin-bottom: 0.3rem;      /* Small space below heading */
   color: var(--steel-blue);   /* Accent color for heading */
 }
@@ -33,7 +35,6 @@
   font-weight: 600;           /* Semi-bold font */
   margin-bottom: 1.5rem;      /* Space below heading */
   color: var(--steel-blue);   /* Accent color */
-  border-bottom: 2px solid var(--steel-blue); /* Underline with accent color */
   padding-bottom: 0.3rem;     /* Padding below text for underline spacing */
   max-width: max-content;     /* Width adjusts to content */
 }
@@ -90,7 +91,7 @@
   border-radius: 1rem;        /* Rounded pill-shaped button */
   background-color: #d96c5f;  /* Button background color */
   color: #fff;                /* White text */
-  cursor: pointer;            /* Pointer cursor */
+  cursor:pointer ;            /* Pointer cursor */
   transition: background-color 0.3s ease; /* Smooth color transition */
 }
 

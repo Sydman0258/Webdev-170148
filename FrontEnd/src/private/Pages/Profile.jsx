@@ -154,7 +154,6 @@ const Profile = () => {
                 </p>
                 <p>Total Price Paid: ${booking.price.toFixed(2)}</p>
                 <p>Status: {booking.status}</p>
-
                 <button
                   className="delete-booking-button"
                   disabled={deletingBookingId === booking.id}

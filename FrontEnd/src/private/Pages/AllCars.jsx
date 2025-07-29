@@ -6,7 +6,7 @@ const AllCars = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editCar, setEditCar] = useState(null); // Car to edit
+  const [editCar, setEditCar] = useState(null); 
   const [editForm, setEditForm] = useState({
     make: "",
     model: "",
@@ -81,33 +81,35 @@ const AllCars = () => {
     setEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
-    if (!editCar) return;
+ const handleEditSubmit = async (e) => {
+  e.preventDefault();
+  if (!editCar) return;
 
-    try {
-      const res = await fetch(`${API_BASE}/api/car/${editCar.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(editForm),
-      });
+  try {
+    const res = await fetch(`${API_BASE}/api/car/${editCar.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(editForm),
+    });
 
-      if (!res.ok) throw new Error("Failed to update car");
+    if (!res.ok) throw new Error("Failed to update car");
 
-      const updatedCar = await res.json();
+    const updatedCarResponse = await res.json();
+    const updatedCar = updatedCarResponse.car;
 
-      setCars((prevCars) =>
-        prevCars.map((car) => (car.id === updatedCar.id ? updatedCar : car))
-      );
+    setCars((prevCars) =>
+      prevCars.map((car) => (car.id === updatedCar.id ? updatedCar : car))
+    );
 
-      closeEditModal();
-    } catch (err) {
-      alert(err.message || "Error updating car");
-    }
-  };
+    closeEditModal();
+  } catch (err) {
+    alert(err.message || "Error updating car");
+  }
+};
+
 
   if (loading) return <p className="loading-text">Loading cars...</p>;
   if (error)

@@ -4,10 +4,10 @@ import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
 import heroimg from '../../assets/heroimg.png';
 
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // New state
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -46,7 +46,6 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Redirect based on admin status
       if (data.user.isAdmin) {
         navigate("/admin/dashboard");
       } else {
@@ -61,11 +60,11 @@ const Login = () => {
   };
 
   return (
-    <>  
+    <>
       <EmptyHeader />
       <div className="container">
         <img src={heroimg} alt="Luxury Car" className="hero-blur" />
-        
+
         <form className="form" onSubmit={handleSubmit}>
           <p className="title">Login</p>
 
@@ -80,14 +79,23 @@ const Login = () => {
             required
           />
 
-          <input
-            placeholder="Password"
-            className="password input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-field">
+            <input
+              placeholder="Password"
+              className="password input"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
 
           <button className="btn" type="submit" disabled={isLoading}>
             {isLoading ? "Logging in..." : "Login"}

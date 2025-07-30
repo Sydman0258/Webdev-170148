@@ -155,3 +155,18 @@
 .input:focus::placeholder {
   color: rgba(212, 170, 125, 0.6); /* Placeholder fades on focus */
 }
+.password-field {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #333;
+}

@@ -1,15 +1,14 @@
-import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import EmptyHeader from "./EmptyHeader";
 import Footer from "./Footer";
 import "../Styles/Auth.css";
 import heroimg from '../../assets/heroimg.png';
-import { useNavigate } from "react-router-dom";
-
 
 const Register = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // added for visibility toggle
 
   const {
     register,
@@ -19,33 +18,32 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-  try {
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data),
-});
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    const resData = await response.json();
+      const resData = await response.json();
 
-    if (response.ok) {
-      alert("Registration successful!");
-      navigate("/login");
-        } else {
-      alert(resData.error || "Registration failed");
+      if (response.ok) {
+        alert("Registration successful!");
+        navigate("/login");
+      } else {
+        alert(resData.error || "Registration failed");
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
     }
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-};
-
+  };
 
   return (
     <>
       <EmptyHeader />
       <div className="container">
-                <img src={heroimg} alt="Luxury Car" className="hero-blur" />
-        
+        <img src={heroimg} alt="Luxury Car" className="hero-blur" />
+
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <p className="title">Register</p>
 
@@ -81,40 +79,45 @@ const Register = () => {
           />
           {errors.username && <span className="auth-error">{errors.username.message}</span>}
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="input"
-            {...register("password", {
-              required: "Password is required",
-              minLength: { value: 6, message: "Password must be at least 6 characters" }
-            })}
-          />
+          <div className="password-field">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className="input"
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Password must be at least 6 characters" }
+              })}
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
           {errors.password && <span className="auth-error">{errors.password.message}</span>}
 
-        <input
-  type="date"
-  placeholder="Date of Birth"
-  className="input"
-  {...register("dob", {
-    required: "Date of birth is required",
-    validate: (value) => {
-      const today = new Date();
-      const dob = new Date(value);
-      const ageDiff = today.getFullYear() - dob.getFullYear();
-      const m = today.getMonth() - dob.getMonth();
-      const d = today.getDate() - dob.getDate();
-
-      const is18OrOlder =
-        ageDiff > 18 ||
-        (ageDiff === 18 && (m > 0 || (m === 0 && d >= 0)));
-
-      return is18OrOlder || "You must be at least 18 years old.";
-    },
-  })}
-/>
-{errors.dob && <span className="auth-error">{errors.dob.message}</span>}
-
+          <input
+            type="date"
+            placeholder="Date of Birth"
+            className="input"
+            {...register("dob", {
+              required: "Date of birth is required",
+              validate: (value) => {
+                const today = new Date();
+                const dob = new Date(value);
+                const ageDiff = today.getFullYear() - dob.getFullYear();
+                const m = today.getMonth() - dob.getMonth();
+                const d = today.getDate() - dob.getDate();
+                const is18OrOlder =
+                  ageDiff > 18 || (ageDiff === 18 && (m > 0 || (m === 0 && d >= 0)));
+                return is18OrOlder || "You must be at least 18 years old.";
+              },
+            })}
+          />
+          {errors.dob && <span className="auth-error">{errors.dob.message}</span>}
 
           <button className="btn" type="submit">Register</button>
 

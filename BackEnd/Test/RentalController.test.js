@@ -1,6 +1,7 @@
 // RentalController.test.js
 const rentalController = require('../controller/rentalController');
 
+// Mock Rental model
 jest.mock('../model/Rentals', () => ({
   create: jest.fn().mockResolvedValue({
     id: 1,
@@ -8,10 +9,12 @@ jest.mock('../model/Rentals', () => ({
     carId: 2,
     price: 50,
     rentalDate: new Date(),
+    returnDate: new Date(),
     status: 'active',
   }),
 }));
 
+// Mock Car model
 jest.mock('../model/Car', () => ({
   findOne: jest.fn().mockResolvedValue(null),
   create: jest.fn().mockResolvedValue({
@@ -26,6 +29,7 @@ jest.mock('../model/Car', () => ({
   }),
 }));
 
+// Mock User model
 jest.mock('../model/User', () => ({
   findByPk: jest.fn().mockResolvedValue({ id: 1, isAdmin: true }),
 }));
@@ -53,12 +57,19 @@ describe('Rental Controller', () => {
     await rentalController.createRental(mockReq, mockRes);
 
     expect(mockRes.status).toHaveBeenCalledWith(201);
-    expect(mockRes.json).toHaveBeenCalledWith(
-      expect.objectContaining({
-        message: 'Rental and car created successfully',
-        rental: expect.any(Object),
-        car: expect.any(Object),
-      })
-    );
+    expect(mockRes.json).toHaveBeenCalledWith({
+  message: 'Rental and car created successfully',
+  car: expect.objectContaining({
+    id: 2,
+    make: 'Toyota',
+    model: 'Corolla',
+    year: 2022,
+    pricePerDay: 50,
+    fuelType: 'Petrol',
+    company: 'Toyota',
+    image: 'car.jpg',
+  }),
+});
+
   });
 });

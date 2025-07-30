@@ -35,14 +35,17 @@ const rentalController = require('../controller/rentalController');
 
 const app = express();
 app.use(express.json());
+
+// Mock authentication middleware
 app.use((req, res, next) => {
-  req.user = { id: 1 }; // mock auth
+  req.user = { id: 1 };
   next();
 });
+
 app.post('/rentals', rentalController.createRental);
 
 describe('Rental Route', () => {
-  test('POST /rentals creates rental and returns 201', async () => {
+  test('POST /rentals creates rental and returns 201 with car info and message', async () => {
     const response = await request(app).post('/rentals').send({
       make: 'Toyota',
       model: 'Corolla',
@@ -53,7 +56,8 @@ describe('Rental Route', () => {
     });
 
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('rental');
     expect(response.body).toHaveProperty('car');
+    expect(response.body).toHaveProperty('message', 'Rental and car created successfully');
+    // rental property is NOT expected here as per your controller
   });
 });

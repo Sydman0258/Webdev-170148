@@ -137,8 +137,6 @@ const getAllRentals = async (req, res) => {
   }
 };
 
-
-
 // User creates a booking by selecting a car and date range
 const createBooking = async (req, res) => {
   try {

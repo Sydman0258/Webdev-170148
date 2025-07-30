@@ -231,8 +231,8 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  overflow-y: auto; /* Allow scrolling if modal taller than viewport */
-  padding: 1rem; /* Add padding so modal doesn't touch edges on small screens */
+  overflow-y: auto; 
+  padding: 1rem;
 }
 
 /* Go Back Button */
@@ -242,7 +242,6 @@
   color: #007bff;
   font-size: 1rem;
   padding: 0;
-  text-decoration: underline;
   cursor: pointer;
 }
 

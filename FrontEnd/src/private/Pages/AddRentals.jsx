@@ -152,7 +152,7 @@ const AddRental = () => {
         <div className="form-buttons">
   <button type="submit">Add Rental</button>
   <button type="button" className="go-back-btn" onClick={() => navigate(-1)}>
-    ← Go Back
+     Go Back
   </button>
 </div>
 

@@ -38,7 +38,6 @@ router.post('/forgot-password', async (req, res) => {
         <p>This link expires in 15 minutes.</p>
       `,
     };
-
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.error('❌ Email error:', err);
@@ -52,21 +51,17 @@ router.post('/forgot-password', async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 // ========== Reset Password ==========
 router.post('/reset-password/:token', async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     const user = await User.findByPk(decoded.id);
     if (!user) return res.status(400).json({ message: "User not found." });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    user.password = hashedPassword;
-
+    // ❗ Set plain password — model hook will hash it
+    user.password = password;
     await user.save();
 
     return res.json({ message: 'Password reset successful.' });
@@ -75,5 +70,4 @@ router.post('/reset-password/:token', async (req, res) => {
     return res.status(400).json({ message: 'Invalid or expired token.' });
   }
 });
-
 module.exports = router;
